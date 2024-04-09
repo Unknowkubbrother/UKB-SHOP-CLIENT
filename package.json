@@ -10,10 +10,12 @@
     "format": "prettier --write src/"
   },
   "dependencies": {
+    "@headlessui/vue": "^1.7.19",
     "axios": "^1.6.2",
     "primeicons": "^6.0.1",
     "primevue": "^3.40.1",
     "vue": "^3.3.4",
+    "vue-cookies": "^1.8.3",
     "vue-router": "^4.2.5"
   },
   "devDependencies": {
