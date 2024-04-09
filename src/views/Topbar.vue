@@ -99,14 +99,15 @@ export default {
         }
     },
     methods: {
-        logout() {
+         logout() {
             const api = `${config.EndPoint}/auth/logout`
-            axios.post(api, {"sessionToken":this.cookie}).then((res) => {
+            axios.post(api, {"sessionToken":this.cookie}).then(async (res) => {
                 if (res.status === 200) {
                     VueCookies.remove('logged_in');
                     VueCookies.remove('ukb-auth');
                     VueCookies.remove('username');
-                    location.reload();
+                    await location.reload();
+                    this.$router.push("/home");
                 }
             }).catch((err) => {
                 console.log(err);
