@@ -3,6 +3,7 @@ import App from './App.vue'
 import router from './router'
 import './index.css'
 import { Menu, MenuButton, MenuItems, MenuItem } from '@headlessui/vue'
+import 'vue3-toastify/dist/index.css';
 
 
 const app = createApp(App)

@@ -84,6 +84,7 @@
 import {config} from "../config";
 import VueCookies from 'vue-cookies'
 import axios from 'axios';
+import { toast } from 'vue3-toastify';
 
 export default {
     name: "Topbar",
@@ -106,7 +107,17 @@ export default {
                     VueCookies.remove('logged_in');
                     VueCookies.remove('ukb-auth');
                     VueCookies.remove('username');
-                    await location.replace('/home');
+
+                    await toast("ออกระบบสำเร็จ!!", {
+                        "theme": "dark",
+                        "type": "success",
+                        "position": "top-center",
+                        "pauseOnHover": false,
+                        "dangerouslyHTMLString": true
+                    })
+                    setTimeout(async() => {
+                        await location.replace('/home');
+                    }, 3000);
                 }
             }).catch((err) => {
                 console.log(err);
