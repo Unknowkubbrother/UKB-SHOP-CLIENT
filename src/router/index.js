@@ -1,13 +1,9 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Login from '../components/LOGIN/Login.vue'
-import Post from '../components/POST/POST.vue'
 import NotFound from '../views/NotFound.vue'
-import Master from '../page/layout/master.vue'
-import home from '../components/home.vue'
-import UserManual from '../components/UserManual/UserManual.vue'
-import AnnounceEdit from '../components/AnnounceEdit/AnnounceEdit.vue'
-import ViewEdit from '../components/ViewEdit/ViewEdit.vue'
-import Profile from '../components/Profile/Profile.vue'
+import Master from '../page/Master.vue'
+import Home from '../components/Home/Home.vue'
+import Store from '../components/Store/Store.vue'
 const routes = [
       {
         name: "Master",
@@ -16,44 +12,24 @@ const routes = [
         redirect: '/home',
         children: [
             {
-                name: 'home',
+                name: 'Home',
                 path: '/home',
-                component: home
+                component: Home
             },
             {
-                name: 'Login',
-                path: '/login',
-                component: Login
+                name: 'Store',
+                path: '/store',
+                component: Store
             },
-            {
-                name: 'UserManual',
-                path: '/usermanual',
-                component: UserManual
-            },
-            {
-                name: 'Post',
-                path: '/post',
-                component: Post
-            },
-            {
-                name: 'AnnounceEdit',
-                path: '/announceedit',
-                component: AnnounceEdit
-            },
-            {
-                name: 'ViewEdit',
-                path: '/viewedit',
-                component: ViewEdit
-            },
-            {
-                name: 'Profile',
-                path: '/profile',
-                component: Profile
-            }
 
 
         ]
       },
+      {
+        name: 'Login',
+        path: '/login',
+        component: Login
+    },
     // {
     //     path: '/page',
     //     name: 'Page',
