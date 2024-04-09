@@ -106,8 +106,7 @@ export default {
                     VueCookies.remove('logged_in');
                     VueCookies.remove('ukb-auth');
                     VueCookies.remove('username');
-                    await location.reload();
-                    this.$router.push("/home");
+                    await location.push("/home");
                 }
             }).catch((err) => {
                 console.log(err);
