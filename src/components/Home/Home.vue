@@ -56,6 +56,6 @@ export default {
     padding: 6px 30px 6px 10px;
     margin-left: 10px;
     border-radius: 5px 0 0 5px;
-    background: linear-gradient(90deg, #3d7fa1, #3d7fa1 40%, rgba(61, 127, 161, .6) 80%, rgba(61, 127, 161, 0));
+    background: linear-gradient(90deg, #3d7fa1, #3d7fa1 40%, rgba(61, 127, 161, .6) 75%, rgba(61, 127, 161, 0));
 }
 </style>
