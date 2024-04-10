@@ -41,13 +41,13 @@
                                     class="absolute right-0 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-[#1a2327] shadow-lg ring-1 ring-black/5 focus:outline-none">
                                     <div class="px-1 py-1">
                                         <MenuItem v-slot="{ active }">
-                                        <button :class="[
+                                        <button @click="$router.push('/dashboard')" :class="[
                                             active ? 'bg-[#3d7fa1] text-white' : 'text-white',
                                             'group flex w-full items-center rounded-md px-2 py-2 text-sm',
                                         ]">
                                             <EditIcon :active="active" class="mr-2 h-5 w-5 text-violet-400"
                                                 aria-hidden="true" />
-                                            Dashboard
+                                                <i class="fa-solid fa-window-maximize mr-2"></i>Dashboard
                                         </button>
                                         </MenuItem>
                                         <MenuItem v-slot="{ active }">
@@ -57,7 +57,7 @@
                                         ]">
                                             <DuplicateIcon :active="active" class="mr-2 h-5 w-5 text-violet-400"
                                                 aria-hidden="true" />
-                                            Orders
+                                                <i class="fa-solid fa-bars-staggered mr-2"></i>Orders
                                         </button>
                                         </MenuItem>
                                         <MenuItem v-slot="{ active }">
@@ -67,7 +67,7 @@
                                         ]">
                                             <DuplicateIcon :active="active" class="mr-2 h-5 w-5 text-violet-400"
                                                 aria-hidden="true" />
-                                            Sign out
+                                                <i class="fa-solid fa-right-from-bracket mr-2"></i>Sign out
                                         </button>
                                         </MenuItem>
                                     </div>
@@ -82,7 +82,7 @@
 </template>
 <script>
 import {config} from "../config";
-import VueCookies from 'vue-cookies'
+// import VueCookies from 'vue-cookies'
 import axios from 'axios';
 import { toast } from 'vue3-toastify';
 
@@ -90,24 +90,20 @@ export default {
     name: "Topbar",
     data() {
         return {
-            logged_in: VueCookies.get('logged_in'),
-            cookie: VueCookies.get('ukb-auth')
+            logged_in: this.$cookies.get('logged_in'),
+            cookie: this.$cookies.get('ukb-auth')
         };
     },
     computed: {
         Logined() {
-            return this.logged_in ? VueCookies.get('username') : null
+            return this.logged_in ? this.$cookies.get('username') : null
         }
     },
     methods: {
          logout() {
             const api = `${config.EndPoint}/auth/logout`
-            axios.post(api, {"sessionToken":this.cookie}).then(async (res) => {
+            axios.post(api ,{},{ withCredentials: true }).then(async (res) => {
                 if (res.status === 200) {
-                    VueCookies.remove('logged_in');
-                    VueCookies.remove('ukb-auth');
-                    VueCookies.remove('username');
-
                     await toast("ออกระบบสำเร็จ!!", {
                         "theme": "dark",
                         "type": "success",
@@ -123,7 +119,7 @@ export default {
                 console.log(err);
             });
 
-        }
+        },
     }
 
 }

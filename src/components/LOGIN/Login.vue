@@ -28,7 +28,6 @@
 <script>
 import { config } from "../../config";
 import axios from "axios";
-import VueCookies from 'vue-cookies'
 import { toast } from 'vue3-toastify';
 export default {
   name: "Login",
@@ -43,11 +42,8 @@ export default {
   methods: {
     login() {
       const api = `${config.EndPoint}/auth/login`
-      axios.post(api, this.LoginData).then(async (res) => {
+      axios.post(api, this.LoginData ,{ withCredentials: true }).then(async (res) => {
         if (res.status === 200) {
-          VueCookies.set('logged_in', true, '2h');
-          VueCookies.set('ukb-auth', res.data.authentication.sessionToken, '2h');
-          VueCookies.set('username', res.data.username, '2h');
           await toast("เข้าสู่ระบบสำเร็จ!!", {
             "theme": "dark",
             "type": "success",
