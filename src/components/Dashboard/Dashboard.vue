@@ -104,7 +104,7 @@ export default {
     data() {
         return {
             license: {
-                Enabled: true,
+                Enabled: false,
                 data: []
             },
             profile: {
