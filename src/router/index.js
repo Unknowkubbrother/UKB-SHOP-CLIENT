@@ -123,12 +123,10 @@ router.beforeEach((to, from, next) => {
       })
       .catch((err) => {
         console.log(err)
-        if(err.response.status == 400){
             window.$cookies.remove('logged_in')
             window.$cookies.remove('ukb-auth')
             window.$cookies.remove('ukb-data')
             next({ name: 'Login' })
-          }
         })
     }
   }else{
