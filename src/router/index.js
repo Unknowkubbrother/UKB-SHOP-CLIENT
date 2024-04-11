@@ -120,13 +120,60 @@ router.beforeEach((to, from, next) => {
             next({ name: 'Home'})
           }, 3000)
         }
-      })
-      .catch(() => {
-        console.log("token expired")
-            this.$cookies.remove('logged_in')
-            this.$cookies.remove('ukb-auth')
-            this.$cookies.remove('ukb-data')
-            next({ name: 'Login' })
+        const handleLogout = async (next) => {
+          try {
+            await window.$cookies.remove('logged_in');
+            await window.$cookies.remove('ukb-auth');
+            await window.$cookies.remove('ukb-data');
+            next({ name: 'Login' });
+          } catch (err) {
+            console.log(err);
+            toast('sessionToken expired!!', {
+              theme: 'dark',
+              type: 'error',
+              pauseOnHover: false,
+              dangerouslyHTMLString: true,
+            });
+            setTimeout(() => {
+              next({ name: 'Login' });
+            }, 3000);
+          }
+        };
+
+        // ...
+
+        router.beforeEach((to, from, next) => {
+          // ...
+
+          if (to.name == 'Login' || to.name == 'Register') {
+            if (!window.$cookies.get('logged_in')) {
+              next();
+            } else if (window.$cookies.get('logged_in')) {
+              const api = `${config.EndPoint}/auth/session`;
+              axios
+                .post(api, {}, { withCredentials: true })
+                .then(async (res) => {
+                  if (res.status === 200) {
+                    toast('คุณได้ Sign in ไปแล้ว!!', {
+                      theme: 'dark',
+                      type: 'warning',
+                      pauseOnHover: false,
+                      dangerouslyHTMLString: true,
+                    });
+                    setTimeout(() => {
+                      next({ name: 'Home' });
+                    }, 3000);
+                  }
+                })
+                .catch(async () => {
+                  handleLogout(next);
+                });
+            }
+          } else {
+            next();
+          }
+        });
+
         })
     }
   }else{
