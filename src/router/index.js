@@ -88,17 +88,50 @@ const router = createRouter({
 })
 
 router.beforeEach((to, from, next) => {
-  if ((to.name == 'Login' && window.$cookies.get('logged_in')|| (to.name == 'Register' && window.$cookies.get('logged_in')))) {
-    toast('คุณได้ Sign in ไปแล้ว!!', {
-      theme: 'dark',
-      type: 'warning',
-      pauseOnHover: false,
-      dangerouslyHTMLString: true
-    })
-    setTimeout(() => {
-      next({ name: 'Home' })
-    }, 3000)
-  } else {
+  // if ((to.name == 'Login' && window.$cookies.get('logged_in')|| (to.name == 'Register' && window.$cookies.get('logged_in')))) {
+  //   toast('คุณได้ Sign in ไปแล้ว!!', {
+  //     theme: 'dark',
+  //     type: 'warning',
+  //     pauseOnHover: false,
+  //     dangerouslyHTMLString: true
+  //   })
+  //   setTimeout(() => {
+  //     next({ name: 'Home' })
+  //   }, 3000)
+  // } else {
+  //   next()
+  // }
+  if(to.name == 'Login' || to.name == 'Register'){
+    if(!window.$cookies.get('logged_in')){
+      next()
+    }else if(window.$cookies.get('logged_in')){
+      const api = `${config.EndPoint}/auth/session`
+    axios
+      .post(api, {}, { withCredentials: true })
+      .then(async (res) => {
+        if (res.status === 200) {
+          toast('คุณได้ Sign in ไปแล้ว!!', {
+            theme: 'dark',
+            type: 'warning',
+            pauseOnHover: false,
+            dangerouslyHTMLString: true
+          })
+          setTimeout(() => {
+            next({ name: 'Home'})
+          }, 3000)
+        }
+      })
+      .catch((err) => {
+        console.log(err)
+        if(err.response.status == 400){
+            window.$cookies.remove('logged_in')
+            window.$cookies.remove('ukb-auth')
+            window.$cookies.remove('ukb-data')
+            next({ name: 'Login' })
+          }
+        })
+    }
+  }else{
     next()
   }
 })
@@ -115,7 +148,7 @@ const guard = (to, from, next) => {
     })
     .catch((err) => {
       console.log(err)
-      toast('Not Found sessionToken!!', {
+      toast('sessionToken expried!!', {
         theme: 'dark',
         type: 'error',
         pauseOnHover: false,

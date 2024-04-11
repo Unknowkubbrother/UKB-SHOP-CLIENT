@@ -47,7 +47,7 @@
                                         ]">
                                             <EditIcon :active="active" class="mr-2 h-5 w-5 text-violet-400"
                                                 aria-hidden="true" />
-                                                <i class="fa-solid fa-window-maximize mr-2"></i>Dashboard
+                                            <i class="fa-solid fa-window-maximize mr-2"></i>Dashboard
                                         </button>
                                         </MenuItem>
                                         <MenuItem v-slot="{ active }">
@@ -57,7 +57,7 @@
                                         ]">
                                             <DuplicateIcon :active="active" class="mr-2 h-5 w-5 text-violet-400"
                                                 aria-hidden="true" />
-                                                <i class="fa-solid fa-bars-staggered mr-2"></i>Orders
+                                            <i class="fa-solid fa-bars-staggered mr-2"></i>Orders
                                         </button>
                                         </MenuItem>
                                         <MenuItem v-slot="{ active }">
@@ -67,7 +67,7 @@
                                         ]">
                                             <DuplicateIcon :active="active" class="mr-2 h-5 w-5 text-violet-400"
                                                 aria-hidden="true" />
-                                                <i class="fa-solid fa-right-from-bracket mr-2"></i>Sign out
+                                            <i class="fa-solid fa-right-from-bracket mr-2"></i>Sign out
                                         </button>
                                         </MenuItem>
                                     </div>
@@ -81,7 +81,7 @@
     </div>
 </template>
 <script>
-import {config} from "../config";
+import { config } from "../config";
 // import VueCookies from 'vue-cookies'
 import axios from 'axios';
 import { toast } from 'vue3-toastify';
@@ -100,9 +100,9 @@ export default {
         }
     },
     methods: {
-         logout() {
+        logout() {
             const api = `${config.EndPoint}/auth/logout`
-            axios.post(api ,{},{ withCredentials: true }).then(async (res) => {
+            axios.post(api, {}, { withCredentials: true }).then(async (res) => {
                 if (res.status === 200) {
                     await toast("ออกระบบสำเร็จ!!", {
                         "theme": "dark",
@@ -111,12 +111,25 @@ export default {
                         "pauseOnHover": false,
                         "dangerouslyHTMLString": true
                     })
-                    setTimeout(async() => {
+                    setTimeout(async () => {
                         await location.replace('/home');
                     }, 3000);
                 }
             }).catch((err) => {
-                console.log(err);
+                console.log(err)
+                if (err.response.status === 400) {
+                    toast('ออกระบบสำเร็จ!!', {
+                        theme: 'dark',
+                        type: 'success',
+                        pauseOnHover: false,
+                        dangerouslyHTMLString: true
+                    })
+                    setTimeout(async () => {
+                        // await location.replace('/login')
+                        this.$router.push('/login')
+                        // location.reload()
+                    }, 3000)
+                }
             });
 
         },
