@@ -88,7 +88,7 @@ const router = createRouter({
 })
 
 router.beforeEach((to, from, next) => {
-  if (to.name == 'Login' || to.name == 'Register' && window.$cookies.get('logged_in')) {
+  if ((to.name == 'Login' && window.$cookies.get('logged_in')|| (to.name == 'Register' && window.$cookies.get('logged_in')))) {
     toast('คุณได้ Sign in ไปแล้ว!!', {
       theme: 'dark',
       type: 'warning',
