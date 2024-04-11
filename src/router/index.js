@@ -6,7 +6,9 @@ import Home from '../components/Home/Home.vue'
 import Store from '../components/Store/Store.vue'
 import Register from '../components/Register/Register.vue'
 import Dashboard from '../components/Dashboard/Dashboard.vue'
-import { toast } from 'vue3-toastify';
+import { toast } from 'vue3-toastify'
+import axios from 'axios'
+import { config } from '../config.js'
 const routes = [
   {
     name: 'Master',
@@ -27,7 +29,10 @@ const routes = [
       {
         name: 'Dashboard',
         path: '/dashboard',
-        component: Dashboard
+        component: Dashboard,
+        beforeEnter: (to, from, next) => {
+          guard(to, from, next)
+        }
       }
     ]
   },
@@ -82,20 +87,44 @@ const router = createRouter({
   linkExactActiveClass: 'active' // active class for *exact* links.
 })
 
-router.beforeEach((to, from, next) => {
-  if (to.name == 'Dashboard' && !window.$cookies.get('logged_in')) {
-    toast('คุณยังไม่ได้ Sign in', {
-      theme: 'dark',
-      type: 'error',
-      pauseOnHover: false,
-      dangerouslyHTMLString: true
+// router.beforeEach((to, from, next) => {
+//   if (to.name == 'Dashboard' && !window.$cookies.get('logged_in')) {
+//     toast('คุณยังไม่ได้ Sign in', {
+//       theme: 'dark',
+//       type: 'error',
+//       pauseOnHover: false,
+//       dangerouslyHTMLString: true
+//     })
+//     setTimeout(() => {
+//       next({ name: 'Login' })
+//     }, 3000)
+//   } else {
+//     next()
+//   }
+// })
+
+const guard = (to, from, next) => {
+  const api = `${config.EndPoint}/auth/session`
+  axios
+    .post(api, {}, { withCredentials: true })
+    .then(async (res) => {
+      if (res.status === 200) {
+        next()
+        return
+      }
     })
-    setTimeout(() => {
-      next({ name: 'Login' })
-    }, 3000)
-  } else {
-    next()
-  }
-})
+    .catch((err) => {
+      console.log(err)
+      toast('Not Found sessionToken!!', {
+        theme: 'dark',
+        type: 'error',
+        pauseOnHover: false,
+        dangerouslyHTMLString: true
+      })
+      setTimeout(() => {
+        next({ name: 'Login' })
+      }, 3000)
+    })
+}
 
 export default router
