@@ -6,8 +6,8 @@
             </div>
             <div class="profile flex justify-start items-center">
                 <div class="profile-img w-[150px] h-[150px] bg-[#262626] rounded-full overflow-hidden">
-                    <img src="https://media.discordapp.net/attachments/1133807349266653264/1176607928325787649/IMG-100000000.jpg?ex=661ed406&is=660c5f06&hm=6d689fabccd0a20c3498c8f6054b858972ad04cd3b20a12940ad728e5db1e542&=&format=webp&width=1119&height=671"
-                        alt="" class="w-full h-full object-cover">
+                    <img src="../../assets/noprofile.jpg"
+                        alt="profile" class="w-full h-full object-cover">
                 </div>
                 <div class="ml-10 flex flex-col gap-2 text-center justify-center items-start">
                     <!-- <div class="text-xl font-semibold text-[#3690bd]"><span id="username">Natchkung</span></div> -->
@@ -29,16 +29,16 @@
                     <i class="fa-solid fa-circle-exclamation text-rose-600 text-2xl"></i>
                     <div>
                         <span class="text-lg font-semibold">เปลี่ยน IP โปรดอ่าน!!</span>
-                        <p>หากคุณได้นำสคริปต์ไปใช้งาน (ทำการ Verify กับระบบสำเร็จ) จะต้องรออีก 5
-                            ชั่วโมงถึงจะสามารถปรับเปลี่ยน
-                            IP ของสคริปต์นั้นๆได้อีกครั้ง<br>
-                            ** ไม่เกี่ยวกับว่าคุณเปลี่ยน IP ครั้งล่าสุดเมื่อไหร่ อยู่ที่ว่าคุณใช้งานล่าสุดเมื่อไหร่</p>
+                        <p>หากคุณได้เปลี่ยน IP สคริปต์นั้นไปแล้ว จะต้องรออีก <span class="text-rose-600">1
+                            วัน</span> ถึงจะสามารถปรับเปลี่ยน
+                            IP ของสคริปต์นั้นๆได้อีกครั้ง</p>
                     </div>
 
                 </div>
             </div>
             <div class="license w-full flex justify-center items-center">
-                <table class="table-auto bg-[#262626] rounded-lg overflow-hidden">
+                <div v-if="license.Enabled">
+                    <table class="table-auto bg-[#262626] rounded-lg overflow-hidden">
                     <thead>
                         <tr class="bg-[#3d7fa1]">
                             <th class="px-4 py-2 text-center w-[200px]">Name</th>
@@ -49,7 +49,6 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <!--  -->
                         <tr v-for="data in license.data" :key="data.id">
                             <td class="px-4 py-2 text-center">{{ data.nameScript }}</td>
                             <td class="px-4 py-2 text-center flex gap-2 flex-wrap">
@@ -73,10 +72,12 @@
                                 </button>
                             </td>
                         </tr>
-                        <!--  -->
-
                     </tbody>
                 </table>
+                </div>
+                <div v-else class="w-full h-[300px] flex justify-center items-center">
+                    <div class="text-[#3d7fa1] text-2xl">You didn't own any resource. . .</div>
+                </div>
                 <div v-if="ResetLicenseData.show"
                     class="w-[500px] h-[100px] bg-[#181818] absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 rounded-lg">
                         <div class="flex justify-start items-start w-full h-full flex-col">
@@ -104,7 +105,6 @@ export default {
         return {
             license: {
                 Enabled: true,
-                show: false,
                 data: []
             },
             profile: {
@@ -136,9 +136,15 @@ export default {
             axios.post(api, {}, { withCredentials: true }).then(async (res) => {
                 if (res.status === 200) {
                     this.license.data = res.data
+                    if(this.license.data == 0){
+                        this.license.Enabled = false
+                    }else{
+                        this.license.Enabled = true
+                    }
                 }
             }).catch((err) => {
                 console.log(err);
+                this.license.data = []
                 if (err.response.status === 400) {
                     toast("กรุณาตรวจสอบข้อมูลใหม่อีกครั้ง", {
                         "theme": "dark",

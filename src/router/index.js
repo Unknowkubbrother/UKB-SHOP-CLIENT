@@ -87,21 +87,21 @@ const router = createRouter({
   linkExactActiveClass: 'active' // active class for *exact* links.
 })
 
-// router.beforeEach((to, from, next) => {
-//   if (to.name == 'Dashboard' && !window.$cookies.get('logged_in')) {
-//     toast('คุณยังไม่ได้ Sign in', {
-//       theme: 'dark',
-//       type: 'error',
-//       pauseOnHover: false,
-//       dangerouslyHTMLString: true
-//     })
-//     setTimeout(() => {
-//       next({ name: 'Login' })
-//     }, 3000)
-//   } else {
-//     next()
-//   }
-// })
+router.beforeEach((to, from, next) => {
+  if (to.name == 'Login' || to.name == 'Register' && window.$cookies.get('logged_in')) {
+    toast('คุณได้ Sign in ไปแล้ว!!', {
+      theme: 'dark',
+      type: 'warning',
+      pauseOnHover: false,
+      dangerouslyHTMLString: true
+    })
+    setTimeout(() => {
+      next({ name: 'Home' })
+    }, 3000)
+  } else {
+    next()
+  }
+})
 
 const guard = (to, from, next) => {
   const api = `${config.EndPoint}/auth/session`
