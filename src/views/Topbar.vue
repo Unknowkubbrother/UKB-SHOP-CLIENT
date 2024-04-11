@@ -96,7 +96,7 @@ export default {
     },
     computed: {
         Logined() {
-            return this.logged_in ? this.$cookies.get('username') : null
+            return this.logged_in ? this.$cookies.get('ukb-data').username : null
         }
     },
     methods: {
