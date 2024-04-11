@@ -123,9 +123,9 @@ router.beforeEach((to, from, next) => {
       })
       .catch(async (err) => {
         console.log(err)
-            await window.$cookies.remove('logged_in')
-            await window.$cookies.remove('ukb-auth')
-            await window.$cookies.remove('ukb-data')
+            window.$cookies.remove('logged_in')
+            window.$cookies.remove('ukb-auth')
+            window.$cookies.remove('ukb-data')
             next({ name: 'Login' })
         })
     }
