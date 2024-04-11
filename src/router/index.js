@@ -123,9 +123,9 @@ router.beforeEach((to, from, next) => {
       })
       .catch(() => {
         console.log("token expired")
-            window.$cookies.remove('logged_in')
-            window.$cookies.remove('ukb-auth')
-            window.$cookies.remove('ukb-data')
+            this.$cookies.remove('logged_in')
+            this.$cookies.remove('ukb-auth')
+            this.$cookies.remove('ukb-data')
             next({ name: 'Login' })
         })
     }
