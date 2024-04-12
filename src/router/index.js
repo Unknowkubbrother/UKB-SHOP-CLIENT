@@ -9,6 +9,7 @@ import Dashboard from '../components/Dashboard/Dashboard.vue'
 import { toast } from 'vue3-toastify'
 import axios from 'axios'
 import { config } from '../config.js'
+import Admin from '../components/Admin/Admin.vue'
 const routes = [
   {
     name: 'Master',
@@ -32,6 +33,14 @@ const routes = [
         component: Dashboard,
         beforeEnter: (to, from, next) => {
           guard(to, from, next)
+        }
+      },
+      {
+        name: 'Admin',
+        path: '/admin',
+        component: Admin,
+        beforeEnter: (to, from, next) => {
+          guardAdmin(to, from, next)
         }
       }
     ]
@@ -88,19 +97,6 @@ const router = createRouter({
 })
 
 router.beforeEach((to, from, next) => {
-  // if ((to.name == 'Login' && window.$cookies.get('logged_in')|| (to.name == 'Register' && window.$cookies.get('logged_in')))) {
-  //   toast('คุณได้ Sign in ไปแล้ว!!', {
-  //     theme: 'dark',
-  //     type: 'warning',
-  //     pauseOnHover: false,
-  //     dangerouslyHTMLString: true
-  //   })
-  //   setTimeout(() => {
-  //     next({ name: 'Home' })
-  //   }, 3000)
-  // } else {
-  //   next()
-  // }
   if(to.name == 'Login' || to.name == 'Register'){
     if(!window.$cookies.get('logged_in')){
       next()
@@ -142,6 +138,42 @@ const guard = (to, from, next) => {
       if (res.status === 200) {
         next()
         return
+      }
+    })
+    .catch((err) => {
+      console.log(err)
+      toast('sessionToken expried!!', {
+        theme: 'dark',
+        type: 'error',
+        pauseOnHover: false,
+        dangerouslyHTMLString: true
+      })
+      setTimeout(() => {
+        next({ name: 'Login' })
+      }, 3000)
+    })
+}
+
+const guardAdmin = (to, from, next) => {
+  const api = `${config.EndPoint}/auth/session`
+  axios
+    .post(api, {}, { withCredentials: true })
+    .then(async (res) => {
+      if (res.status === 200) {
+        if(window.$cookies.get('ukb-data').role == 'staff'){
+          next()
+          return
+        }else{
+          toast('คุณไม่มีสิทธิ์เข้าใช้งานหน้านี้!!', {
+            theme: 'dark',
+            type: 'error',
+            pauseOnHover: false,
+            dangerouslyHTMLString: true
+          })
+          setTimeout(() => {
+            next({ name: 'Home' })
+          }, 3000)
+        }
       }
     })
     .catch((err) => {

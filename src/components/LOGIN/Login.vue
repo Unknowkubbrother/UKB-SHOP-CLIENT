@@ -7,11 +7,11 @@
       </router-link>
       <form action="" class="w-[400px] flex justify-center flex-col gap-3" @submit.enter.prevent="login()">
         <label for="username" class="font-semibold">Username</label>
-        <input type="text"
+        <input type="text" required
           class="h-[35px] rounded-lg text-black border-2 border-slate-500 indent-3 focus:outline-none focus:border-3 focus:border-sky-500"
           v-model="LoginData.username">
         <label for="username" class="font-semibold">Password</label>
-        <input type="password"
+        <input type="password" required
           class="h-[35px] rounded-lg text-black border-2 border-slate-500 indent-3 focus:outline-none focus:border-3 focus:border-sky-500"
           v-model="LoginData.password">
         <button type="submit" class="h-[35px] bg-[#3d7fa1] text-white rounded-lg my-5">Sign in account</button>

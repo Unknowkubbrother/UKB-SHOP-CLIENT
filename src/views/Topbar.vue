@@ -21,7 +21,7 @@
                         </router-link>
                     </li>
                     <li v-else>
-                        <Menu1 as="div" class="relative inline-block text-left">
+                        <Menu1 as="div" class="relative inline-block text-left z-40" >
                             <div>
                                 <MenuButton
                                     class="inline-flex w-full justify-center rounded-md bg-black/20 px-4 py-2 hover:bg-black/30 hover:text-sky-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/75">
@@ -58,6 +58,16 @@
                                             <DuplicateIcon :active="active" class="mr-2 h-5 w-5 text-violet-400"
                                                 aria-hidden="true" />
                                             <i class="fa-solid fa-bars-staggered mr-2"></i>Orders
+                                        </button>
+                                        </MenuItem>
+                                        <MenuItem v-slot="{ active }" v-if="$cookies.get('ukb-data').role == 'staff'">
+                                        <button @click="$router.push('/admin')" :class="[
+                                            active ? 'bg-[#3d7fa1] text-white' : 'text-white',
+                                            'group flex w-full items-center rounded-md px-2 py-2 text-sm',
+                                        ]">
+                                            <DuplicateIcon :active="active" class="mr-2 h-5 w-5 text-violet-400"
+                                                aria-hidden="true" />
+                                                <i class="fa-solid fa-user-tie mr-2"></i>Admin
                                         </button>
                                         </MenuItem>
                                         <MenuItem v-slot="{ active }">

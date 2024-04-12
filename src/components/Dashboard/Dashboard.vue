@@ -36,16 +36,16 @@
 
                 </div>
             </div>
-            <div class="license w-full flex justify-center items-center">
+            <div class="license w-full flex justify-center items-center overflow-auto">
                 <div v-if="license.Enabled">
                     <table class="table-auto bg-[#262626] rounded-lg overflow-hidden">
                     <thead>
                         <tr class="bg-[#3d7fa1]">
-                            <th class="px-4 py-2 text-center w-[200px]">Name</th>
+                            <th class="px-4 py-2 text-center">Name</th>
                             <th class="px-4 py-2 text-center ">License</th>
-                            <th class="px-4 py-2 text-center w-[50px]">Active</th>
-                            <th class="px-4 py-2 text-center w-[150px]">IP Address</th>
-                            <th class="px-4 py-2 text-center w-[100px]">ตั้ง IP</th>
+                            <th class="px-4 py-2 text-center">Active</th>
+                            <th class="px-4 py-2 text-center">IP Address</th>
+                            <th class="px-4 py-2 text-center">ตั้ง IP</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -79,14 +79,14 @@
                     <div class="text-[#3d7fa1] text-2xl">You didn't own any resource. . .</div>
                 </div>
                 <div v-if="ResetLicenseData.show"
-                    class="w-[500px] h-[100px] bg-[#181818] absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 rounded-lg">
+                    class="w-[500px] h-[100px] bg-[#202020] absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 rounded-lg z-50">
                         <div class="flex justify-start items-start w-full h-full flex-col">
                             <div class="px-4 py-2 pt-4 font-semibold">IP Address</div>
                             <div class="flex items-center justify-start">
-                                <input type="text" v-model="ResetLicenseData.data.newipaddress" placeholder="Enter new IP address"
-                                class="w-[420px] px-4 py-2  text-white rounded-lg outline-none bg-transparent">
-                                <i class="fa-solid fa-floppy-disk hover:text-[#3d7fa1] cursor-pointer" @click="ResetLicense()"></i>
-                                <i class="fa-solid fa-xmark hover:text-[#3d7fa1] cursor-pointer ml-5" @click="ResetLicenseData.show = false"></i>
+                                <input type="text" v-model="ResetLicenseData.data.newipaddress" placeholder="Enter new IP address" required
+                                class="w-[400px] px-4 py-2 ml-2 text-white rounded-lg outline-none bg-transparent border-b-2 border-sky-500">
+                                <i class="fa-solid fa-floppy-disk hover:text-[#3d7fa1] duration-300 cursor-pointer ml-5" @click="ResetLicense()"></i>
+                                <i class="fa-solid fa-xmark hover:text-rose-700 duration-300 cursor-pointer ml-5" @click="ResetLicenseData.show = false"></i>
                             </div>
                         </div>
                 </div>
