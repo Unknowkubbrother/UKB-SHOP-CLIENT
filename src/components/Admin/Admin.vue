@@ -1,6 +1,6 @@
 <template>
     <div id="admin" v-if="Admin == 'staff'">
-        <div class="h-full w-[90%] m-auto relative">
+        <div class="h-full w-[90%] m-auto relative my-10">
             <div class="flex justify-start items-center my-10 gap-3 py-2 border-b-2 border-[#3d7fa1]">
                 <i class="fa-solid fa-user-tie text-xl"></i>
                 <h1 class="font-bold text-2xl">MenuAdmin</h1>
