@@ -1,8 +1,11 @@
 <template>
     <div class="w-full flex justify-between items-center mb-5 mt-2">
         <h1 class="font-bold text-2xl">Licenses</h1>
+        <div class="flex gap-4">
+            <input type="text" v-model="search" class="text-white rounded-lg px-4 py-2 outline-none bg-transparent border border-gray-300" placeholder="Search for names..">
         <button @click="Uiaddlicense = !Uiaddlicense" class="bg-[#3d7fa1] text-white rounded-lg px-3 py-1 hover:bg-[#2d637e] duration-300">Add
             License</button>
+        </div>
     </div>
     <table class="table-auto rounded-lg overflow-hidden w-full bg-[#2b2b2b]">
         <thead></thead>
@@ -47,7 +50,6 @@
                         @click="delete_a_license(data)"></i>
                 </td>
             </tr>
-
         </tbody>
     </table>
     <div v-if="Uiaddlicense == true"
@@ -106,6 +108,7 @@ export default {
     name: "License",
     data() {
         return {
+            search: '',
             license: {
                 data: []
             },
@@ -248,7 +251,21 @@ export default {
         } else {
             this.$router.push('/login')
         }
+    },
+    watch: {
+        search: function (val) {
+            if (val === '') {
+            this.getAllLicenses()
+            } else {
+            this.license.data = this.license.data.filter((data) => {
+                return Object.values(data).some((value) => {
+                return String(value).toLowerCase().includes(val.toLowerCase())
+                })
+            })
+            }
+        }
     }
+
 
 }  
 </script>
