@@ -1,6 +1,6 @@
 <template>
     <div id="Dashboard">
-        <div class="w-[80%] h-full m-auto relative">
+        <div class="w-[85%] h-full m-auto relative">
             <div class="flex justify-start items-center my-10">
                 <h1 class="font-bold text-2xl">DASHBOARD</h1>
             </div>
@@ -51,6 +51,9 @@
                                 <th class="px-4 py-2 text-center">Name</th>
                                 <th class="px-4 py-2 text-center ">License</th>
                                 <th class="px-4 py-2 text-center">Active</th>
+                                <th class="px-4 py-2 text-center">Rent</th>
+                                <th class="px-4 py-2 text-center">StartDate</th>
+                                <th class="px-4 py-2 text-center">EndDate</th>
                                 <th class="px-4 py-2 text-center">IP Address</th>
                                 <th class="px-4 py-2 text-center">ตั้ง IP</th>
                             </tr>
@@ -91,6 +94,16 @@
                                             class="inline-block h-4 w-4 transform rounded-full bg-white transition" />
                                     </Switch1>
 
+                                </td>
+                                <td class="px-4 py-2 text-center">
+                                    <i class="fa-solid fa-check text-gree-400" v-if="data.rent.status"></i>
+                                    <i class="fa-solid fa-xmark" v-else></i>
+                                </td>
+                                <td class="px-4 py-2 text-center">
+                                    {{ data.rent.startDate }}
+                                </td>
+                                <td class="px-4 py-2 text-center">
+                                    {{ data.rent.endDate }}
                                 </td>
                                 <td class="px-4 py-2 text-center">{{ data.ipaddress }}</td>
                                 <td class="px-4 py-2 text-center">
@@ -202,6 +215,7 @@ export default {
             axios.post(api, {}, { withCredentials: true }).then(async (res) => {
                 if (res.status === 200) {
                     this.license.data = res.data
+                    console.log(this.license.data)
                     if (this.license.data == 0) {
                         this.license.Enabled = false
                     } else {
@@ -326,7 +340,7 @@ export default {
                     setTimeout(() => {
                         location.reload()
                     }, 3000);
-                }else if(err.response.status == 404){
+                } else if (err.response.status == 404) {
                     toast("ID NOT FOUND!!", {
                         "theme": "dark",
                         "type": "error",
@@ -336,7 +350,7 @@ export default {
                     setTimeout(() => {
                         location.reload()
                     }, 3000);
-                }else if(err.response.status == 409){
+                } else if (err.response.status == 409) {
                     toast("มี IP นี้อยู่ในระบบแล้ว!!", {
                         "theme": "dark",
                         "type": "error",
@@ -380,7 +394,7 @@ export default {
                     setTimeout(() => {
                         location.reload()
                     }, 3000);
-                }else if(err.response.status == 409){
+                } else if (err.response.status == 409) {
                     toast("มี IP นี้อยู่ในระบบแล้ว!!", {
                         "theme": "dark",
                         "type": "error",
@@ -390,7 +404,7 @@ export default {
                     setTimeout(() => {
                         location.reload()
                     }, 3000);
-                }else if(err.response.status == 404){
+                } else if (err.response.status == 404) {
                     toast("License NOT FOUND!!", {
                         "theme": "dark",
                         "type": "error",
