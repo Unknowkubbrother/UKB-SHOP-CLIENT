@@ -12,6 +12,7 @@ import { config } from '../config.js'
 import Admin from '../components/Admin/Admin.vue'
 import storeChildren from '../components/Store/childern/storeChildern.vue'
 import Cart from '../components/Cart/Cart.vue'
+import Order from '../components/Order/Order.vue'
 const routes = [
   {
     name: 'Master',
@@ -64,6 +65,14 @@ const routes = [
         name: 'Cart',
         path: '/cart',
         component: Cart,
+        beforeEnter: (to, from, next) => {
+          guard(to, from, next)
+        }
+      },
+      {
+        name: 'Order',
+        path: '/order',
+        component: Order,
         beforeEnter: (to, from, next) => {
           guard(to, from, next)
         }

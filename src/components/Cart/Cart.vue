@@ -304,6 +304,7 @@ export default {
           "pauseOnHover": false,
           "dangerouslyHTMLString": true
         })
+        this.coupon = null;
       } else {
         toast("กรุณาใส่ Coupon Code", {
           "theme": "dark",

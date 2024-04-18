@@ -51,7 +51,7 @@
                                         </button>
                                         </MenuItem>
                                         <MenuItem v-slot="{ active }">
-                                        <button :class="[
+                                        <button @click="$router.push('/order')" :class="[
                                             active ? 'bg-[#3d7fa1] text-white' : 'text-white',
                                             'group flex w-full items-center rounded-md px-2 py-2 text-sm',
                                         ]">

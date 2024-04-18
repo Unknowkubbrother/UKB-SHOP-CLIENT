@@ -35,10 +35,11 @@
                 <div class="flex justify-start items-start gap-3">
                     <i class="fa-solid fa-circle-exclamation text-rose-600 text-2xl"></i>
                     <div>
-                        <span class="text-lg font-semibold">เปลี่ยน IP โปรดอ่าน!!</span>
+                        <span class="text-lg font-semibold">โปรดอ่าน!!</span>
                         <p>หากคุณได้เปลี่ยน IP สคริปต์นั้นไปแล้ว จะต้องรออีก <span class="text-rose-600">1
                                 วัน</span> ถึงจะสามารถปรับเปลี่ยน
                             IP ของสคริปต์นั้นๆได้อีกครั้ง</p>
+                            <p class="text-orange-300">ถ้าหากสคริปที่คุณเช่าหมดอายุแล้วจะไม่หายจากหน้า Dashboard จะหายตอนที่คุณใช้งานสคริปล่าสุดระบบจะทำการลบสคริปของคุณอัตโนมัติและไม่สามารถใช้งานได้</p>
                     </div>
 
                 </div>
