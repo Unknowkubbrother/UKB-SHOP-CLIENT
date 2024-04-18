@@ -1,5 +1,5 @@
 <template>
-  <div class="flex justify-center items-center mt-[250px]">
+  <div class="w-screen h-screen flex justify-center items-center">
     <img src="../assets/error404.gif" alt="error404">
     <div class="text-center">
       <h1 class="text-3xl text-[#e72727] font-bold ml-5">ERROR CODE : 404</h1>

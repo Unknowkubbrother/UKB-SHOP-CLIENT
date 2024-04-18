@@ -5,7 +5,9 @@ import './index.css'
 import { Menu, MenuButton, MenuItems, MenuItem,Switch,TabGroup, TabList, Tab, TabPanels, TabPanel } from '@headlessui/vue'
 import 'vue3-toastify/dist/index.css';
 import VueCookies from 'vue-cookies'
+import { Carousel, Navigation, Slide } from 'vue3-carousel'
 
+import 'vue3-carousel/dist/carousel.css'
 
 const app = createApp(App)
 app.use(router)
@@ -19,6 +21,9 @@ app.component('TabList', TabList)
 app.component('Tab', Tab)
 app.component('TabPanels', TabPanels)
 app.component('TabPanel', TabPanel)
-app.use(VueCookies, {path: '/', domain: '.unknowkubbrother.net'})
-// app.use(VueCookies ,{path: '/', domain: 'localhost'})
+// app.use(VueCookies, {path: '/', domain: '.unknowkubbrother.net'})
+app.use(VueCookies ,{path: '/', domain: 'localhost'})
+app.component('Carousel', Carousel)
+app.component('Navigation', Navigation)
+app.component('Slide', Slide)
 app.mount('#app')

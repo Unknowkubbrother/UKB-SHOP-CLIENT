@@ -26,7 +26,9 @@
                     </div>
                 </div>
                 <div>
-                    <button @click="ipaddress" class="bg-[#3d7fa1] text-white px-5 py-2 rounded-lg hover:bg-[#265e7a] duration-300"> Copy your IP address</button>
+                    <button @click="ipaddress"
+                        class="bg-[#3d7fa1] text-white px-5 py-2 rounded-lg hover:bg-[#265e7a] duration-300"> Copy your
+                        IP address</button>
                 </div>
             </div>
             <div class="w-[75%] m-auto rounded-lg border border-[#555555] bg-[#262626] my-10 p-10 flex flex-col">
@@ -57,22 +59,47 @@
                             <tr v-for="data in license.data" :key="data.id">
                                 <td class="px-4 py-2 text-center">{{ data.nameScript }}</td>
                                 <td class="px-4 py-2 text-center flex gap-2 flex-wrap">
-                                    <span v-if="data.show">{{ data.license }}</span>
-                                    <span v-else class="blur">{{ data.license }}</span>
-                                    <button @click="data.show = !data.show" class="text-[#3d7fa1] hover:text-sky-500"><i
+                                    <div v-if="data.license != 'ยังไม่ได้เชื่อมต่อ License'">
+                                        <span v-if="data.show" class="select-all">{{ data.license }}</span>
+                                        <span v-else class="blur select-none">{{ data.license }}</span>
+                                    </div>
+                                    <div v-else>
+                                        <span class="select-none">{{ data.license }}</span>
+                                    </div>
+                                    <button v-if="data.license != 'ยังไม่ได้เชื่อมต่อ License'"
+                                        @click="data.show = !data.show" class="text-[#3d7fa1] hover:text-sky-500"><i
                                             class="fa-solid fa-eye"></i></button>
+                                    <button v-if="data.show" @click="copyLicense(data)"
+                                        class="ml-1 text-center text-[#3d7fa1] hover:text-sky-500"><i
+                                            class="fa-solid fa-copy"></i></button>
+
                                 </td>
                                 <td class="px-4 py-2 text-center">
                                     <Switch1 v-model="data.status" @click="LicenseActiveControl(data)"
+                                        v-if="data.ipaddress != 'ยังไม่ได้เชื่อมต่อ IP'"
                                         :class="(data.status === 'active') ? 'bg-green-400' : 'bg-gray-200'"
                                         class="relative inline-flex h-6 w-11 items-center rounded-full">
                                         <span class="sr-only">Enable notifications</span>
                                         <span :class="(data.status === 'inactive') ? 'translate-x-6' : 'translate-x-1'"
                                             class="inline-block h-4 w-4 transform rounded-full bg-white transition" />
                                     </Switch1>
+                                    <Switch1 v-model="data.status" @click="LicenseActiveControl(data)" v-else
+                                        :class="(data.status === 'active') ? 'bg-green-400' : 'bg-gray-200'"
+                                        class="relative inline-flex h-6 w-11 items-center rounded-full">
+                                        <span class="sr-only">Enable notifications</span>
+                                        <span :class="(data.status === 'inactive') ? 'translate-x-6' : 'translate-x-6'"
+                                            class="inline-block h-4 w-4 transform rounded-full bg-white transition" />
+                                    </Switch1>
+
                                 </td>
                                 <td class="px-4 py-2 text-center">{{ data.ipaddress }}</td>
-                                <td class="px-4 py-2 text-center"><button @click="UiResetLicense(data)">
+                                <td class="px-4 py-2 text-center">
+                                    <button @click="UiResetLicense(data)"
+                                        v-if="data.ipaddress != 'ยังไม่ได้เชื่อมต่อ IP'">
+                                        <i
+                                            class="fa-solid fa-pen-to-square text-[#3d7fa1] text-lg hover:text-sky-500"></i>
+                                    </button>
+                                    <button @click="UiAddLicense(data)" v-else>
                                         <i
                                             class="fa-solid fa-pen-to-square text-[#3d7fa1] text-lg hover:text-sky-500"></i>
                                     </button>
@@ -96,6 +123,21 @@
                                 @click="ResetLicense()"></i>
                             <i class="fa-solid fa-xmark hover:text-rose-700 duration-300 cursor-pointer ml-5"
                                 @click="ResetLicenseData.show = false"></i>
+                        </div>
+                    </div>
+                </div>
+                <div v-if="AddLicenseData.show"
+                    class="w-[500px] h-[100px] bg-[#202020] absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 rounded-lg z-50">
+                    <div class="flex justify-start items-start w-full h-full flex-col">
+                        <div class="px-4 py-2 pt-4 font-semibold">IP Address</div>
+                        <div class="flex items-center justify-start">
+                            <input type="text" v-model="AddLicenseData.data.ipaddress"
+                                placeholder="Enter new IP address" required
+                                class="w-[400px] px-4 py-2 ml-2 text-white rounded-lg outline-none bg-transparent border-b-2 border-sky-500">
+                            <i class="fa-solid fa-floppy-disk hover:text-[#3d7fa1] duration-300 cursor-pointer ml-5"
+                                @click="AddLicense()"></i>
+                            <i class="fa-solid fa-xmark hover:text-rose-700 duration-300 cursor-pointer ml-5"
+                                @click="AddLicenseData.show = false"></i>
                         </div>
                     </div>
                 </div>
@@ -125,6 +167,10 @@ export default {
                 show: false,
                 data: []
             },
+            AddLicenseData: {
+                show: false,
+                data: []
+            },
         }
     },
     methods: {
@@ -132,6 +178,17 @@ export default {
             this.$refs.id.focus();
             navigator.clipboard.writeText(this.$refs.id.innerText);
             toast(`คัดลอกข้อมูลสำเร็จ : "${this.$refs.id.innerText}"`, {
+                "theme": "dark",
+                "type": "success",
+                "position": "top-center",
+                "pauseOnHover": false,
+                "autoClose": 1500,
+                "dangerouslyHTMLString": true
+            })
+        },
+        copyLicense(data) {
+            navigator.clipboard.writeText(data.license);
+            toast(`คัดลอก License สำเร็จ!!`, {
                 "theme": "dark",
                 "type": "success",
                 "position": "top-center",
@@ -172,35 +229,58 @@ export default {
             });
         },
         LicenseActiveControl(data) {
-            const api = `${config.EndPoint}/license/activeControl`
-            axios.post(api, {
-                license: data.license
-            }, { withCredentials: true }).then(async (res) => {
-                if (res.status === 200) {
-                    if (res.data === 'active') {
-                        data.status = 'active'
-                    } else if (res.data === 'inactive') {
-                        data.status = 'inactive'
+            if (data.ipaddress == 'ยังไม่ได้เชื่อมต่อ IP') {
+                toast("กรุณาตรวจสอบ IP ของคุณอีกครั้ง", {
+                    "theme": "dark",
+                    "type": "error",
+                    "pauseOnHover": false,
+                    "dangerouslyHTMLString": true
+                })
+            } else {
+                const api = `${config.EndPoint}/license/activeControl`
+                axios.post(api, {
+                    license: data.license
+                }, { withCredentials: true }).then(async (res) => {
+                    if (res.status === 200) {
+                        if (res.data === 'active') {
+                            data.status = 'active'
+                            toast("เปิดใช้งานสำเร็จ!!", {
+                                "theme": "dark",
+                                "type": "success",
+                                "position": "top-center",
+                                "pauseOnHover": false,
+                                "dangerouslyHTMLString": true
+                            })
+                        } else if (res.data === 'inactive') {
+                            data.status = 'inactive'
+                            toast("ปิดใช้งานสำเร็จ!!", {
+                                "theme": "dark",
+                                "type": "success",
+                                "position": "top-center",
+                                "pauseOnHover": false,
+                                "dangerouslyHTMLString": true
+                            })
+                        }
                     }
-                }
-            }).catch((err) => {
-                console.log(err);
-                if (err.response.status === 400) {
-                    toast("กรุณาตรวจสอบข้อมูลใหม่อีกครั้ง", {
-                        "theme": "dark",
-                        "type": "error",
-                        "pauseOnHover": false,
-                        "dangerouslyHTMLString": true
-                    })
-                } else if (err.response.status === 404) {
-                    toast("ไม่มีผู้ใช้อยู่ในระบบ", {
-                        "theme": "dark",
-                        "type": "error",
-                        "pauseOnHover": false,
-                        "dangerouslyHTMLString": true
-                    })
-                }
-            });
+                }).catch((err) => {
+                    console.log(err);
+                    if (err.response.status === 400) {
+                        toast("กรุณาตรวจสอบข้อมูลใหม่อีกครั้ง", {
+                            "theme": "dark",
+                            "type": "error",
+                            "pauseOnHover": false,
+                            "dangerouslyHTMLString": true
+                        })
+                    } else if (err.response.status === 404) {
+                        toast("ไม่มีผู้ใช้อยู่ในระบบ", {
+                            "theme": "dark",
+                            "type": "error",
+                            "pauseOnHover": false,
+                            "dangerouslyHTMLString": true
+                        })
+                    }
+                });
+            }
         },
         UiResetLicense(data) {
             this.ResetLicenseData.show = true
@@ -208,9 +288,69 @@ export default {
             this.ResetLicenseData.data.newipaddress = data.ipaddress
             this.ResetLicenseData.data.license = data.license
         },
+        UiAddLicense(data) {
+            this.AddLicenseData.show = true
+            this.AddLicenseData.data = []
+            this.AddLicenseData.data.nameScript = data.nameScript
+            this.AddLicenseData.data.id = data.id
+            console.log(this.AddLicenseData.data)
+        },
+        AddLicense() {
+            const api = `${config.EndPoint}/license/`
+            axios.post(api, {
+                id: this.AddLicenseData.data.id,
+                nameScript: this.AddLicenseData.data.nameScript,
+                ipaddress: this.AddLicenseData.data.ipaddress
+            }, { withCredentials: true }).then(async (res) => {
+                if (res.status === 201) {
+                    await toast("เพิ่ม IP สำเร็จ!!", {
+                        "theme": "dark",
+                        "type": "success",
+                        "position": "top-center",
+                        "pauseOnHover": false,
+                        "dangerouslyHTMLString": true
+                    })
+                    setTimeout(() => {
+                        location.reload()
+                    }, 3000);
+                }
+            }).catch((err) => {
+                console.log(err);
+                if (err.response.status == 400) {
+                    toast(err.response.data, {
+                        "theme": "dark",
+                        "type": "error",
+                        "pauseOnHover": false,
+                        "dangerouslyHTMLString": true
+                    })
+                    setTimeout(() => {
+                        location.reload()
+                    }, 3000);
+                }else if(err.response.status == 404){
+                    toast("ID NOT FOUND!!", {
+                        "theme": "dark",
+                        "type": "error",
+                        "pauseOnHover": false,
+                        "dangerouslyHTMLString": true
+                    })
+                    setTimeout(() => {
+                        location.reload()
+                    }, 3000);
+                }else if(err.response.status == 409){
+                    toast("มี IP นี้อยู่ในระบบแล้ว!!", {
+                        "theme": "dark",
+                        "type": "error",
+                        "pauseOnHover": false,
+                        "dangerouslyHTMLString": true
+                    })
+                    setTimeout(() => {
+                        location.reload()
+                    }, 3000);
+                }
+            });
+
+        },
         ResetLicense() {
-            console.log(this.ResetLicenseData.data.newipaddress);
-            console.log(this.ResetLicenseData.data.license);
             const api = `${config.EndPoint}/license`
             axios.put(api, {
                 license: this.ResetLicenseData.data.license,
@@ -240,6 +380,26 @@ export default {
                     setTimeout(() => {
                         location.reload()
                     }, 3000);
+                }else if(err.response.status == 409){
+                    toast("มี IP นี้อยู่ในระบบแล้ว!!", {
+                        "theme": "dark",
+                        "type": "error",
+                        "pauseOnHover": false,
+                        "dangerouslyHTMLString": true
+                    })
+                    setTimeout(() => {
+                        location.reload()
+                    }, 3000);
+                }else if(err.response.status == 404){
+                    toast("License NOT FOUND!!", {
+                        "theme": "dark",
+                        "type": "error",
+                        "pauseOnHover": false,
+                        "dangerouslyHTMLString": true
+                    })
+                    setTimeout(() => {
+                        location.reload()
+                    }, 3000);
                 }
             });
         },
@@ -253,7 +413,7 @@ export default {
                     "pauseOnHover": false,
                     "autoClose": 1500,
                     "dangerouslyHTMLString": true
-            })
+                })
             }).catch((err) => {
                 console.log(err);
             });

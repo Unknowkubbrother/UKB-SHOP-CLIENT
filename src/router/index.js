@@ -10,6 +10,8 @@ import { toast } from 'vue3-toastify'
 import axios from 'axios'
 import { config } from '../config.js'
 import Admin from '../components/Admin/Admin.vue'
+import storeChildren from '../components/Store/childern/storeChildern.vue'
+import Cart from '../components/Cart/Cart.vue'
 const routes = [
   {
     name: 'Master',
@@ -41,6 +43,29 @@ const routes = [
         component: Admin,
         beforeEnter: (to, from, next) => {
           guardAdmin(to, from, next)
+        }
+      },
+      {
+        name: 'storeChildren',
+        path: '/store/:id',
+        component: storeChildren,
+        beforeEnter: (to, from, next) => {
+          const id = to.params.id
+          isValidId(id).then((res) => {
+            if (res) {
+              next()
+            } else {
+              next({ name: 'NotFound' })
+            }
+          })
+        }
+      },
+      {
+        name: 'Cart',
+        path: '/cart',
+        component: Cart,
+        beforeEnter: (to, from, next) => {
+          guard(to, from, next)
         }
       }
     ]
@@ -97,35 +122,35 @@ const router = createRouter({
 })
 
 router.beforeEach((to, from, next) => {
-  if(to.name == 'Login' || to.name == 'Register'){
-    if(!window.$cookies.get('logged_in')){
+  if (to.name == 'Login' || to.name == 'Register') {
+    if (!window.$cookies.get('logged_in')) {
       next()
-    }else if(window.$cookies.get('logged_in')){
+    } else if (window.$cookies.get('logged_in')) {
       const api = `${config.EndPoint}/auth/session`
-    axios
-      .post(api, {}, { withCredentials: true })
-      .then(async (res) => {
-        if (res.status === 200) {
-          toast('คุณได้ Sign in ไปแล้ว!!', {
-            theme: 'dark',
-            type: 'warning',
-            pauseOnHover: false,
-            dangerouslyHTMLString: true
-          })
-          setTimeout(() => {
-            next({ name: 'Home'})
-          }, 3000)
-        }
-      })
-      .catch(async (err) => {
-        console.log(err)
-            window.$cookies.remove('logged_in')
-            window.$cookies.remove('ukb-auth')
-            window.$cookies.remove('ukb-data')
-            next({ name: 'Login' })
+      axios
+        .post(api, {}, { withCredentials: true })
+        .then(async (res) => {
+          if (res.status === 200) {
+            toast('คุณได้ Sign in ไปแล้ว!!', {
+              theme: 'dark',
+              type: 'warning',
+              pauseOnHover: false,
+              dangerouslyHTMLString: true
+            })
+            setTimeout(() => {
+              next({ name: 'Home' })
+            }, 3000)
+          }
+        })
+        .catch(async (err) => {
+          console.log(err)
+          window.$cookies.remove('logged_in')
+          window.$cookies.remove('ukb-auth')
+          window.$cookies.remove('ukb-data')
+          next({ name: 'Login' })
         })
     }
-  }else{
+  } else {
     next()
   }
 })
@@ -160,10 +185,10 @@ const guardAdmin = (to, from, next) => {
     .post(api, {}, { withCredentials: true })
     .then(async (res) => {
       if (res.status === 200) {
-        if(window.$cookies.get('ukb-data').role == 'staff'){
+        if (window.$cookies.get('ukb-data').role == 'staff') {
           next()
           return
-        }else{
+        } else {
           toast('คุณไม่มีสิทธิ์เข้าใช้งานหน้านี้!!', {
             theme: 'dark',
             type: 'error',
@@ -188,6 +213,19 @@ const guardAdmin = (to, from, next) => {
         next({ name: 'Login' })
       }, 3000)
     })
+}
+
+const isValidId = async (id) => {
+  const api = `${config.EndPoint}/script/${id}`
+  try {
+    const res = await axios.get(api)
+    if (res.status === 200) {
+      return true
+    }
+  } catch (err) {
+    console.log(err.response.status)
+    return false
+  }
 }
 
 export default router

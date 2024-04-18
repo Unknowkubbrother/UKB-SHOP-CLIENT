@@ -3,12 +3,13 @@
 @tailwind components;
 @tailwind utilities;
 *{
-   /* font-family: 'Itim', cursive;*/
-  /* font-family: 'Mitr', sans-serif; */
-  font-family: Poppins, Prompt, sans-serif; 
+   font-family: 'Itim', cursive;
+  font-family: 'Mitr', sans-serif;
+  /* font-family: Poppins, Prompt, sans-serif;  */
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  color: #ffffff;
 }
 
 body{
@@ -20,26 +21,10 @@ body{
 }
 
 body {
-  --sb-track-color: #5a5a5a;
-  --sb-thumb-color: #0661a9;
-  --sb-size: 8px;
   color: #fff;
-
-  scrollbar-color: var(--sb-thumb-color) 
-                   var(--sb-track-color);
 }
 
-body::-webkit-scrollbar {
-  width: var(--sb-size) 
-}
 
-body::-webkit-scrollbar-track {
-  background: var(--sb-track-color);
-  border-radius: 1px;
+*::-webkit-scrollbar {
+    display: none;
 }
-
-body::-webkit-scrollbar-thumb {
-  background: var(--sb-thumb-color);
-  border-radius: 1px;
-  
-  }

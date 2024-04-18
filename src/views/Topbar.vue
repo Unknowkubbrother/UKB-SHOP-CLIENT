@@ -1,6 +1,6 @@
 <template>
     <div id="Topbar">
-        <div class="flex justify-between items-center w-full p-3 px-10">
+        <div class="flex justify-between items-center w-full p-3 lg:px-10">
             <router-link to="/home" class="logo flex justify-center items-center" exact>
                 <img src="../assets/logo.png" alt="logo" class="w-[80px] h-[80px] object-cover m-auto">
                 <div class="text-2xl p-5">UKB Developer</div>

@@ -21,13 +21,14 @@
                 <div class="w-[90%] h-[75%] m-auto rounded-lg overflow-auto">
                     <div class="grid grid-cols-4 gap-4">
                         <!-- <--->
-                        <div class="w-[90%] h-full rounded-lg overflow-hidden m-auto my-1 duration-300 cursor-pointer bg-[#276381] hover:bg-[#3d7fa1]">
-                            <img src="https://media.discordapp.net/attachments/1133807349266653264/1176607928325787649/IMG-100000000.jpg?ex=661ed406&is=660c5f06&hm=6d689fabccd0a20c3498c8f6054b858972ad04cd3b20a12940ad728e5db1e542&=&format=webp&width=1119&height=671" alt="" class="w-[90%] h-[200px] object-cover m-auto rounded-lg my-2">
+                        <div @click="NextStoreChildern(data.id)" class="w-[90%] h-full rounded-lg overflow-hidden m-auto my-1 duration-300 cursor-pointer bg-[#276381] hover:bg-[#3d7fa1]" v-for="(data,idx) in script.data" :key="idx">
+                            <img :src="data.promote.image[0].url" :alt="data.promote.image[0].alt" class="w-[90%] h-[200px] object-cover m-auto rounded-lg my-2">
                             <div class="w-[90%] h-[30px] flex justify-center items-center m-auto rounded-lg bg-[#3d7fa1] duration-300">
-                                <div class="text-center text-lg">UKB-AllTicket</div>
+                                <div class="text-center text-lg">{{ data.nameScript }}</div>
                             </div>
                         </div>
                         <!-- <--->
+                        
                         
                     </div>
                 </div>
@@ -37,13 +38,37 @@
 </template>
 
 <script>
+import axios from 'axios';
+import {config} from '../../config';
 export default {
     name: "Home",
     data() {
         return {
-
+        script:{
+            data:[]
+            }
         };
     },
+    methods: {
+        async getScript(){
+           const api = `${config.EndPoint}/script`;
+              await axios.get(api).then((res)=>{
+                res.data.map((data)=>{
+                    if(data.recommended){
+                        this.script.data.push(data);
+                    }
+                });
+              }).catch((err)=>{
+                console.log(err);
+              });
+        },
+        NextStoreChildern(id){
+            this.$router.push(`/store/${id}`);
+        }
+    },
+    mounted(){
+        this.getScript();
+    }
 
 }
 </script>
