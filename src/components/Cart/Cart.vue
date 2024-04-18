@@ -156,8 +156,7 @@
         </div>
         <div class="flex justify-between items-center mt-5">
           <button @click="step = 1" class="btn text-white"><i class="fa-solid fa-arrow-left"></i> Back</button>
-          <button @click="Checkout()" class="btn btn-primary text-white">Next <i
-              class="fa-solid fa-arrow-right"></i></button>
+          <button @click="Checkout()" class="btn btn-primary text-white">Checkout</button>
         </div>
       </div>
 
@@ -177,8 +176,7 @@
               </div>
               <div class="flex flex-col justify-center items-center">
                 <span>Date</span>
-                <span>{{ orderpreview.dateSlip.split('T')[0] }} {{ orderpreview.dateSlip.split('T')[1].split('+')[0]
-                  }}</span>
+                <span>{{ orderpreview.dateSlip }}</span>
               </div>
               <div class="flex flex-col justify-center items-center">
                 <span>Total</span>
@@ -217,7 +215,7 @@
                 <hr>
                 <div class="flex justify-between font-semibold mt-5">
                   <span>Total</span>
-                  <span>{{ orderpreview.total }}</span>
+                  <span>{{ orderpreview.total }} Baht</span>
                 </div>
 
               </div>
@@ -361,7 +359,7 @@ export default {
       } else {
         toast("ไม่พบทรัพยากรในตะกร้าสินค้าของคุณ", {
           "theme": "dark",
-          "type": "info",
+          "type": "warning",
           "pauseOnHover": false,
           "dangerouslyHTMLString": true
         })
