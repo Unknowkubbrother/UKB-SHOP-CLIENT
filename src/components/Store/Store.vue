@@ -9,7 +9,7 @@
                 <div @click="NextStoreChildern(data.id)"
                     class="w-[90%] h-[300px] rounded-lg overflow-hidden bg-[#262626] flex hover:bg-[#363636] hover:w-[92%] hover:h-[310px] duration-300 cursor-pointer"
                     v-for="(data, idx) in script.data" :key="idx">
-                    <img :src="data.promote.image[0].url" :alt="data.promote.image[0].alt"
+                    <img :src="data.promote.image[0]"
                         class="w-[40%] h-full object-cover rounded-lg drop-shadow-lg">
                     <div class="w-[60%] h-full flex flex-col p-5 justify-between">
                         <div>

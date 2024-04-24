@@ -13,6 +13,7 @@ import Admin from '../components/Admin/Admin.vue'
 import storeChildren from '../components/Store/childern/storeChildern.vue'
 import Cart from '../components/Cart/Cart.vue'
 import Order from '../components/Order/Order.vue'
+import Script_Admin from '../components/Admin/page/Script/Script_Admin.vue'
 const routes = [
   {
     name: 'Master',
@@ -89,39 +90,43 @@ const routes = [
     path: '/register',
     component: Register
   },
-  // {
-  //     path: '/page',
-  //     name: 'Page',
-  //     component: PAGE,
-  // },
-  // {
-  //     path: '/login',
-  //     name: 'LOGIN',
-  //     component: LOGIN
-  // },
-  // {
-  //     path: '/POST',
-  //     name: 'POST',
-  //     component: POST
-  // },
   {
     path: '/:pathMatch(.*)*',
     name: 'NotFound',
     component: NotFound
-  }
-  //   {
-  //     path: '/profile',
-  //     name: 'profile',
-  //     component: Profile,
-  //   },
-  //   {
-  //     path: '/about',
-  //     name: 'About',
-  //     // route level code-splitting
-  //     // this generates a separate chunk (about.[hash].js) for this route
-  //     // which is lazy-loaded when the route is visited.
-  //     component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
-  //   }
+  },
+  {
+    name: 'Admin',
+    path: '/admin',
+    component: Admin,
+    redirect: '/admin/script',
+    beforeEnter: (to, from, next) => {
+      guardAdmin(to, from, next)
+    },
+    children: [
+      {
+        name: 'Script_Admin',
+        path: '/admin/script',
+        component: Script_Admin,
+      },
+      {
+        name: 'Script_Admin_Childern',
+        path: '/admin/script/:id',
+        component: import('../components/Admin/page/Script/childern/Script_Admin_Childern.vue'),
+        beforeEnter: (to, from, next) => {
+          const id = to.params.id
+          isValidId(id).then((res) => {
+            if (res) {
+              next()
+            } else {
+              next({ name: 'NotFound' })
+            }
+          })
+        }
+      }
+    ]
+  },
+  
 ]
 const router = createRouter({
   history: createWebHistory('/'),

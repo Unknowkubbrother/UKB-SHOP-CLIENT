@@ -122,7 +122,7 @@ export default {
                     this.store = res.data;
                     this.store.video = getIdFromURL(this.store.promote.youTube);
                     this.store.promote.image.map((data) => {
-                        this.img.push(data.url);
+                        this.img.push(data);
                     });
                     this.store.Changelogs = res.data.Changelogs.sort((a, b) => {
                         return parseFloat(b.version) - parseFloat(a.version);
