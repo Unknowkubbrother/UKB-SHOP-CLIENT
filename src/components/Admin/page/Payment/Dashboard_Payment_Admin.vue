@@ -92,9 +92,15 @@ export default {
             const api = `${config.EndPoint}/payment`;
             await axios.get(api, { withCredentials: true }).then((res) => {
                 if (res.status === 200) {
-                    const data = res.data.filter((item) => item.createdAt && item.createdAt.slice(0, 7) === this.seletedMonth);
+                    const data = res.data.filter((item) => {
+                        const createdAt = new Date(item.createdAt);
+                        const thaiTime = new Date(createdAt.toLocaleString("en-US", { timeZone: "Asia/Bangkok" }));
+                        return thaiTime.toISOString().slice(0, 7) === this.seletedMonth;
+                    });
                     const series = data.reduce((acc, item) => {
-                        acc[item.createdAt.slice(8, 10) - 1] += item.total;
+                        const createdAt = new Date(item.createdAt);
+                        const thaiTime = new Date(createdAt.toLocaleString("en-US", { timeZone: "Asia/Bangkok" }));
+                        acc[thaiTime.getDate() - 1] += item.total;
                         return acc;
                     }, Array.from({ length: 31 }, () => 0));
                     this.series = [{
