@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@headlessui/vue": "^1.7.19",
+    "apexcharts": "^3.49.0",
     "axios": "^1.6.2",
     "flowbite": "^2.3.0",
     "primeicons": "^6.0.1",
@@ -19,6 +20,7 @@
     "vue-cookies": "^1.8.3",
     "vue-router": "^4.2.5",
     "vue-youtube-embed": "^2.2.2",
+    "vue3-apexcharts": "^1.5.2",
     "vue3-carousel": "^0.3.3",
     "vue3-toastify": "^0.2.1",
     "vuetube": "^2.0.0-0",

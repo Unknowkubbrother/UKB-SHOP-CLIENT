@@ -15,10 +15,10 @@
                             'w-full py-2.5 text-sm font-medium leading-5',
                             'focus:outline-none',
                             selected
-                                ? 'border-t-2 border-t-green-400 text-white shadow'
+                                ? 'border-t-2 border-t-[#3d7fa1] text-white shadow'
                                 : 'text-blue-100 hover:bg-white/[0.12] hover:text-white',
                         ]">
-                            <span class="text-sm font-semibold">Settings</span>
+                            <span class="text-sm font-semibold">UpdateVersion</span>
                         </button>
                     </Tab>
                     <Tab as="template" v-slot="{ selected }">
@@ -26,22 +26,34 @@
                             'w-full py-2.5 text-sm font-medium leading-5',
                             'focus:outline-none',
                             selected
-                                ? 'border-t-2 border-t-green-400 text-white shadow'
+                                ? 'border-t-2 border-t-[#3d7fa1] text-white shadow'
                                 : 'text-blue-100 hover:bg-white/[0.12] hover:text-white',
                         ]">
-                            <span class="text-sm font-semibold">Dashboard1</span>
+                            <span class="text-sm font-semibold">User</span>
+                        </button>
+                    </Tab>
+                    <Tab as="template" v-slot="{ selected }">
+                        <button dir="ltr" :class="[
+                            'w-full py-2.5 text-sm font-medium leading-5',
+                            'focus:outline-none',
+                            selected
+                                ? 'border-t-2 border-t-[#3d7fa1] text-white shadow'
+                                : 'text-blue-100 hover:bg-white/[0.12] hover:text-white',
+                        ]">
+                            <span class="text-sm font-semibold">Settings</span>
                         </button>
                     </Tab>
                 </TabList>
             </div>
                 <TabPanels class="mt-2">
                     <TabPanel class="w-[90%] m-auto rounded-sm p-3 overflow-auto">
-                        <Dashboard_Scirpt v-model:script="script.data"/>
+                        <Update_Version :script_Version="script.data.Changelogs"/>
                     </TabPanel>
-                    <TabPanel class="w-[90%] m-auto rounded-sm bg-[#262626] p-3 overflow-auto">
-                        <div class="w-full h-full">
-                             test2
-                        </div>
+                    <TabPanel class="w-full m-auto rounded-sm p-3 overflow-auto">
+                       <User_Script/>
+                    </TabPanel>
+                    <TabPanel class="w-[90%] m-auto rounded-sm p-3 overflow-auto">
+                        <Settings_Scirpt v-model:script="script.data" @deleteScript="DeleteScript" @updateScript="UpdateScript"/>
                     </TabPanel>
                 </TabPanels>
             </TabGroup>
@@ -52,11 +64,16 @@
 <script>
 import axios from 'axios';
 import { config } from '../../../../../config';
-import Dashboard_Scirpt from './Dashboard_Scirpt.vue';
+import Settings_Scirpt from './Settings_Scirpt.vue';
+import {toast} from 'vue3-toastify';
+import Update_Version from './Update_Version.vue';
+import User_Script from './User_Script.vue';
 export default {
     name: "Script_Admin_Childern",
     components: {
-        Dashboard_Scirpt
+        Settings_Scirpt,
+        Update_Version,
+        User_Script
     },
     data() {
         return {
@@ -68,10 +85,48 @@ export default {
     },
     methods: {
         async getScript() {
-            const api = `${config.EndPoint}/script/${this.$route.params.id}`
-            await axios.get(api).then((res) => {
+            const api = `${config.EndPoint}/script_admin/${this.$route.params.id}`
+            await axios.get(api,{ withCredentials: true }).then((res) => {
                 if (res.status === 200) {
                     this.script.data = res.data;
+                }
+            }).catch((err) => {
+                console.log(err);
+            });
+        },
+          async DeleteScript() {
+            const api = `${config.EndPoint}/script/${this.script.data.id}`;
+            await axios.delete(api, { withCredentials: true }).then((res) => {
+                if (res.status === 200) {
+                    toast("Delete Script Success", {
+                        "theme": "dark",
+                        "type": "success",
+                        "position": "top-center",
+                        "pauseOnHover": false,
+                        "dangerouslyHTMLString": true
+                    });
+                    setTimeout(() => {
+                        this.$router.push('/admin/script');
+                    }, 3000);
+                }
+            }).catch((err) => {
+                console.log(err);
+            });
+        },
+        async UpdateScript(){
+            const api = `${config.EndPoint}/script/${this.script.data.id}`;
+            await axios.put(api, this.script.data, { withCredentials: true }).then((res) => {
+                if (res.status === 200) {
+                    toast("Update Script Success", {
+                        "theme": "dark",
+                        "type": "success",
+                        "position": "top-center",
+                        "pauseOnHover": false,
+                        "dangerouslyHTMLString": true
+                    });
+                    setTimeout(() => {
+                        this.$router.push('/admin/script');
+                    }, 3000);
                 }
             }).catch((err) => {
                 console.log(err);

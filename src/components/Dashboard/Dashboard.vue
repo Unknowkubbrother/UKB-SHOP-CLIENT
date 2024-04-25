@@ -1,6 +1,6 @@
 <template>
-    <div id="Dashboard">
-        <div class="w-[85%] h-full m-auto relative">
+    <div id="Dashboard" class="relative">
+        <div class="w-[90%] h-full m-auto" :class="AddLicenseData.show || ResetLicenseData.show ? 'blur select-none' : ''">
             <div class="flex justify-start items-center my-10">
                 <h1 class="font-bold text-2xl">DASHBOARD</h1>
             </div>
@@ -39,7 +39,8 @@
                         <p>หากคุณได้เปลี่ยน IP สคริปต์นั้นไปแล้ว จะต้องรออีก <span class="text-rose-600">1
                                 วัน</span> ถึงจะสามารถปรับเปลี่ยน
                             IP ของสคริปต์นั้นๆได้อีกครั้ง</p>
-                            <p class="text-orange-300">ถ้าหากสคริปที่คุณเช่าหมดอายุแล้วจะไม่หายจากหน้า Dashboard จะหายตอนที่คุณใช้งานสคริปล่าสุดระบบจะทำการลบสคริปของคุณอัตโนมัติและไม่สามารถใช้งานได้</p>
+                        <p class="text-orange-300">ถ้าหากสคริปที่คุณเช่าหมดอายุแล้วจะไม่หายจากหน้า Dashboard
+                            จะหายตอนที่คุณใช้งานสคริปล่าสุดระบบจะทำการลบสคริปของคุณอัตโนมัติและไม่สามารถใช้งานได้</p>
                     </div>
 
                 </div>
@@ -57,6 +58,7 @@
                                 <th class="px-4 py-2 text-center">EndDate</th>
                                 <th class="px-4 py-2 text-center">IP Address</th>
                                 <th class="px-4 py-2 text-center">ตั้ง IP</th>
+                                <th class="px-4 py-2 text-center">Download</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -118,6 +120,7 @@
                                             class="fa-solid fa-pen-to-square text-[#3d7fa1] text-lg hover:text-sky-500"></i>
                                     </button>
                                 </td>
+                                <td class="px-4 py-2 text-center"><a :href="data.download"><i class="fa fa-download text-lg text-orange-300 hover:text-orange-400 cursor-pointer" aria-hidden="true"></i></a></td>
                             </tr>
                         </tbody>
                     </table>
@@ -125,38 +128,43 @@
                 <div v-else class="w-full h-[300px] flex justify-center items-center">
                     <div class="text-[#3d7fa1] text-2xl">You didn't own any resource. . .</div>
                 </div>
-                <div v-if="ResetLicenseData.show"
-                    class="w-[500px] h-[100px] bg-[#202020] absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 rounded-lg z-50">
-                    <div class="flex justify-start items-start w-full h-full flex-col">
-                        <div class="px-4 py-2 pt-4 font-semibold">IP Address</div>
-                        <div class="flex items-center justify-start">
-                            <input type="text" v-model="ResetLicenseData.data.newipaddress"
-                                placeholder="Enter new IP address" required
-                                class="w-[400px] px-4 py-2 ml-2 text-white rounded-lg outline-none bg-transparent border-b-2 border-sky-500">
-                            <i class="fa-solid fa-floppy-disk hover:text-[#3d7fa1] duration-300 cursor-pointer ml-5"
-                                @click="ResetLicense()"></i>
-                            <i class="fa-solid fa-xmark hover:text-rose-700 duration-300 cursor-pointer ml-5"
-                                @click="ResetLicenseData.show = false"></i>
-                        </div>
-                    </div>
-                </div>
-                <div v-if="AddLicenseData.show"
-                    class="w-[500px] h-[100px] bg-[#202020] absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 rounded-lg z-50">
-                    <div class="flex justify-start items-start w-full h-full flex-col">
-                        <div class="px-4 py-2 pt-4 font-semibold">IP Address</div>
-                        <div class="flex items-center justify-start">
-                            <input type="text" v-model="AddLicenseData.data.ipaddress"
-                                placeholder="Enter new IP address" required
-                                class="w-[400px] px-4 py-2 ml-2 text-white rounded-lg outline-none bg-transparent border-b-2 border-sky-500">
-                            <i class="fa-solid fa-floppy-disk hover:text-[#3d7fa1] duration-300 cursor-pointer ml-5"
-                                @click="AddLicense()"></i>
-                            <i class="fa-solid fa-xmark hover:text-rose-700 duration-300 cursor-pointer ml-5"
-                                @click="AddLicenseData.show = false"></i>
-                        </div>
-                    </div>
+            </div>
+        </div>
+        <Transition>
+        <div v-if="ResetLicenseData.show"
+            class="w-[500px] h-[100px] bg-[#202020] absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 rounded-lg z-50 shadow-lg shadow-black">
+            <div class="flex justify-start items-start w-full h-full flex-col">
+                <div class="px-4 py-2 pt-4 font-semibold">IP Address</div>
+                <div class="flex items-center justify-start">
+                    <input type="text" v-model="ResetLicenseData.data.newipaddress" placeholder="Enter new IP address"
+                        required
+                        class="w-[400px] px-4 py-2 ml-2 text-white rounded-lg outline-none bg-transparent border-b-2 border-sky-500">
+                    <i class="fa-solid fa-floppy-disk hover:text-[#3d7fa1] duration-300 cursor-pointer ml-5"
+                        @click="ResetLicense()"></i>
+                    <i class="fa-solid fa-xmark hover:text-rose-700 duration-300 cursor-pointer ml-5"
+                        @click="ResetLicenseData.show = false"></i>
                 </div>
             </div>
         </div>
+        </Transition>
+
+        <Transition>
+            <div v-if="AddLicenseData.show"
+                class="w-[500px] h-[100px] bg-[#202020] absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 rounded-lg z-50 shadow-lg shadow-black">
+                <div class="flex justify-start items-start w-full h-full flex-col">
+                    <div class="px-4 py-2 pt-4 font-semibold">IP Address</div>
+                    <div class="flex items-center justify-start">
+                        <input type="text" v-model="AddLicenseData.data.ipaddress" placeholder="Enter new IP address"
+                            required
+                            class="w-[400px] px-4 py-2 ml-2 text-white rounded-lg outline-none bg-transparent border-b-2 border-sky-500">
+                        <i class="fa-solid fa-floppy-disk hover:text-[#3d7fa1] duration-300 cursor-pointer ml-5"
+                            @click="AddLicense()"></i>
+                        <i class="fa-solid fa-xmark hover:text-rose-700 duration-300 cursor-pointer ml-5"
+                            @click="AddLicenseData.show = false"></i>
+                    </div>
+                </div>
+            </div>
+        </Transition>
     </div>
 </template>
 

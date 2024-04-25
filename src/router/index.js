@@ -123,6 +123,11 @@ const routes = [
             }
           })
         }
+      },
+      {
+        name: 'Payment_Admin',
+        path: '/admin/payment',
+        component: import('../components/Admin/page/Payment/Payment_Admin.vue')
       }
     ]
   },

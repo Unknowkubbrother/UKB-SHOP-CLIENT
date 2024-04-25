@@ -51,7 +51,7 @@
 
         <Transition>
             <div v-if="ShowUiAddScript"
-                class="w-[500px] h-[700px] bg-[#24272e] absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50 rounded-lg mt-[10rem]">
+                class="w-[500px] h-[700px] bg-[#24272e] absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50 rounded-lg mt-[12rem] shadow-lg shadow-black">
                 <header class="w-full h-[70px] flex justify-between items-center px-6">
                     <span class="text-md font-semibold">Add Script</span>
                     <i class="fa-solid fa-xmark text-[#8b8b8b] hover:text-rose-400 text-lg cursor-pointer duration-300"
@@ -142,6 +142,12 @@
                             class="w-full h-[2.5rem] px-3 py-2 rounded-lg border border-slate-700 focus:outline-none focus:border-blue-500 bg-base-100 mt-2"
                             placeholder="Enter Link Webhook" v-model="addscript.webhook">
                     </div>
+                    <div class="w-full">
+                        <label>Link Download <span class="text-rose-400">*</span></label>
+                        <input type="text" required
+                            class="w-full h-[2.5rem] px-3 py-2 rounded-lg border border-slate-700 focus:outline-none focus:border-blue-500 bg-base-100 mt-2"
+                            placeholder="Enter Link Webhook" v-model="addscript.download">
+                    </div>
                     <div class="flex justify-center items-center gap-2">
                         <input id="helper-checkbox" aria-describedby="helper-checkbox-text" type="checkbox"
                             class="w-4 h-4 bg-gray-100 border-gray-300 rounded focus:ring-[#3d7fa1]  dark:focus:ring-[#3d7fa1] dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
@@ -194,6 +200,7 @@ export default {
                     },
                 ],
                 webhook: '',
+                download: '',
                 recommended: false
             }
         };
@@ -244,25 +251,6 @@ export default {
                 console.log(err);
             });
         },
-        // async DeleteScript(data) {
-        //     const api = `${config.EndPoint}/script/${data.id}`;
-        //     await axios.delete(api, { withCredentials: true }).then((res) => {
-        //         if (res.status === 200) {
-        //             toast("Delete Script Success", {
-        //                 "theme": "dark",
-        //                 "type": "success",
-        //                 "position": "top-center",
-        //                 "pauseOnHover": false,
-        //                 "dangerouslyHTMLString": true
-        //             });
-        //             setTimeout(() => {
-        //                 location.reload();
-        //             }, 3000);
-        //         }
-        //     }).catch((err) => {
-        //         console.log(err);
-        //     });
-        // },
         NextScriptChildern(id) {
             this.$router.push(`/admin/script/${id}`);
         }

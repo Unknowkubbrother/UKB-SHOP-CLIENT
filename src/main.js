@@ -6,6 +6,7 @@ import { Menu, MenuButton, MenuItems, MenuItem,Switch,TabGroup, TabList, Tab, Ta
 import 'vue3-toastify/dist/index.css';
 import VueCookies from 'vue-cookies'
 import { Carousel, Navigation, Slide } from 'vue3-carousel'
+import VueApexCharts from "vue3-apexcharts";
 
 import 'vue3-carousel/dist/carousel.css'
 
@@ -26,4 +27,5 @@ app.use(VueCookies ,{path: '/', domain: 'localhost'})
 app.component('Carousel', Carousel)
 app.component('Navigation', Navigation)
 app.component('Slide', Slide)
+app.use(VueApexCharts)
 app.mount('#app')

@@ -73,11 +73,10 @@ export default {
     },
     methods: {
         getOrders() {
-            const api = `${config.EndPoint}/payment`
+            const api = `${config.EndPoint}/payment/user`
             axios.get(api, { withCredentials: true })
                 .then((response) => {
                     this.orders = response.data;
-                    console.log(this.orders);
                 })
                 .catch((error) => {
                     console.log(error);

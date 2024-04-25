@@ -15,8 +15,14 @@
 
         <div class="menusidebar flex flex-col h-[calc(100vh-3rem)] text-lg mt-10">
             <div class="flex flex-col flex-wrap gap-4">
-                    <router-link to="/admin/script" class-active="active" class="hover:text-[#3d7fa1] hover:duration-300 p-[10px]" exact>
+                    <router-link to="/admin/script"  class-active="active" class="hover:text-[#3d7fa1] hover:duration-300 p-[10px]" exact>
                         <i class="fa-solid fa-window-maximize"></i><span class="text-bar" v-show="textbar || activebar">SCRIPT</span>
+                    </router-link>
+                    <router-link to="/admin/payment"  class-active="active" class="hover:text-[#3d7fa1] hover:duration-300 p-[10px]" exact>
+                        <i class="fa-solid fa-credit-card"></i><span class="text-bar" v-show="textbar || activebar">PAYMENTS</span>
+                    </router-link>
+                    <router-link to="/home"  class-active="active" class="hover:text-[#3d7fa1] hover:duration-300 p-[10px]" exact>
+                        <i class="fa-solid fa-house"></i><span class="text-bar" v-show="textbar || activebar">Home Page</span>
                     </router-link>
             </div>
         </div>
