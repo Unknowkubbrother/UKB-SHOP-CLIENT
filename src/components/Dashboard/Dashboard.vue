@@ -224,7 +224,6 @@ export default {
             axios.post(api, {}, { withCredentials: true }).then(async (res) => {
                 if (res.status === 200) {
                     this.license.data = res.data
-                    console.log(this.license.data)
                     if (this.license.data == 0) {
                         this.license.Enabled = false
                     } else {
@@ -310,20 +309,22 @@ export default {
             this.ResetLicenseData.data = []
             this.ResetLicenseData.data.newipaddress = data.ipaddress
             this.ResetLicenseData.data.license = data.license
+            this.ResetLicenseData.data.scriptId = data.scriptId
         },
         UiAddLicense(data) {
             this.AddLicenseData.show = true
             this.AddLicenseData.data = []
             this.AddLicenseData.data.nameScript = data.nameScript
             this.AddLicenseData.data.id = data.id
-            console.log(this.AddLicenseData.data)
+            this.AddLicenseData.data.scriptId = data.scriptId
         },
         AddLicense() {
             const api = `${config.EndPoint}/license/`
             axios.post(api, {
                 id: this.AddLicenseData.data.id,
                 nameScript: this.AddLicenseData.data.nameScript,
-                ipaddress: this.AddLicenseData.data.ipaddress
+                ipaddress: this.AddLicenseData.data.ipaddress,
+                scriptId: this.AddLicenseData.data.scriptId
             }, { withCredentials: true }).then(async (res) => {
                 if (res.status === 201) {
                     await toast("เพิ่ม IP สำเร็จ!!", {
@@ -377,7 +378,8 @@ export default {
             const api = `${config.EndPoint}/license`
             axios.put(api, {
                 license: this.ResetLicenseData.data.license,
-                Newipaddress: this.ResetLicenseData.data.newipaddress
+                Newipaddress: this.ResetLicenseData.data.newipaddress,
+                scriptId: this.ResetLicenseData.data.scriptId
             }, { withCredentials: true }).then(async (res) => {
                 if (res.status === 200) {
                     await toast("Reset License สำเร็จ!!", {
