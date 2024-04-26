@@ -14,6 +14,9 @@ import storeChildren from '../components/Store/childern/storeChildern.vue'
 import Cart from '../components/Cart/Cart.vue'
 import Order from '../components/Order/Order.vue'
 import Script_Admin from '../components/Admin/page/Script/Script_Admin.vue'
+import ForgotPassword from '../components/ForgotPassword/ForgotPassword.vue'
+import Script_Admin_Childern from '../components/Admin/page/Script/childern/Script_Admin_Childern.vue'
+import Payment_Admin from '../components/Admin/page/Payment/Payment_Admin.vue'
 const routes = [
   {
     name: 'Master',
@@ -93,7 +96,7 @@ const routes = [
   {
     name: 'ForgotPassword',
     path: '/forgot-password',
-    component: import('../components/ForgotPassword/ForgotPassword.vue')
+    component: ForgotPassword
   },
   {
     path: '/:pathMatch(.*)*',
@@ -117,7 +120,7 @@ const routes = [
       {
         name: 'Script_Admin_Childern',
         path: '/admin/script/:id',
-        component: import('../components/Admin/page/Script/childern/Script_Admin_Childern.vue'),
+        component: Script_Admin_Childern,
         beforeEnter: (to, from, next) => {
           const id = to.params.id
           isValidId(id).then((res) => {
@@ -132,7 +135,7 @@ const routes = [
       {
         name: 'Payment_Admin',
         path: '/admin/payment',
-        component: import('../components/Admin/page/Payment/Payment_Admin.vue')
+        component: Payment_Admin
       },
     ],
     
