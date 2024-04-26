@@ -134,14 +134,14 @@ const routes = [
         path: '/admin/payment',
         component: import('../components/Admin/page/Payment/Payment_Admin.vue')
       },
-      {
-        name: 'Custom_License',
-        path: '/admin/custom_license',
-        component: import('../components/Admin/page/Script/childern/Custom_License.vue')
-      }
     ],
     
   },
+  {
+    name: 'Custom_License',
+    path: '/admin/custom_license',
+    component: import('../components/Admin/page/Script/childern/Custom_License.vue')
+  }
   
 ]
 const router = createRouter({
