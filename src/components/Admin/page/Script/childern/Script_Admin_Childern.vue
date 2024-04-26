@@ -64,7 +64,7 @@
                        <User_Script/>
                     </TabPanel>
                     <TabPanel class="w-full m-auto rounded-sm p-3 overflow-auto">
-                      <Custom_License/>
+                      <Custom_License :script="script.data"/>
                     </TabPanel>
                     <TabPanel class="w-[90%] m-auto rounded-sm p-3 overflow-auto">
                         <Settings_Scirpt v-model:script="script.data" @deleteScript="DeleteScript" @updateScript="UpdateScript"/>

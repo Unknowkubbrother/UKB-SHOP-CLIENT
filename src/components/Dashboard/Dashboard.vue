@@ -47,7 +47,7 @@
             </div>
             <div class="license w-full flex justify-center items-center overflow-auto">
                 <div v-if="license.Enabled">
-                    <table class="table-auto bg-[#262626] rounded-lg overflow-hidden">
+                    <table class="table-auto bg-[#262626] rounded-lg overflow-hidden mb-10">
                         <thead>
                             <tr class="bg-[#3d7fa1]">
                                 <th class="px-4 py-2 text-center">Name</th>
