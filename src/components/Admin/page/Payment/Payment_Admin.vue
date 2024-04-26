@@ -24,7 +24,7 @@
                             ? 'border-b-2 border-b-[#3d7fa1] text-white shadow'
                             : 'text-blue-100 hover:bg-white/[0.12] hover:text-white',
                     ]">
-                        <span class="text-sm font-semibold">test2</span>
+                        <span class="text-sm font-semibold">Order</span>
                     </button>
                 </Tab>
             </TabList>
@@ -33,7 +33,7 @@
                     <Dashboard_Payment_Admin/>
                 </TabPanel>
                 <TabPanel class="w-full m-auto rounded-sm p-3 overflow-auto">
-                    test2
+                    <Order_Payment_Admin/>
                 </TabPanel>
             </TabPanels>
         </TabGroup>
@@ -42,10 +42,12 @@
 
 <script>
 import Dashboard_Payment_Admin from './Dashboard_Payment_Admin.vue';
+import Order_Payment_Admin from './Order_Payment_Admin.vue';
 export default {
     name: 'Payment_Admin',
     components: {
-        Dashboard_Payment_Admin
+        Dashboard_Payment_Admin,
+        Order_Payment_Admin
     },
     data() {
         return {

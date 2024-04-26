@@ -83,6 +83,16 @@ export default {
                 },
                 tooltip: {
                     theme: 'dark',
+                },
+                fill: {
+                    type: 'gradient',
+                    gradient: {
+                        shadeIntensity: 1,
+                        inverseColors: false,
+                        opacityFrom: 0.5,
+                        opacityTo: 0,
+                        stops: [0, 90, 100]
+                    }
                 }
             },
         }

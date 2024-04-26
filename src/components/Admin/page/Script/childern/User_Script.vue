@@ -61,7 +61,6 @@ export default {
             const api = `${config.EndPoint}/license/${this.$route.params.id}`
             axios.get(api, { withCredentials: true }).then((res) => {
                 this.data = res.data
-                console.log(this.data)
             }).catch((err) => {
                 console.log(err);
             });
