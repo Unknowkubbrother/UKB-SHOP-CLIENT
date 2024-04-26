@@ -4,8 +4,11 @@
             <div class="flex justify-start items-center my-10">
                 <h1 class="font-bold text-2xl">ORDERS</h1>
             </div>
-            <div class="w-full h-full">
+            <div class="w-full h-full" v-if="orders.length">
                 <Accordion :accordion_data="orders" />
+            </div>
+            <div v-else class="w-full h-[300px] flex justify-center items-center">
+                    <div class="text-[#3d7fa1] text-2xl">You do not own any orders. . .</div>
             </div>
         </div>
     </div>
@@ -41,7 +44,7 @@ export default {
         this.getOrders();
     },
     created() {
-        document.title = "Order | UKB-SHOP";
+        document.title = "Order | CodeKub Shop";
     }
 }
 </script>

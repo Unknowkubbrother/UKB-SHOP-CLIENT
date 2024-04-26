@@ -5,7 +5,7 @@
                 class="px-3 py-2 rounded-lg border border-slate-700 focus:outline-none focus:border-blue-500 bg-base-100 mt-2"
                 v-model="seacrhCustomer" placeholder="Seacrh Customer" required>
         </div>
-        <div class="w-[90%] bg-base-100 m-auto rounded-lg p-5">
+        <div class="w-[90%] m-auto rounded-lg p-5">
             <template v-for="(data, idx) in order" :key="idx">
                 <div class="collapse collapse-arrow bg-base-200 my-2 cursor-pointer"
                     :class="checked === idx ? 'collapse-open' : 'collapse-close'"

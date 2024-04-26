@@ -420,7 +420,7 @@ export default {
     this.TotalCart();
   },
     created() {
-        document.title = "Cart | UKB-SHOP";
+        document.title = "Cart | CodeKub Shop";
     }
 };
 </script>

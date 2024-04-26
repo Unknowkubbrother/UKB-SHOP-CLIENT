@@ -2,8 +2,8 @@
     <div id="Register">
         <div class="w-full h-full flex items-center flex-col">
             <router-link to="/home" class="flex justify-center items-center mt-[10rem] mb-[5rem]">
-                <img src="../../assets/logo.png" alt="" class="w-[70px] h-[70px] object-cover m-auto">
-                <h1 class="text-3xl font-bold">UKB Developer</h1>
+                <img src="../../assets/logo_codekub.png" alt="" class="w-[70px] h-[70px] object-cover m-auto">
+                <h1 class="text-3xl font-bold ml-2 border-l-2 px-5">CodeKub Shop</h1>
             </router-link>
             <form action="" class="w-[400px] flex justify-center flex-col gap-3" @submit.enter.prevent="register()">
                 <label for="username" class="font-semibold">Username</label>
@@ -62,14 +62,14 @@ export default {
                 }
             }).catch((err) => {
                 console.log(err);
-                if(err.response.status === 400){
+                if (err.response.status === 400) {
                     toast("กรุณาตรวจสอบข้อมูลใหม่อีกครั้ง", {
                         "theme": "dark",
                         "type": "error",
                         "pauseOnHover": false,
                         "dangerouslyHTMLString": true
                     })
-                }else if(err.response.status === 409){
+                } else if (err.response.status === 409) {
                     toast("มีชื่อผู้ใช้หรืออีเมลนี้อยู่ในระบบแล้ว", {
                         "theme": "dark",
                         "type": "error",
@@ -81,7 +81,7 @@ export default {
         }
     },
     created() {
-        document.title = "Sign up | UKB-SHOP";
+        document.title = "Sign up | CodeKub Shop";
     }
 };
 </script>

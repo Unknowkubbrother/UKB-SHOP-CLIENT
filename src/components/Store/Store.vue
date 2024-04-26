@@ -74,7 +74,7 @@ export default {
         this.getScript();
     },
     created() {
-        document.title = "Store | UKB-SHOP";
+        document.title = "Store | CodeKub Shop";
     }
 
 }

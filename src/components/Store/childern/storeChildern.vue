@@ -220,7 +220,7 @@ export default {
         (this.permanently.status) ? this.Plan = 'permanently' : this.Plan = 'rent';
     },
     created() {
-        document.title = "Store | UKB-SHOP";
+        document.title = "Store | CodeKub Shop";
     }
 
 }

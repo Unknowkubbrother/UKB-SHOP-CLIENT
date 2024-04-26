@@ -31,7 +31,7 @@
       },
     },
     created() {
-        document.title = "Admin | UKB-SHOP";
+        document.title = "Admin | CodeKub Shop";
     }
   }
   </script>

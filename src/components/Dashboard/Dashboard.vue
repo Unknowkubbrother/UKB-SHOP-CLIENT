@@ -452,7 +452,7 @@ export default {
         }
     },
     created() {
-        document.title = "Dashboard | UKB-SHOP";
+        document.title = "Dashboard | CodeKub Shop";
     }
 
 }
