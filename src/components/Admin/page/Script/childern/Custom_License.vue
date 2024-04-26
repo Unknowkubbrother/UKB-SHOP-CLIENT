@@ -74,8 +74,8 @@ export default {
         return {
             user: [],
             addlicense: {
-                nameScript: this.script.nameScript,
-                scriptId: this.script.id,
+                nameScript: 'AllTicket',
+                scriptId: '662be1aa7eaad0539353939b',
                 ipaddress: null,
                 owner: null,
                 rent: {
