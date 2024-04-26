@@ -451,6 +451,9 @@ export default {
             this.$router.push('/login')
         }
     },
+    created() {
+        document.title = "Dashboard | UKB-SHOP";
+    }
 
 }
 </script>

@@ -91,6 +91,11 @@ const routes = [
     component: Register
   },
   {
+    name: 'ForgotPassword',
+    path: '/forgot-password',
+    component: import('../components/ForgotPassword/ForgotPassword.vue')
+  },
+  {
     path: '/:pathMatch(.*)*',
     name: 'NotFound',
     component: NotFound
@@ -141,7 +146,7 @@ const router = createRouter({
 })
 
 router.beforeEach((to, from, next) => {
-  if (to.name == 'Login' || to.name == 'Register') {
+  if (to.name == 'Login' || to.name == 'Register' || to.name == 'ForgotPassword') {
     if (!window.$cookies.get('logged_in')) {
       next()
     } else if (window.$cookies.get('logged_in')) {

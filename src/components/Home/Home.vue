@@ -1,10 +1,10 @@
 <template>
     <div id="home">
-        <div class="w-full h-full">
+        <div class="w-full h-full select-none">
             <div class="flex justify-center items-center h-full">
                 <div class="text-center">
                     <h1 class="text-[5rem] font-bold">UKB Developer</h1>
-                    <h1 class="text-3xl mt-5 ">Selling movie tickets</h1>
+                    <h1 class="text-3xl mt-5 ">We will give you the greatest experience.</h1>
                 </div>
             </div>
         </div>
@@ -70,6 +70,9 @@ export default {
     },
     mounted(){
         this.getScript();
+    },
+    created() {
+        document.title = "UKB-SHOP";
     }
 
 }

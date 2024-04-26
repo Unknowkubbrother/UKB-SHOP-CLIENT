@@ -39,6 +39,9 @@ export default {
     },
     mounted() {
         this.getOrders();
+    },
+    created() {
+        document.title = "Order | UKB-SHOP";
     }
 }
 </script>

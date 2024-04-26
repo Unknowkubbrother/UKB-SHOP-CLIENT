@@ -29,6 +29,9 @@
       toggleSidebar() {
         this.openSidebar = !this.openSidebar
       },
+    },
+    created() {
+        document.title = "Admin | UKB-SHOP";
     }
   }
   </script>

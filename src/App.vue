@@ -11,10 +11,8 @@ export default {
     data() {
         return {};
     },
-    methods: {}
+    methods: {},
 };
 </script>
 
-<style>
-
-</style>
+<style></style>

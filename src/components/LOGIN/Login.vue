@@ -8,15 +8,15 @@
       <form action="" class="w-[400px] flex justify-center flex-col gap-3" @submit.enter.prevent="login()">
         <label for="username" class="font-semibold">Username</label>
         <input type="text" required
-          class="h-[35px] rounded-lg text-black border-2 border-slate-500 indent-3 focus:outline-none focus:border-3 focus:border-sky-500 bg-white"
+          class="h-[35px] rounded-lg text-black border-2 border-slate-500 focus:outline-none focus:border-3 focus:border-sky-500 bg-white"
           v-model="LoginData.username">
         <label for="username" class="font-semibold">Password</label>
         <input type="password" required
-          class="h-[35px] rounded-lg text-black border-2 border-slate-500 indent-3 focus:outline-none focus:border-3 focus:border-sky-500 bg-white"
+          class="h-[35px] rounded-lg text-black border-2 border-slate-500 focus:outline-none focus:border-3 focus:border-sky-500 bg-white"
           v-model="LoginData.password">
         <button type="submit" class="h-[35px] bg-[#3d7fa1] text-white rounded-lg my-5">Sign in account</button>
       </form>
-      <router-link to="/ForgotPassword" class="text-[15px]">Forgot Password ?</router-link>
+      <router-link to="/forgot-password" class="text-[15px]">Forgot Password ?</router-link>
       <button @click="register" class="w-[400px] h-[35px] bg-[#3d7fa1] text-white rounded-lg mt-[7rem]">Sign up
         account</button>
       <p class="mt-5 text-[15px] w-[500px] text-center">ถ้าผู้ใช้งานเคยมี Account บนเว็บไซต์อยู่แล้ว
@@ -70,7 +70,10 @@ export default {
     register() {
       this.$router.push("/register");
     }
-  }
+  },
+    created() {
+        document.title = "Sign in | UKB-SHOP";
+    }
 };
 </script>
 

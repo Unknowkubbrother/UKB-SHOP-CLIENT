@@ -72,6 +72,9 @@ export default {
     },
     mounted() {
         this.getScript();
+    },
+    created() {
+        document.title = "Store | UKB-SHOP";
     }
 
 }

@@ -418,7 +418,10 @@ export default {
   async mounted() {
     await this.getStore();
     this.TotalCart();
-  }
+  },
+    created() {
+        document.title = "Cart | UKB-SHOP";
+    }
 };
 </script>
 
