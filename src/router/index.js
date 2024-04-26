@@ -137,11 +137,6 @@ const routes = [
     ],
     
   },
-  {
-    name: 'Custom_License',
-    path: '/custom_license',
-    component: import('../components/Admin/page/Script/childern/Custom_License.vue')
-  }
   
 ]
 const router = createRouter({

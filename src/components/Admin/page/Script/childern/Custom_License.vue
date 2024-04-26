@@ -88,7 +88,7 @@ export default {
         }
     },
     methods: {
-        Addlicense() {
+        async Addlicense() {
             if (this.addlicense.rent.status) {
                 if (this.addlicense.rent.startDate === null || this.addlicense.rent.endDate === null) {
                     toast("กรุณากรอกข้อมูลให้ครบถ้วน", {
@@ -104,7 +104,7 @@ export default {
                 this.addlicense.rent.endDate = null
             }
             const api = `${config.EndPoint}/license/staff`;
-            axios.post(api, this.addlicense, { withCredentials: true }).then((res) => {
+            await axios.post(api, this.addlicense, { withCredentials: true }).then((res) => {
                 if (res.status === 201) {
                     toast("เพิ่ม License สำเร็จ!!", {
                         "theme": "dark",

@@ -59,15 +59,15 @@ export default {
     methods: {
         async getScriptFromUser() {
             const api = `${config.EndPoint}/license/${this.$route.params.id}`
-            axios.get(api, { withCredentials: true }).then((res) => {
+            await axios.get(api, { withCredentials: true }).then((res) => {
                 this.data = res.data
             }).catch((err) => {
                 console.log(err);
             });
         },
-        delete_a_license(data) {
+        async delete_a_license(data) {
             const api = `${config.EndPoint}/license`;
-            axios.delete(api, {
+            await axios.delete(api, {
                 withCredentials: true,
                 data: { license: data.license, owner: data.owner }, // Modify the data payload
             }).then((res) => {

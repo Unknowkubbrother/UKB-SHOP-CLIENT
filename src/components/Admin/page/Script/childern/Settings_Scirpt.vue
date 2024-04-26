@@ -7,7 +7,7 @@
                     <label>ScriptID</label>
                     <input type="text"
                         class="w-full h-[2.5rem] px-3 py-2 rounded-lg border border-[#4b4b4b] focus:outline-none focus:border-blue-500 bg-base-100 mt-2"
-                        :value="script.id" readonly>
+                        :value="script?.id" readonly>
                 </div>
                 <div>
                     <div class="flex flex-col">
@@ -16,12 +16,12 @@
                     </div>
                     <input type="text"
                         class="w-full h-[2.5rem] px-3 py-2 rounded-lg border border-[#4b4b4b] focus:outline-none focus:border-blue-500 bg-base-100 mt-2"
-                        :placeholder="script.nameScript" :value="script.nameScript"
+                        :placeholder="script?.nameScript" :value="script?.nameScript"
                         @input="$emit('update:script', { ...script, nameScript: $event.target.value })">
                 </div>
                 <div>
                     <label>Description</label>
-                    <textarea placeholder="Enter Description" :value="script.description"
+                    <textarea placeholder="Enter Description" :value="script?.description"
                         @input="$emit('update:script', { ...script, description: $event.target.value })"
                         class="w-full h-24 max-h-24 rounded-lg border border-[#4b4b4b] focus:outline-none focus:border-blue-500 bg-base-100 mt-2 overflow-auto"></textarea>
                 </div>
@@ -29,14 +29,14 @@
                     <label>Webhook</label>
                     <input type="text"
                         class="w-full h-[2.5rem] px-3 py-2 rounded-lg border border-[#4b4b4b] focus:outline-none focus:border-blue-500 bg-base-100 mt-2"
-                        :placeholder="script.webhook" :value="script.webhook"
+                        :placeholder="script?.webhook" :value="script?.webhook"
                         @input="$emit('update:script', { ...script, webhook: $event.target.value })">
                 </div>
                 <div>
                     <label>Link Download</label>
                     <input type="text"
                         class="w-full h-[2.5rem] px-3 py-2 rounded-lg border border-[#4b4b4b] focus:outline-none focus:border-blue-500 bg-base-100 mt-2"
-                        :placeholder="script.download" :value="script.download"
+                        :placeholder="script?.download" :value="script?.download"
                         @input="$emit('update:script', { ...script, download: $event.target.value })">
                 </div>
             </div>
@@ -72,7 +72,7 @@
         <div class="w-[75%] m-auto bg-base-100 rounded-md p-5 my-10">
             <div class="border-b-2 border-b-[#505050] pb-3 ">Changelogs</div>
             <div class="flex flex-col gap-4 mt-5">
-                <div v-for="(changelog, index) in script.Changelogs" :key="index">
+                <div v-for="(changelog, index) in script?.Changelogs" :key="index">
                     <div class="flex flex-col">
                         <label>Version</label>
                         <span class="text-[#777777] text-sm">เวอร์ชั่นของ Script</span>
