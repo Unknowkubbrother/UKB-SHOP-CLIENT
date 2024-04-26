@@ -40,6 +40,17 @@
                                 ? 'border-t-2 border-t-[#3d7fa1] text-white shadow'
                                 : 'text-blue-100 hover:bg-white/[0.12] hover:text-white',
                         ]">
+                            <span class="text-sm font-semibold">Custom License</span>
+                        </button>
+                    </Tab>
+                    <Tab as="template" v-slot="{ selected }">
+                        <button dir="ltr" :class="[
+                            'w-full py-2.5 text-sm font-medium leading-5',
+                            'focus:outline-none',
+                            selected
+                                ? 'border-t-2 border-t-[#3d7fa1] text-white shadow'
+                                : 'text-blue-100 hover:bg-white/[0.12] hover:text-white',
+                        ]">
                             <span class="text-sm font-semibold">Settings</span>
                         </button>
                     </Tab>
@@ -51,6 +62,9 @@
                     </TabPanel>
                     <TabPanel class="w-full m-auto rounded-sm p-3 overflow-auto">
                        <User_Script/>
+                    </TabPanel>
+                    <TabPanel class="w-full m-auto rounded-sm p-3 overflow-auto">
+                      <Custom_License/>
                     </TabPanel>
                     <TabPanel class="w-[90%] m-auto rounded-sm p-3 overflow-auto">
                         <Settings_Scirpt v-model:script="script.data" @deleteScript="DeleteScript" @updateScript="UpdateScript"/>
@@ -68,12 +82,14 @@ import Settings_Scirpt from './Settings_Scirpt.vue';
 import {toast} from 'vue3-toastify';
 import Update_Version from './Update_Version.vue';
 import User_Script from './User_Script.vue';
+import Custom_License from './Custom_License.vue';
 export default {
     name: "Script_Admin_Childern",
     components: {
         Settings_Scirpt,
         Update_Version,
-        User_Script
+        User_Script,
+        Custom_License
     },
     data() {
         return {

@@ -9,7 +9,7 @@
             </div>
             <div class="collapse-content text-sm">
 
-                    <div class="w-full bg-[#353535] rounded-lg flex justify-around gap-2 p-5 text-sm">
+                    <div class="w-full bg-[#353535] rounded-md flex justify-around gap-2 p-5 text-sm">
                 <div class="flex flex-col justify-center items-center">
                     <span>Order Number </span>
                     <span>{{ data.transRefId }}</span>
@@ -29,7 +29,7 @@
                 </div>
                 </div>
 
-                <div class="w-full rounded-lg p-5">
+                <div class="w-full rounded-md p-5">
               <div class="text-lg my-5 font-semibold ">Order details</div>
               <div class="w-full">
                 <div class="flex justify-between font-semibold mb-5">

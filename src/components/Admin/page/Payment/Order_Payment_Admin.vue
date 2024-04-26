@@ -1,5 +1,10 @@
 <template>
-    <div class="w-full h-full my-5">
+    <div class="w-full h-full">
+        <div class="w-[95%] flex justify-end items- mb-5">
+            <input type="text"
+                class="px-3 py-2 rounded-lg border border-slate-700 focus:outline-none focus:border-blue-500 bg-base-100 mt-2"
+                v-model="seacrhCustomer" placeholder="Seacrh Customer" required>
+        </div>
         <div class="w-[90%] bg-base-100 m-auto rounded-lg p-5">
             <template v-for="(data, idx) in order" :key="idx">
                 <div class="collapse collapse-arrow bg-base-200 my-2 cursor-pointer"
@@ -13,8 +18,8 @@
                     </div>
                     <div class="collapse-content text-sm">
                         <template v-for="(detail, index) in (data.order)" :key="index">
-                            <div class="collapse collapse-arrow bg-base-200 my-2 cursor-pointer"
-                            :class="checked_childern === index ? 'collapse-open' : 'collapse-close'"
+                            <div class="collapse collapse-plus bg-base-200 my-2 cursor-pointer"
+                                :class="checked_childern === index ? 'collapse-open' : 'collapse-close'"
                                 @click.stop="(checked_childern != index) ? (checked_childern = index) : (checked_childern = null)">
                                 <input type="radio" name="my-accordion-2">
                                 <div class="collapse-title text-lg font-medium ">
@@ -59,11 +64,13 @@
                                                     v-for="(data_detail, index) in (detail.data)" :key="index">
                                                     <div class="flex flex-col">
                                                         <span>{{ data_detail.nameScript }}</span>
-                                                        <span v-if="data_detail.Plan.permanently.status">permanently</span>
+                                                        <span
+                                                            v-if="data_detail.Plan.permanently.status">permanently</span>
                                                         <span v-else>rent : {{ data_detail.Plan.rent.day }} day</span>
                                                     </div>
                                                     <span>{{ data_detail.Plan.permanently.status ?
-                                                        data_detail.Plan.permanently.price : data_detail.Plan.rent.price }}
+                                                        data_detail.Plan.permanently.price : data_detail.Plan.rent.price
+                                                        }}
                                                         Baht</span>
                                                 </div>
                                                 <!--  -->
@@ -90,14 +97,16 @@
 
 <script>
 import axios from 'axios';
-import { config } from '../../../../config';
+import { config } from '../../../../config'; // Add missing import statement
+
 export default {
     name: "Order_Payment_Admin",
     data() {
         return {
             checked: null,
             checked_childern: null,
-            order: []
+            order: [],
+            seacrhCustomer: ''
         }
     },
     methods: {
@@ -122,6 +131,19 @@ export default {
             }).catch((err) => {
                 console.log(err);
             });
+        },
+        SearchCustomer() {
+            if (this.seacrhCustomer === '') {
+                this.getPayment();
+            } else {
+                this.order = this.order.filter((item) => item.username.includes(this.seacrhCustomer));
+            }
+        }
+
+    },
+    watch: {
+        seacrhCustomer() {
+            this.SearchCustomer();
         }
     },
     mounted() {

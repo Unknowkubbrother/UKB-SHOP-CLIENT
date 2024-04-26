@@ -4,6 +4,12 @@
             <div class="border-b-2 border-b-[#505050] pb-3 ">ข้อมูลทั่วไป</div>
             <div class="flex flex-col gap-4 mt-5">
                 <div>
+                    <label>ScriptID</label>
+                    <input type="text"
+                        class="w-full h-[2.5rem] px-3 py-2 rounded-lg border border-[#4b4b4b] focus:outline-none focus:border-blue-500 bg-base-100 mt-2"
+                        :value="script.id" readonly>
+                </div>
+                <div>
                     <div class="flex flex-col">
                         <label>ScriptName</label>
                         <span class="text-[#777777] text-sm">ใช้ได้เฉพาะภาษาอังกฤษ, ตัวเลข, เว้นวรรค และ _</span>
@@ -142,9 +148,11 @@
         </div>
 
         <div class="w-[75%] flex justify-end items-center my-10 gap-4 m-auto">
-                <button class="px-7 py-2 bg-rose-400 text-white rounded-lg hover:bg-rose-700 duration-300" @click="$emit('deleteScript')">ลบ Script</button>
-                <button class="px-7 py-2 bg-primary text-white rounded-lg hover:bg-secondary duration-300" @click="$emit('updateScript')">บันทึก</button>
-            </div>
+            <button class="px-7 py-2 bg-rose-400 text-white rounded-lg hover:bg-rose-700 duration-300"
+                @click="$emit('deleteScript')">ลบ Script</button>
+            <button class="px-7 py-2 bg-primary text-white rounded-lg hover:bg-secondary duration-300"
+                @click="$emit('updateScript')">บันทึก</button>
+        </div>
 
 
     </div>

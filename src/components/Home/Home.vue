@@ -21,12 +21,14 @@
                 <div class="w-[90%] h-[75%] m-auto rounded-lg overflow-auto">
                     <div class="grid grid-cols-4 gap-4">
                         <!-- <--->
-                        <div @click="NextStoreChildern(data.id)" class="w-[90%] h-full rounded-lg overflow-hidden m-auto my-1 duration-300 cursor-pointer bg-[#276381] hover:bg-[#3d7fa1]" v-for="(data,idx) in script.data" :key="idx">
+                        <div v-for="(data,idx) in script.data" :key="idx">
+                        <div @click="NextStoreChildern(data.id)" class="w-[90%] h-full rounded-lg overflow-hidden m-auto my-1 duration-300 cursor-pointer bg-[#276381] hover:bg-[#3d7fa1]" v-if="data.status == 'active'">
                             <img :src="data.promote.image[0]" class="w-[90%] h-[200px] object-cover m-auto rounded-lg my-2">
                             <div class="w-[90%] h-[30px] flex justify-center items-center m-auto rounded-lg bg-[#3d7fa1] duration-300">
                                 <div class="text-center text-lg">{{ data.nameScript }}</div>
                             </div>
                         </div>
+                    </div>
                         <!-- <--->
                         
                         

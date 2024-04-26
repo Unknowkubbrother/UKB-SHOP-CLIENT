@@ -7,7 +7,7 @@
             </div>
             <div class="flex justify-center"></div>
             <div id="chart" class="mt-5">
-                <apexchart height="550" :options="chartOptions" :series="series"></apexchart>
+                <apexchart :height="height" :options="chartOptions" :series="series"></apexchart>
             </div>
             <div class="w-full flex justify-start items-center">
                 รายได้รวมเดือนนี้ : {{ series[0].data.reduce((acc, item) => acc + item, 0) }} บาท
@@ -23,6 +23,7 @@ export default {
     name: "Dashboard_Payment_Admin",
     data() {
         return {
+            height: 550,
             seletedMonth: new Date().toISOString().slice(0, 7),
             series: [{
                 name: "ยอดการชำระเงิน",
