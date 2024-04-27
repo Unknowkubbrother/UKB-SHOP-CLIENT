@@ -1,5 +1,5 @@
 <template>
-    <div id="storeChildern" class="relative">
+    <div id="storeChildern" class="relative" :class="(showImage) ? 'blur bg-black/40 select-none' : ''">
         <div class="lg:w-[50%] min-[430px]:w-[70%] h-full m-auto my-10">
             <div class="flex justify-between items-center mb-20">
                 <router-link to="/store"
@@ -14,10 +14,11 @@
                 </div>
             </div>
             <div class="image w-[70%] bg-[#262626] px-5 py-5 rounded-xl m-auto mt-[-5px]">
-                <Carousel :items-to-show="2.5" :wrap-around="true">
+                <Carousel :items-to-show="2.5" :wrap-around="true" class="cursor-pointer">
                     <Slide v-for="(slide, idx) in img" :key="idx" class="h-[200px]">
                         <img :src="slide" :alt="idx"
-                            class="w-full h-full object-cover p-2 rounded-xl overflow-hidden z-50">
+                            class="w-full h-full object-cover p-2 rounded-xl overflow-hidden z-50"
+                            @click="zoomImage(slide)">
                     </Slide>
 
                     <template #addons>
@@ -39,8 +40,9 @@
                         <!--  -->
                         <div class="w-full m-auto bg-[#222] rounded-xl flex" v-for="(data, id) in store.Changelogs"
                             :key="id">
-                            <div class="version flex justify-start items-center m-2">VERSION<span
-                                    class="ml-2">{{ data.version }}</span>
+                            <div class="version flex justify-start items-center m-2">VERSION<span class="ml-2">{{
+                                data.version
+                                    }}</span>
                             </div>
 
                             <div class="w-[80%] text m-2 pl-5 border-l-2 border-[#ffffff] text-start">
@@ -62,7 +64,7 @@
                                 <input type="radio" value="permanently" v-model="Plan">
                                 <span>PERMANENTLY</span>
                             </div>
-                            <div class="flex gap-2" v-if="rent.status" >
+                            <div class="flex gap-2" v-if="rent.status">
                                 <input type="radio" value="rent" v-model="Plan">
                                 <span>RENT</span>
                             </div>
@@ -83,8 +85,16 @@
                 </div>
             </div>
         </div>
-        <ButtonCart ref="cart"/>
+        <ButtonCart ref="cart" />
     </div>
+    <Transition>
+        <div class="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 cursor-pointer flex justify-between items-center flex-col"
+            v-if="showImage" @click="showImage = false">
+            <img :src="previewImage" alt="" width="400" height="400"
+                class="previewImageStore object-cover rounded-lg m-auto">
+        </div>
+    </Transition>
+
 </template>
 
 <script>
@@ -104,14 +114,16 @@ export default {
             store: [],
             img: [],
             permanently: {
-                    status: false,
-                    price: 0
-                },
+                status: false,
+                price: 0
+            },
             rent: {
                 status: false,
                 Unitprice: 0
             },
-            Plan: 'permanently'
+            Plan: 'permanently',
+            showImage: false,
+            previewImage: ''
         }
     },
     methods: {
@@ -135,16 +147,16 @@ export default {
             });
         },
         async AddCart() {
-            if(this.Plan == 'permanently'){
+            if (this.Plan == 'permanently') {
                 const payload = {
                     scriptId: this.store.id,
                     nameScript: this.store.nameScript,
-                    Plan:{
-                        permanently:{
+                    Plan: {
+                        permanently: {
                             status: true,
                             price: this.permanently.price
                         },
-                        rent:{
+                        rent: {
                             status: false,
                             Unitprice: 0,
                             day: 0,
@@ -153,16 +165,16 @@ export default {
                     }
                 }
                 await this.$refs.cart.addToCart(payload);
-            }else{
+            } else {
                 const payload = {
                     scriptId: this.store.id,
                     nameScript: this.store.nameScript,
-                    Plan:{
-                        permanently:{
+                    Plan: {
+                        permanently: {
                             status: false,
                             price: 0
                         },
-                        rent:{
+                        rent: {
                             status: true,
                             Unitprice: this.rent.Unitprice,
                             day: 1,
@@ -173,17 +185,17 @@ export default {
                 await this.$refs.cart.addToCart(payload);
             }
         },
-        async Purchase(){
-            if(this.Plan == 'permanently'){
+        async Purchase() {
+            if (this.Plan == 'permanently') {
                 const payload = {
                     scriptId: this.store.id,
                     nameScript: this.store.nameScript,
-                    Plan:{
-                        permanently:{
+                    Plan: {
+                        permanently: {
                             status: true,
                             price: this.permanently.price
                         },
-                        rent:{
+                        rent: {
                             status: false,
                             Unitprice: 0,
                             day: 0,
@@ -193,16 +205,16 @@ export default {
                 }
                 await this.$refs.cart.addToCart(payload);
                 this.$router.push('/cart');
-            }else{
+            } else {
                 const payload = {
                     scriptId: this.store.id,
                     nameScript: this.store.nameScript,
-                    Plan:{
-                        permanently:{
+                    Plan: {
+                        permanently: {
                             status: false,
                             price: 0
                         },
-                        rent:{
+                        rent: {
                             status: true,
                             Unitprice: this.rent.Unitprice,
                             day: 1,
@@ -213,6 +225,10 @@ export default {
                 await this.$refs.cart.addToCart(payload);
                 this.$router.push('/cart');
             }
+        },
+        zoomImage(image) {
+            this.showImage = true
+            this.previewImage = image
         }
     },
     async mounted() {
@@ -227,6 +243,10 @@ export default {
 </script>
 
 <style>
+.previewImageStore {
+    transform: scale(140%);
+}
+
 .text {
     word-wrap: break-word;
 }
