@@ -7,6 +7,7 @@ import 'vue3-toastify/dist/index.css';
 import VueCookies from 'vue-cookies'
 import { Carousel, Navigation, Slide } from 'vue3-carousel'
 import VueApexCharts from "vue3-apexcharts";
+import VueCryptojs from 'vue-cryptojs'
 
 import 'vue3-carousel/dist/carousel.css'
 
@@ -22,10 +23,11 @@ app.component('TabList', TabList)
 app.component('Tab', Tab)
 app.component('TabPanels', TabPanels)
 app.component('TabPanel', TabPanel)
-app.use(VueCookies, {path: '/', domain: '.unknowkubbrother.net'})
-// app.use(VueCookies ,{path: '/', domain: 'localhost'})
+// app.use(VueCookies, {path: '/', domain: '.unknowkubbrother.net'})
+app.use(VueCookies ,{path: '/', domain: 'localhost'})
 app.component('Carousel', Carousel)
 app.component('Navigation', Navigation)
 app.component('Slide', Slide)
 app.use(VueApexCharts)
+app.use(VueCryptojs)
 app.mount('#app')

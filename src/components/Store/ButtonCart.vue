@@ -20,14 +20,20 @@ export default {
         };
     },
     mounted(){
-        this.store = JSON.parse(localStorage.getItem('cart')) || [];
+        if(localStorage.getItem('cart')){
+            const decryptedData = this.$CryptoJS.AES.decrypt(localStorage.getItem('cart'), 'ukb-developer').toString(this.$CryptoJS.enc.Utf8);
+            this.store = JSON.parse(decryptedData) || [];
+        }else{
+            this.store = []
+        }
         this.count = this.store.length;
     },
     methods: {
         addToCart(data){
             this.store.push(data);
             this.count = this.store.length;
-            localStorage.setItem('cart', JSON.stringify(this.store));
+            const encryptedData = this.$CryptoJS.AES.encrypt(JSON.stringify(this.store), 'ukb-developer').toString();
+            localStorage.setItem('cart', encryptedData);
         },
         NextToCart(){
             if(this.$cookies.get('logged_in')){

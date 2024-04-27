@@ -50,7 +50,7 @@
               <span>{{ total }} Baht</span>
             </div>
           </div>
-          
+
           <div v-else class="w-full p-10 flex justify-center items-center flex-col gap-4">
             <i class="fa-solid fa-cart-shopping text-[5rem] text-[#5c5c5c]"></i>
             <span>Your cart is empty.</span>
@@ -58,11 +58,10 @@
           </div>
 
         </div>
-        <div 
-        :class="(store.length !== 0) ? 'justify-between items-center' : 'justify-end items-center mt-2'"
-        class="w-full flex">
+        <div :class="(store.length !== 0) ? 'justify-between items-center' : 'justify-end items-center mt-2'"
+          class="w-full flex">
           <div class="coupon w-[90%] ml-5 mt-2" v-if="store.length !== 0">
-            <div class="w-[40%] h-[60px] bg-[#262626] flex justify-center items-center gap-3 rounded-lg p-4 z-40" >
+            <div class="w-[40%] h-[60px] bg-[#262626] flex justify-center items-center gap-3 rounded-lg p-4 z-40">
               <input type="text" placeholder="Coupon code" v-model="coupon"
                 class="w-[70%] h-[30px] rounded-lg border-2 border-[#353535] p-2 bg-transparent focus:outline-none focus:ring-0">
               <button @click="CheckCoupon" class="w-[30%] h-[30px] rounded-lg bg-[#3d7fa1] text-white text-xs">Apply
@@ -266,14 +265,20 @@ export default {
   },
   methods: {
     getStore() {
-      this.store = JSON.parse(localStorage.getItem('cart')) || [];
+      if (localStorage.getItem('cart')) {
+        const decryptedData = this.$CryptoJS.AES.decrypt(localStorage.getItem('cart'), 'ukb-developer').toString(this.$CryptoJS.enc.Utf8);
+        this.store = JSON.parse(decryptedData) || [];
+      } else {
+        this.store = []
+      }
       this.store.map((data) => {
         if (data.Plan.rent.status) {
           data.Plan.rent.price = data.Plan.rent.Unitprice * data.Plan.rent.day;
           this.$watch(() => data.Plan.rent.day, (newVal) => {
             data.Plan.rent.price = data.Plan.rent.Unitprice * newVal;
             this.TotalCart();
-            localStorage.setItem('cart', JSON.stringify(this.store));
+            const encryptedData = this.$CryptoJS.AES.encrypt(JSON.stringify(this.store), 'ukb-developer').toString();
+            localStorage.setItem('cart', encryptedData);
           });
         }
       })
@@ -290,7 +295,8 @@ export default {
     },
     delete_a_Store(data) {
       this.store = this.store.filter((item) => item !== data);
-      localStorage.setItem('cart', JSON.stringify(this.store));
+      const encryptedData = this.$CryptoJS.AES.encrypt(JSON.stringify(this.store), 'ukb-developer').toString();
+      localStorage.setItem('cart', encryptedData);
       this.TotalCart();
     },
     CheckCoupon() {
@@ -419,9 +425,9 @@ export default {
     await this.getStore();
     this.TotalCart();
   },
-    created() {
-        document.title = "Cart | CodeKub Shop";
-    }
+  created() {
+    document.title = "Cart | CodeKub Shop";
+  }
 };
 </script>
 
