@@ -266,8 +266,15 @@ export default {
   methods: {
     getStore() {
       if (localStorage.getItem('cart')) {
-        const decryptedData = this.$CryptoJS.AES.decrypt(localStorage.getItem('cart'), 'ukb-developer').toString(this.$CryptoJS.enc.Utf8);
+        try{
+          const decryptedData = this.$CryptoJS.AES.decrypt(localStorage.getItem('cart'), 'ukb-developer').toString(this.$CryptoJS.enc.Utf8);
         this.store = JSON.parse(decryptedData) || [];
+        }catch(err){
+          console.log(err)
+          this.store = []
+          const encryptedData = this.$CryptoJS.AES.encrypt(JSON.stringify([]), 'ukb-developer').toString();
+          localStorage.setItem('cart', encryptedData);
+        }
       } else {
         this.store = []
       }

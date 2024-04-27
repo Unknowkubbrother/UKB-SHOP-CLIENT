@@ -1,12 +1,14 @@
 <template>
-  <div class="cart fixed bottom-5 right-10">
-            <button @click="NextToCart" class="flex justify-center items-center bg-[#3d7fa1] text-white rounded-full w-[60px] h-[60px] cursor-pointer">
+    <div class="cart fixed bottom-5 right-10">
+        <button @click="NextToCart"
+            class="flex justify-center items-center bg-[#3d7fa1] text-white rounded-full w-[60px] h-[60px] cursor-pointer">
             <i class="fa-solid fa-shopping-cart text-2xl"></i>
-            </button>
-            <div class="product-count bg-red-500 text-white rounded-full w-5 h-5 flex justify-center items-center absolute -top-1 -left-2 text-sm">
+        </button>
+        <div
+            class="product-count bg-red-500 text-white rounded-full w-5 h-5 flex justify-center items-center absolute -top-1 -left-2 text-sm">
             {{ count }}
-            </div>
         </div>
+    </div>
 </template>
 
 <script>
@@ -19,26 +21,33 @@ export default {
             count: 0
         };
     },
-    mounted(){
-        if(localStorage.getItem('cart')){
-            const decryptedData = this.$CryptoJS.AES.decrypt(localStorage.getItem('cart'), 'ukb-developer').toString(this.$CryptoJS.enc.Utf8);
-            this.store = JSON.parse(decryptedData) || [];
-        }else{
+    mounted() {
+        if (localStorage.getItem('cart')) {
+            try {
+                const decryptedData = this.$CryptoJS.AES.decrypt(localStorage.getItem('cart'), 'ukb-developer').toString(this.$CryptoJS.enc.Utf8);
+                this.store = JSON.parse(decryptedData) || [];
+            } catch (err) {
+                console.log(err)
+                this.store = []
+                const encryptedData = this.$CryptoJS.AES.encrypt(JSON.stringify([]), 'ukb-developer').toString();
+                localStorage.setItem('cart', encryptedData);
+            }
+        } else {
             this.store = []
         }
         this.count = this.store.length;
     },
     methods: {
-        addToCart(data){
+        addToCart(data) {
             this.store.push(data);
             this.count = this.store.length;
             const encryptedData = this.$CryptoJS.AES.encrypt(JSON.stringify(this.store), 'ukb-developer').toString();
             localStorage.setItem('cart', encryptedData);
         },
-        NextToCart(){
-            if(this.$cookies.get('logged_in')){
+        NextToCart() {
+            if (this.$cookies.get('logged_in')) {
                 this.$router.push('/cart');
-            }else{
+            } else {
                 toast('กรุณาเข้าสู่ระบบก่อน', {
                     "theme": "dark",
                     "type": "error",
@@ -55,6 +64,4 @@ export default {
 };
 </script>
 
-<style>
-
-</style>
+<style></style>
