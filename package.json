@@ -1,6 +1,6 @@
 {
-  "name": "vue-web-reg",
-  "version": "0.0.0",
+  "name": "vue-ukb-shop-client",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
     "dev": "vite",

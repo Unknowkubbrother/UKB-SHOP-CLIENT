@@ -1,12 +1,12 @@
 <template>
     <div id="Topbar">
-        <div class="flex justify-between items-center w-full p-3 lg:px-10">
+        <div class="flex justify-between items-center w-full p-3 md:px-10">
             <router-link to="/home" class="logo flex justify-center items-center" exact>
-                <img src="../assets/logo_codekub.png" alt="" class="w-[70px] h-[70px] object-cover m-auto">
-                <h1 class="text-2xl ml-3 border-l-2 px-5">CodeKub Shop</h1>
+                <img src="../assets/logo_codekub.png" alt="" class="w-[40px] h-[40px] md:w-[70px] md:h-[70px] object-cover m-auto hidden md:block">
+                <h1 class="text-xl md:text-2xl md:ml-3 md:border-l-2 px-2 md:px-5 font-semibold md:font-normal">CodeKub Shop</h1>
             </router-link>
             <nav>
-                <ul class="flex justify-between items-center gap-7 text-lg">
+                <ul class="flex justify-between items-center md:gap-7 text-lg">
                     <li>
                         <router-link to="/store" class-active="active"
                             class="hover:text-sky-500 hover:duration-300 p-[10px]" exact>
@@ -24,7 +24,7 @@
                         <Menu1 as="div" class="relative inline-block text-left z-40" >
                             <div>
                                 <MenuButton
-                                    class="inline-flex w-full justify-center rounded-md bg-black/20 px-4 py-2 hover:bg-black/30 hover:text-sky-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/75">
+                                    class="inline-flex w-full justify-center rounded-md bg-black/20 pl-4 py-2 hover:bg-black/30 hover:text-sky-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/75">
                                     {{ Logined }}
                                     <ChevronDownIcon class="-mr-1 ml-2 h-5 w-5 text-violet-200 hover:text-violet-100"
                                         aria-hidden="true" />

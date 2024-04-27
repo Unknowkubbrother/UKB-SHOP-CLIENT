@@ -1,14 +1,14 @@
 <template>
     <div id="ForgotPassword">
-        <div class="w-full h-full flex items-center flex-col">
-            <router-link to="/home" class="flex justify-center items-center mt-[10rem] mb-[5rem]">
+        <div class="w-[95%] md:w-full h-full flex items-center flex-col m-auto">
+            <router-link to="/home" class="flex justify-center items-center mt-[5rem] md:mt-[10rem] md:mb-[5rem] mb-5">
                 <img src="../../assets/logo_codekub.png" alt="" class="w-[70px] h-[70px] object-cover m-auto ">
         <h1 class="text-3xl font-bold ml-2 border-l-2 px-5">CodeKub Shop</h1>
             </router-link>
-            <div class="w-[70%] flex justify-between items-start">
-                <div class="w-[50%] flex justify-start items-center flex-col">
-                    <div class="w-[70%] justify-start items-center mb-5"><span class="text-xl font-semibold">Request Secret code</span></div>
-                    <form class="w-[70%] flex flex-col gap-2 justify-start items-start"
+            <div class="w-full md:w-[70%] flex flex-col md:flex-row justify-between md:items-start items-center">
+                <div class="w-full md:w-[50%] flex justify-start items-center flex-col">
+                    <div class="w-[80%] md:w-[70%] justify-start items-center mb-5 m-auto"><span class="text-xl font-semibold">Request Secret code</span></div>
+                    <form class="w-[80%] md:w-[70%] flex flex-col gap-2 md:justify-start items-start m-auto justify-center"
                         @submit.enter.prevent="sendSecretCode">
                         <label for="email">Email address</label>
                         <input type="email" required
@@ -18,9 +18,9 @@
                             the secret code</button>
                     </form>
                 </div>
-                <div class="w-[50%] flex justify-center items-center border-l-2 border-[#dadada] flex-col">
-                    <div class="w-[70%] justify-start items-center mb-5"><span class="text-xl font-semibold">Reset Password</span></div>
-                    <form action="" class="w-[70%] flex justify-center flex-col gap-3"
+                <div class="w-full md:w-[50%] flex justify-center items-center md:border-l-2 md:border-[#dadada] flex-col m-auto mb-10 mt-10 md:mt-0">
+                    <div class="w-[80%] md:w-[70%] justify-start items-center mb-5 m-auto"><span class="text-xl font-semibold">Reset Password</span></div>
+                    <form action="" class="w-[80%] md:w-[70%] flex justify-center flex-col gap-3 m-auto"
                         @submit.enter.prevent="resetpassword()">
                         <label for="username">Username</label>
                         <input type="text" required v-model="username"

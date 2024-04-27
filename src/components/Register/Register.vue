@@ -1,11 +1,11 @@
 <template>
     <div id="Register">
-        <div class="w-full h-full flex items-center flex-col">
+        <div class="w-[95%] md:w-full h-full flex items-center flex-col m-auto">
             <router-link to="/home" class="flex justify-center items-center mt-[10rem] mb-[5rem]">
                 <img src="../../assets/logo_codekub.png" alt="" class="w-[70px] h-[70px] object-cover m-auto">
                 <h1 class="text-3xl font-bold ml-2 border-l-2 px-5">CodeKub Shop</h1>
             </router-link>
-            <form action="" class="w-[400px] flex justify-center flex-col gap-3" @submit.enter.prevent="register()">
+            <form action="" class="w-[90%] md:w-[400px] flex justify-center flex-col gap-3 m-auto" @submit.enter.prevent="register()">
                 <label for="username" class="font-semibold">Username</label>
                 <input type="text" required
                     class="h-[35px] rounded-lg text-black border-2 border-slate-500 focus:outline-none focus:border-3 focus:border-sky-500 bg-white"
