@@ -1,6 +1,6 @@
 <template>
   <div id="cart">
-    <div class="w-[95%] md:w-[60%] h-full m-auto mb-10">
+    <div class="w-[95%] md:w-[70%] xl:w-[60%] h-full m-auto mb-10">
       <div class="w-full h-[130px] flex justify-between items-center">
         <ul class="steps w-full">
           <li data-content="1" :class="{
@@ -59,16 +59,16 @@
 
         </div>
         <div :class="(store.length !== 0) ? 'justify-between items-center' : 'justify-end items-center mt-2'"
-          class="w-full flex flex-col md:flex-row">
-          <div class="coupon w-[95%] m-auto flex flex-col md:flex-row justify-center items-end md:justify-between md:items-center mt-2" v-if="store.length !== 0">
+          class="w-full flex flex-col xl:flex-row">
+          <div class="coupon w-[95%] m-auto flex flex-col xl:flex-row justify-center items-end xl:justify-between xl:items-center mt-2" v-if="store.length !== 0">
             <div
-              class="w-full md:w-[40%] h-[70px] bg-[#262626] flex justify-center items-center gap-3 rounded-lg p-4 z-40">
+              class="w-full xl:w-[40%] h-[70px] bg-[#262626] flex justify-center items-center gap-3 rounded-lg p-4 z-40">
               <input type="text" placeholder="Coupon code" v-model="coupon"
                 class="w-[70%] h-[30px] rounded-lg border-2 border-[#353535] p-2 bg-transparent focus:outline-none focus:ring-0">
-              <button @click="CheckCoupon" class="w-[30%] h-[40px] rounded-lg bg-[#3d7fa1] text-white text-xs md:text-sm">Apply
+              <button @click="CheckCoupon" class="w-[30%] h-[40px] rounded-lg bg-[#3d7fa1] text-white text-xs xl:text-sm">Apply
                 Coupon</button>
             </div>
-            <button @click="steptwo()" class="btn btn-primary text-white mt-5 md:mt-[-1rem]">Next <i
+            <button @click="steptwo()" class="btn btn-primary text-white mt-5 xl:mt-[-1rem]">Next <i
                 class="fa-solid fa-arrow-right"></i></button>
           </div>
         </div>
@@ -78,9 +78,9 @@
 
       <!--  -->
       <div class="w-full" v-if="step == 2">
-        <div class="w-full md:h-[500px] rounded-lg flex flex-col md:flex-row justify-center md:justify-start items-center overflow-hidden gap-3">
-          <div class="w-full md:w-[50%] md:h-full flex flex-col gap-3">
-            <div class="list-store w-full h-[300px] md:h-[60%] bg-base-100 rounded-lg p-3 text-sm">
+        <div class="w-full xl:h-[500px] rounded-lg flex flex-col xl:flex-row justify-center xl:justify-start items-center overflow-hidden gap-3">
+          <div class="w-full xl:w-[50%] xl:h-full flex flex-col gap-3">
+            <div class="list-store w-full h-[300px] xl:h-[60%] bg-base-100 rounded-lg p-3 text-sm">
 
               <div class="w-full h-[85%] mb-3 flex flex-col gap-1 overflow-auto">
                 <!--  -->
@@ -106,19 +106,19 @@
 
             </div>
 
-            <div class="payment w-full h-[200px] md:h-[40%] bg-base-100 rounded-lg p-3 text-sm flex">
-              <div class="qrcode w-[55%] md:w-[32%] h-full flex justify-center items-center rounded-lg overflow-hidden">
-                <div v-html="Qrcodepayment" class="w-full h-full m-auto"></div>
+            <div class="payment w-full h-[200px] min-[667px]:h-[400px] md:h-[300px] xl:h-[40%] bg-base-100 rounded-lg p-3 text-sm flex">
+              <div class="qrcode w-[55%] md:w-[40%] lg:w-[30%] xl:w-[32%] h-full flex justify-center items-center rounded-lg overflow-hidden">
+                <div v-html="Qrcodepayment" class="w-full m-auto"></div>
               </div>
               <div class="w-[15%] h-full flex justify-between items-center flex-col">
                 <div class="w-[2px] h-[40%] bg-white"></div>
                 <div class="w-full h-[20%] flex justify-center items-center"><span>OR</span></div>
                 <div class="w-[2px] h-[40%] bg-white"></div>
               </div>
-              <div class="md:w-[53%] h-full">
+              <div class="xl:w-[53%] h-full">
                 <div class="w-full h-[80%] flex flex-col gap-2">
                   <div class="flex gap-2">
-                    <img src="../../assets/scb-logo.jpg" alt="scb-logo" class="w-5 h-5 rounded-sm overflow-hidden mt-2 md:mt-0">
+                    <img src="../../assets/scb-logo.jpg" alt="scb-logo" class="w-5 h-5 rounded-sm overflow-hidden mt-2 xl:mt-0">
                     Nutchanon Sapmeechai
                   </div>
                   <div class="flex flex-col">
@@ -139,14 +139,14 @@
             </div>
 
           </div>
-          <div class="slip w-full md:w-[50%] h-[300px] md:h-full bg-base-100 rounded-lg flex flex-col justify-start items-center p-3">
+          <div class="slip w-full xl:w-[50%] h-[300px] xl:h-full bg-base-100 rounded-lg flex flex-col justify-start items-center p-3">
             <div
-              class="w-full h-[80%] md:h-[85%] border-dashed border-2 border-[#464646] rounded-lg flex justify-center items-center p-5">
+              class="w-full h-[80%] xl:h-[85%] border-dashed border-2 border-[#464646] rounded-lg flex justify-center items-center p-5">
               <div class="imagePreviewWrapper" :style="{ 'background-image': `url(${previewImage})` }"
                 @click="selectImage"></div>
             </div>
-            <div class="w-full h-[20%] md:h-[15%] flex justify-center items-center">
-              <label class="fileslip w-full h-[75%] mt-2 md:mt-0 md:h-[70%] flex justify-center items-center">
+            <div class="w-full h-[20%] xl:h-[15%] flex justify-center items-center">
+              <label class="fileslip w-full h-[75%] mt-2 xl:mt-0 xl:h-[70%] flex justify-center items-center">
                 <input ref="fileInput" type="file" @input="pickFile" required>
                 <span><i class="fa-solid fa-cloud-arrow-up mr-2"></i>Upload Receipt</span>
               </label>
@@ -154,7 +154,7 @@
           </div>
 
         </div>
-        <div class="flex justify-between items-center mt-10 md:mt-5">
+        <div class="flex justify-between items-center mt-10 xl:mt-5">
           <button @click="step = 1" class="btn text-white"><i class="fa-solid fa-arrow-left"></i> Back</button>
           <button @click="Checkout()" class="btn btn-primary text-white">Checkout</button>
         </div>
@@ -162,14 +162,14 @@
 
       <!--  -->
 
-      <div class="w-[95%] md:w-full m-auto" v-if="step == 3">
+      <div class="w-[95%] xl:w-full m-auto" v-if="step == 3">
         <div class="w-full bg-base-100 rounded-lg">
-          <div class="w-full h-full m-auto p-5 md:p-10">
+          <div class="w-full h-full m-auto p-5 xl:p-10">
 
             <div class="mt-5 mb-10 flex justify-center items-center text-2xl font-bold"><span>Thank you for your
                 order</span></div>
 
-            <div class="w-full bg-[#353535] rounded-lg flex flex-col md:flex-row jstify-center md:justify-around gap-2 p-5 text-lg ">
+            <div class="w-full bg-[#353535] rounded-lg flex flex-col xl:flex-row jstify-center xl:justify-around gap-2 p-5 text-lg ">
               <div class="flex flex-col justify-center items-center">
                 <span>Order Number </span>
                 <span>{{ orderpreview.transRefId }}</span>
@@ -220,7 +220,7 @@
 
               </div>
             </div>
-            <div class="w-full mt-10 bg-[#353535] rounded-lg p-5 md:p-10">
+            <div class="w-full mt-10 bg-[#353535] rounded-lg p-5 xl:p-10">
               <div class="flex justify-start items-start gap-3">
                 <i class="fa-solid fa-circle-exclamation text-orange-400 text-2xl"></i>
                 <div>

@@ -1,13 +1,14 @@
 <template>
     <div class="w-full h-full flex">
       <Sidebar :dataOpenSidebar="openSidebar" @clickHambuger="toggleSidebar" />
-      <div class="main h-full mr-5" :class="openSidebar == true ? 'sidebar-space-visible' : 'sidebar-space-close'">
+      <div class="main h-full xl:mr-5" :class="openSidebar == true ? 'sidebar-space-visible 2xl:ml-[280px]' : 'sidebar-space-close 2xl:ml-[110px]'">
         <!-- <headerTop /> -->
         <div class="w-full h-[clac(100vh-50px)]">
           <router-view/>
         </div>
-      </div>
+      </div>  
     </div>
+    
   </template>
   
   <script>
@@ -37,15 +38,6 @@
   </script>
   
   <style>
-  .sidebar-space-visible {
-    margin-left: 280px;
-  
-  }
-  
-  .sidebar-space-close {
-    margin-left: 110px;
-  
-  }
   
   .main {
     transition: 300ms;

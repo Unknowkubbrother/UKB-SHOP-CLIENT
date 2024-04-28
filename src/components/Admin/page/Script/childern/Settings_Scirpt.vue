@@ -1,6 +1,6 @@
 <template>
     <div class="w-full h-full">
-        <div class="w-[75%] m-auto bg-base-100 rounded-md p-5">
+        <div class="2xl:w-[75%] m-auto bg-base-100 rounded-md p-5">
             <div class="border-b-2 border-b-[#505050] pb-3 ">ข้อมูลทั่วไป</div>
             <div class="flex flex-col gap-4 mt-5">
                 <div>
@@ -42,7 +42,7 @@
             </div>
         </div>
 
-        <div class="w-[75%] m-auto bg-base-100 rounded-md p-5 my-10">
+        <div class="2xl:w-[75%] m-auto bg-base-100 rounded-md p-5 my-10">
             <div class="border-b-2 border-b-[#505050] pb-3 ">โปรโมทอื่นๆ</div>
             <div class="flex flex-col gap-4 mt-5">
                 <div>
@@ -69,7 +69,7 @@
             </div>
         </div>
 
-        <div class="w-[75%] m-auto bg-base-100 rounded-md p-5 my-10">
+        <div class="2xl:w-[75%] m-auto bg-base-100 rounded-md p-5 my-10">
             <div class="border-b-2 border-b-[#505050] pb-3 ">Changelogs</div>
             <div class="flex flex-col gap-4 mt-5">
                 <div v-for="(changelog, index) in script?.Changelogs" :key="index">
@@ -92,7 +92,7 @@
             </div>
         </div>
 
-        <div class="w-[75%] m-auto bg-base-100 rounded-md p-5 my-10">
+        <div class="2xl:w-[75%] m-auto bg-base-100 rounded-md p-5 my-10">
             <div class="border-b-2 border-b-[#505050] pb-3 ">Plan</div>
             <div class="flex flex-col gap-4 mt-5">
                 <div v-if="script.trade?.permanently.status || script.trade?.rent.status">
@@ -120,7 +120,7 @@
             </div>
         </div>
 
-        <div class="w-[75%] m-auto bg-base-100 rounded-md p-5 my-10">
+        <div class="2xl:w-[75%] m-auto bg-base-100 rounded-md p-5 my-10">
             <div class="border-b-2 border-b-[#505050] pb-3 ">การตั้งค่าใช้งานและแสดง</div>
             <div class="flex flex-col gap-4 mt-5">
                 <div>
@@ -147,7 +147,7 @@
             </div>
         </div>
 
-        <div class="w-[75%] flex justify-end items-center my-10 gap-4 m-auto">
+        <div class="2xl:w-[75%] flex justify-end items-center my-10 gap-4 m-auto">
             <button class="px-7 py-2 bg-rose-400 text-white rounded-lg hover:bg-rose-700 duration-300"
                 @click="$emit('deleteScript')">ลบ Script</button>
             <button class="px-7 py-2 bg-primary text-white rounded-lg hover:bg-secondary duration-300"

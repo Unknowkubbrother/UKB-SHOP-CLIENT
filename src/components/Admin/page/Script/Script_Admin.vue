@@ -1,18 +1,27 @@
 <template>
     <div id="dashboard_admin" class="relative">
-        <div class="w-full h-full" :class="ShowUiAddScript ? 'blur select-none' : ''">
+        <div class="w-[95%] 2xl:w-full h-full m-auto" :class="ShowUiAddScript ? 'blur select-none' : ''">
             <nav class="w-full m-auto bg-[#24272e] p-3 flex items-center justify-start rounded-lg my-5 ">
+                <details class="dropdown 2xl:hidden">
+                    <summary class="fa-solid fa-bars cursor-pointer"></summary>
+                    <ul class="py-4 shadow menu dropdown-content z-[1] bg-base-200 rounded-box w-52">
+                        <li><router-link to="/admin/script" class-active="active" exact>SCRIPT</router-link></li>
+                        <li><router-link to="/admin/payment" class-active="active" exact>PAYMENTS</router-link></li>
+                        <li><router-link to="/home" class-active="active" exact>Home Page</router-link></li>
+                    </ul>
+                </details>
+
                 <span class="text-lg font-bold pl-5"> <i class="fa-solid fa-window-maximize mr-2"></i> SCRIPT</span>
             </nav>
-            <ul class="w-full h-[150px] flex gap-7">
-                <li class="w-[250px] h-full bg-[#1A1B1E] rounded-lg flex justify-center items-center gap-5">
+            <ul class="w-[90%] lg:w-full h-[500px] md:h-[150px] flex flex-col md:flex-row gap-7 m-auto">
+                <li class="w-full md:w-[250px] h-full bg-[#1A1B1E] rounded-lg flex justify-center items-center gap-5">
                     <div class="flex flex-col justify-center items-center">
                         <span class="text-2xl">{{ script.length }}</span>
                         <span class="text-lg">Product Views</span>
                     </div>
                     <i class="fa-solid fa-cart-shopping text-[2rem]"></i>
                 </li>
-                <li class="w-[250px] h-full bg-[#1A1B1E] rounded-lg flex justify-center items-center gap-5">
+                <li class="w-full md:w-[250px] h-full bg-[#1A1B1E] rounded-lg flex justify-center items-center gap-5">
                     <div class="flex flex-col justify-center items-center">
                         <span class="text-2xl">{{ script.filter((data) => data.status === 'active' && data.status !==
                             null).length }}
@@ -21,7 +30,7 @@
                     </div>
                     <i class="fa-regular fa-circle-check text-[2rem]"></i>
                 </li>
-                <li class="w-[250px] h-full bg-[#1A1B1E] rounded-lg flex justify-center items-center gap-5">
+                <li class="w-full md:w-[250px] h-full bg-[#1A1B1E] rounded-lg flex justify-center items-center gap-5">
                     <div class="flex flex-col justify-center items-center">
                         <span class="text-2xl">{{ script.filter((data) => data.status === 'inactive' && data.status !==
                             null).length }}</span>
@@ -37,8 +46,8 @@
                         Script</button>
                 </nav>
                 <div class="flex flex-col gap-4">
-                    <div class="w-[95%] h-[70px] bg-[#222222] rounded-xl flex justify-between items-center px-10 m-auto cursor-pointer hover:bg-[#2e2e2e] duration-300" @click="NextScriptChildern(data.id)"
-                        v-for="(data, idx) in script" :key="idx">
+                    <div class="w-[95%] h-[70px] bg-[#222222] rounded-xl flex justify-between items-center px-10 m-auto cursor-pointer hover:bg-[#2e2e2e] duration-300"
+                        @click="NextScriptChildern(data.id)" v-for="(data, idx) in script" :key="idx">
                         <span>{{ data.nameScript }}</span>
                         <span :class="data.status == 'active' ? 'text-green-400' : 'text-rose-400'">{{ data.status
                             ==
@@ -51,13 +60,14 @@
 
         <Transition>
             <div v-if="ShowUiAddScript"
-                class="w-[500px] h-[700px] bg-[#24272e] absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50 rounded-lg mt-[12rem] shadow-lg shadow-black">
+                class="w-[90%] md:w-[70%] md:h-[700px] xl:w-[500px] lg:h-[700px] xl:h-[700px] bg-[#24272e] absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50 rounded-lg mt-10 md:mt-[12rem] lg:mt-[12rem] xl:mt-[12rem] shadow-lg shadow-black overflow-auto">
                 <header class="w-full h-[70px] flex justify-between items-center px-6">
                     <span class="text-md font-semibold">Add Script</span>
                     <i class="fa-solid fa-xmark text-[#8b8b8b] hover:text-rose-400 text-lg cursor-pointer duration-300"
                         @click="ShowUiAddScript = false"></i>
                 </header>
-                <form class="w-[90%] h-[600px] m-auto flex justify-start items-start flex-col gap-4 overflow-auto px-2"
+                <form
+                    class="w-[90%] h-[600px] m-auto flex justify-start items-start flex-col gap-4 overflow-auto px-2 mb-10"
                     @submit.enter.prevent="AddScript()">
                     <div class="w-full">
                         <label>ScriptName <span class="text-rose-400">*</span></label>

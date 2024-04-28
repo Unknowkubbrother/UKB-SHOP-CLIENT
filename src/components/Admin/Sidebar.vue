@@ -1,5 +1,5 @@
 <template>
-    <div class="h-screen fixed side-bar-visible bg-[#24272e] text-center z-50" id="side-bar"
+    <div class="hidden 2xl:block h-screen fixed side-bar-visible bg-[#24272e] text-center z-50" id="side-bar"
         :class="dataOpenSidebar == true ? 'side-bar-visible' : 'side-bar-close'" @mouseover="textbar = true"
         @mouseleave="textbar = false">
         <div class="w-full relative">

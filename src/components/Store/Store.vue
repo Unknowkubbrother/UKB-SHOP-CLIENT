@@ -1,19 +1,19 @@
 <template>
     <div id="store" class="relative">
-        <div class="w-[90%] md:w-[80%] h-full m-auto">
+        <div class="w-[90%] xl:w-[80%] h-full m-auto">
             <div class="flex justify-start items-center my-10">
                 <h1 class="font-bold text-2xl">SCRIPT STORE</h1>
             </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 my-10">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-2 gap-4 my-10">
                 <!-- <---->
                 <div v-for="(data, idx) in script.data" :key="idx">
                     <div @click="NextStoreChildern(data.id)"
-                        class="w-[70%] md:w-[90%] md:h-[300px] rounded-lg overflow-hidden bg-[#262626] flex flex-col md:flex-row hover:bg-[#363636] hover:w-[92%] hover:h-[310px] duration-300 cursor-pointer m-auto" v-if="data.status == 'active'">
-                        <img :src="data.promote.image[0]" class="w-full md:w-[40%] h-[300px] md:h-full object-cover rounded-lg drop-shadow-lg">
-                        <div class="w-full md:w-[60%] md:h-full flex flex-col p-5 justify-between">
+                        class="w-[70%] xl:w-[90%] md:w-[80%] xl:h-[300px] rounded-lg overflow-hidden bg-[#262626] flex flex-col xl:flex-row hover:bg-[#363636] hover:w-[92%] hover:h-[310px] duration-300 cursor-pointer m-auto" v-if="data.status == 'active'">
+                        <img :src="data.promote.image[0]" class="w-full xl:w-[40%] h-[300px] xl:h-full object-cover rounded-lg drop-shadow-lg">
+                        <div class="w-full xl:w-[60%] xl:h-full flex flex-col p-5 justify-between">
                             <div>
                                 <h1 class="text-xl font-semibold">{{ data.nameScript }}</h1>
-                                <p class="text-md md:text-[13px] text-[#d8d8d8] my-2">{{ data.description }}</p>
+                                <p class="text-md xl:text-[13px] text-[#d8d8d8] my-2">{{ data.description }}</p>
                             </div>
                             <div>
                                 <div v-if="data.trade.permanently.status">
@@ -30,6 +30,7 @@
                 </div>
 
                 <!-- <---->
+                
 
             </div>
 

@@ -1,7 +1,7 @@
 <template>
     <div class="w-full h-full">
         <TabGroup>
-            <div class="w-[90%] h-[8rem] m-auto bg-base-100 my-10 rounded-lg px-5">
+            <div class="w-[95%] xl:w-[90%] h-[8rem] m-auto bg-base-100 my-10 rounded-lg px-5">
                 <div class="w-full h-[45%] flex justify-between items-center">
                 <div class="flex gap-4 justify-center items-center">
                     <i class="fa-solid fa-chevron-left text-lg hover:text-slate-400 duration-300 cursor-pointer" @click="$router.push('/admin/script')"></i>

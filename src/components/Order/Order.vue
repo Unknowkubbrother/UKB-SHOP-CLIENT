@@ -1,6 +1,6 @@
 <template>
     <div id="Order">
-        <div class="w-[95%] md:w-[60%] h-full m-auto pb-[5rem]">
+        <div class="w-[95%] xl:w-[60%] h-full m-auto pb-[5rem]">
             <div class="flex justify-start items-center my-10">
                 <h1 class="font-bold text-2xl">ORDERS</h1>
             </div>

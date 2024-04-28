@@ -1,6 +1,6 @@
 <template>
     <div class="w-full h-full">
-        <div class="w-[75%] m-auto bg-base-100 rounded-md p-5 mb-10">
+        <div class="md:w-[75%] m-auto bg-base-100 rounded-md p-5 mb-10">
             <div class="border-b-2 border-b-[#505050] pb-3 ">เพิ่ม License ใหม่ แบบ Custom</div>
             <form class="flex flex-col gap-4 mt-5" @submit.enter.prevent="Addlicense()">
                 <div>

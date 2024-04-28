@@ -1,14 +1,14 @@
 <template>
     <div id="ForgotPassword">
-        <div class="w-[95%] md:w-full h-full flex items-center flex-col m-auto">
-            <router-link to="/home" class="flex justify-center items-center mt-[5rem] md:mt-[10rem] md:mb-[5rem] mb-5">
+        <div class="w-[95%] xl:w-full h-full flex items-center flex-col m-auto">
+            <router-link to="/home" class="flex justify-center items-center mt-[5rem] xl:mt-[10rem] xl:mb-[5rem] mb-5">
                 <img src="../../assets/logo_codekub.png" alt="" class="w-[70px] h-[70px] object-cover m-auto ">
         <h1 class="text-3xl font-bold ml-2 border-l-2 px-5">CodeKub Shop</h1>
             </router-link>
-            <div class="w-full md:w-[70%] flex flex-col md:flex-row justify-between md:items-start items-center">
-                <div class="w-full md:w-[50%] flex justify-start items-center flex-col">
-                    <div class="w-[80%] md:w-[70%] justify-start items-center mb-5 m-auto"><span class="text-xl font-semibold">Request Secret code</span></div>
-                    <form class="w-[80%] md:w-[70%] flex flex-col gap-2 md:justify-start items-start m-auto justify-center"
+            <div class="w-full xl:w-[70%] flex flex-col xl:flex-row justify-between xl:items-start items-center">
+                <div class="w-full xl:w-[50%] flex justify-start items-center flex-col">
+                    <div class="w-[80%] md:w-[70%] xl:w-[70%] justify-start items-center mb-5 m-auto"><span class="text-xl font-semibold">Request Secret code</span></div>
+                    <form class="w-[80%] md:w-[70%] xl:w-[70%] flex flex-col gap-2 xl:justify-start items-start m-auto justify-center"
                         @submit.enter.prevent="sendSecretCode">
                         <label for="email">Email address</label>
                         <input type="email" required
@@ -18,9 +18,9 @@
                             the secret code</button>
                     </form>
                 </div>
-                <div class="w-full md:w-[50%] flex justify-center items-center md:border-l-2 md:border-[#dadada] flex-col m-auto mb-10 mt-10 md:mt-0">
-                    <div class="w-[80%] md:w-[70%] justify-start items-center mb-5 m-auto"><span class="text-xl font-semibold">Reset Password</span></div>
-                    <form action="" class="w-[80%] md:w-[70%] flex justify-center flex-col gap-3 m-auto"
+                <div class="w-full xl:w-[50%] flex justify-center items-center xl:border-l-2 xl:border-[#dadada] flex-col m-auto mb-10 mt-10 xl:mt-0">
+                    <div class="w-[80%] md:w-[70%] xl:w-[70%] justify-start items-center mb-5 m-auto"><span class="text-xl font-semibold">Reset Password</span></div>
+                    <form action="" class="w-[80%] md:w-[70%] xl:w-[70%] flex justify-center flex-col gap-3 m-auto"
                         @submit.enter.prevent="resetpassword()">
                         <label for="username">Username</label>
                         <input type="text" required v-model="username"

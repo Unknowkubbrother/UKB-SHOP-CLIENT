@@ -1,6 +1,6 @@
 <template>
     <div class="w-full h-full">
-        <div class="w-[75%] m-auto bg-base-100 rounded-md p-5">
+        <div class="xl:w-[75%] m-auto bg-base-100 rounded-md p-5">
             <div class="border-b-2 border-b-[#505050] pb-3 ">Update version <span>เวอร์ชั่นล่าสุดคือ {{ getMaxVersion
                     }}</span></div>
             <div class="flex flex-col gap-4 mt-5">

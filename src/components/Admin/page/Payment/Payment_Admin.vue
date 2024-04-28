@@ -1,10 +1,18 @@
 <template>
     <div class="w-full h-full">
-        <nav class="w-full m-auto bg-[#24272e] p-3 flex items-center justify-start rounded-lg my-5 ">
+        <nav class="w-[95%] 2xl:w-full m-auto bg-[#24272e] p-3 flex items-center justify-start rounded-lg my-5 ">
+            <details class="dropdown 2xl:hidden">
+                    <summary class="fa-solid fa-bars cursor-pointer"></summary>
+                    <ul class="py-4 shadow menu dropdown-content z-[1] bg-base-200 rounded-box w-52">
+                        <li><router-link to="/admin/script" class-active="active" exact>SCRIPT</router-link></li>
+                        <li><router-link to="/admin/payment" class-active="active" exact>PAYMENTS</router-link></li>
+                        <li><router-link to="/home" class-active="active" exact>Home Page</router-link></li>
+                    </ul>
+                </details>
             <span class="text-lg font-bold pl-5"> <i class="fa-solid fa-window-maximize mr-2"></i> PAYMENTS</span>
         </nav>
         <TabGroup>
-            <TabList class="w-[90%] h-[50px] flex space-x-1 rounded-lg bg-base-100 overflow-hidden m-auto">
+            <TabList class="w-[95%] s2xl:w-[90%] h-[50px] flex space-x-1 rounded-lg bg-base-100 overflow-hidden m-auto">
                 <Tab as="template" v-slot="{ selected }">
                     <button dir="ltr" :class="[
                         'w-full py-2.5 text-sm font-medium leading-5',
@@ -29,7 +37,7 @@
                 </Tab>
             </TabList>
             <TabPanels class="mt-2">
-                <TabPanel class="w-[90%] m-auto rounded-sm p-3 overflow-auto">
+                <TabPanel class="2xl:w-[90%] m-auto rounded-sm p-3 overflow-auto">
                     <Dashboard_Payment_Admin/>
                 </TabPanel>
                 <TabPanel class="w-full m-auto rounded-sm p-3 overflow-auto">

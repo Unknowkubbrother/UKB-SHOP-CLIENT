@@ -1,6 +1,6 @@
 <template>
     <div class="w-full h-full">
-        <div class="w-[95%] m-auto bg-base-100 rounded-md p-5">
+        <div class="w-[95%] m-auto bg-base-100 rounded-md p-5 overflow-auto">
             <div class="border-b-2 border-b-[#505050] pb-3 ">ผู้ใช้ที่ถือของ Script อยู่</div>
             <div class="w-full mt-5">
                 <table class="w-full table-auto rounded-lg overflow-hidden">

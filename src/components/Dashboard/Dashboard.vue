@@ -1,15 +1,15 @@
 <template>
     <div id="Dashboard" class="relative">
-        <div class="w-[95%] md:w-[90%] h-full m-auto" :class="AddLicenseData.show || ResetLicenseData.show ? 'blur select-none' : ''">
+        <div class="w-[95%] xl:w-[90%] h-full m-auto" :class="AddLicenseData.show || ResetLicenseData.show ? 'blur select-none' : ''">
             <div class="flex justify-start items-center my-10">
                 <h1 class="font-bold text-2xl">DASHBOARD</h1>
             </div>
-            <div class="profile flex flex-col md:flex-row justify-center md:justify-between items-center">
-                <div class="flex flex-col md:flex-row justify-start items-center">
-                    <div class="profile-img w-[100px] h-[100px] md:w-[150px] md:h-[150px] bg-[#262626] rounded-full overflow-hidden">
+            <div class="profile flex flex-col md:flex-row xl:flex-row justify-center xl:justify-between items-center">
+                <div class="w-full flex flex-col md:flex-row xl:flex-row justify-start items-center">
+                    <div class="profile-img w-[100px] h-[100px] xl:w-[150px] xl:h-[150px] bg-[#262626] rounded-full overflow-hidden">
                         <img src="../../assets/noprofile.jpg" alt="profile" class="w-full h-full object-cover">
                     </div>
-                    <div class="mt-10 md:ml-10 md:mt-0 flex flex-col gap-3 md:gap-2 text-center justify-center items-center md:items-start">
+                    <div class="mt-10 xl:ml-10 xl:mt-0 flex flex-col gap-3 xl:gap-2 text-center justify-center items-center xl:items-start">
                         <!-- <div class="text-xl font-semibold text-[#3690bd]"><span id="username">Natchkung</span></div> -->
                         <div class="h-[40px] bg-[#262626] rounded-[5px] flex overflow-hidden">
                             <div
@@ -19,19 +19,18 @@
                             <div class="h-full flex justify-center items-center text-lg"><span id="username"
                                     class="px-5 text-center">{{ profile.username }}</span></div>
                         </div>
-                        <div class="mt-2 md:mt-0 text-[17px]"><span id="email">{{ profile.email }}</span></div>
+                        <div class="mt-2 xl:mt-0 text-[17px]"><span id="email">{{ profile.email }}</span></div>
                         <div class="text-[17px] text-[#a3a3a3]">ID: <span ref="id">{{ profile.id }}</span><button
                                 @click="copy" class="ml-2 text-center text-[#3d7fa1] hover:text-sky-500"><i
                                     class="fa-solid fa-copy"></i></button></div>
                     </div>
                 </div>
-                <div>
+                <div class="md:w-[300px] 2xl:w-[250px]">
                     <button @click="ipaddress"
-                        class="bg-[#3d7fa1] mt-5 md:mt-0 text-white px-5 py-2 rounded-lg hover:bg-[#265e7a] duration-300"> Copy your
-                        IP address</button>
+                        class="bg-[#3d7fa1] mt-5 xl:mt-0 text-white px-5 py-2 rounded-lg hover:bg-[#265e7a] duration-300"> Copy your IP address</button>
                 </div>
             </div>
-            <div class="w-[90%] md:w-[75%] m-auto rounded-lg border border-[#555555] bg-[#262626] my-10 p-5 md:p-10 flex flex-col">
+            <div class="w-[90%] xl:w-[75%] m-auto rounded-lg border border-[#555555] bg-[#262626] my-10 p-5 xl:p-10 flex flex-col">
                 <div class="flex justify-start items-start gap-3">
                     <i class="fa-solid fa-circle-exclamation text-rose-600 text-2xl"></i>
                     <div>
@@ -45,7 +44,7 @@
 
                 </div>
             </div>
-            <div class="license w-[95%] md:w-full flex justify-center items-center overflow-auto m-auto">
+            <div class="license w-[95%] xl:w-full flex justify-center items-center overflow-auto m-auto">
                 <div v-if="license.Enabled">
                     <table class="table-auto bg-[#262626] rounded-lg overflow-hidden mb-10">
                         <thead>
@@ -132,13 +131,13 @@
         </div>
         <Transition>
         <div v-if="ResetLicenseData.show"
-            class="w-[95%] md:w-[500px] h-[110px] bg-[#202020] absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 rounded-lg z-50 shadow-lg shadow-black">
+            class="w-[95%] xl:w-[500px] h-[110px] bg-[#202020] absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 rounded-lg z-50 shadow-lg shadow-black">
             <div class="flex justify-start items-start w-full h-full flex-col">
                 <div class="px-4 py-2 pt-4 font-semibold">IP Address</div>
                 <div class="w-[95%] flex items-center justify-start m-auto">
                     <input type="text" v-model="ResetLicenseData.data.newipaddress" placeholder="Enter new IP address"
                         required
-                        class="w-[80%] md:w-[400px] px-4 py-2 ml-2 text-white rounded-lg outline-none bg-transparent border-b-2 border-sky-500 m-auto">
+                        class="w-[80%] xl:w-[400px] px-4 py-2 ml-2 text-white rounded-lg outline-none bg-transparent border-b-2 border-sky-500 m-auto">
                     <i class="fa-solid fa-floppy-disk hover:text-[#3d7fa1] duration-300 cursor-pointer ml-5"
                         @click="ResetLicense()"></i>
                     <i class="fa-solid fa-xmark hover:text-rose-700 duration-300 cursor-pointer ml-5"
@@ -150,13 +149,13 @@
 
         <Transition>
             <div v-if="AddLicenseData.show"
-            class="w-[95%] md:w-[500px] h-[110px] bg-[#202020] absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 rounded-lg z-50 shadow-lg shadow-black">
+            class="w-[95%] xl:w-[500px] h-[110px] bg-[#202020] absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 rounded-lg z-50 shadow-lg shadow-black">
             <div class="flex justify-start items-start w-full h-full flex-col">
                 <div class="px-4 py-2 pt-4 font-semibold">IP Address</div>
                 <div class="w-[95%] flex items-center justify-start m-auto">
                         <input type="text" v-model="AddLicenseData.data.ipaddress" placeholder="Enter new IP address"
                             required
-                            class="w-[80%] md:w-[400px] px-4 py-2 ml-2 text-white rounded-lg outline-none bg-transparent border-b-2 border-sky-500 m-auto">
+                            class="w-[80%] xl:w-[400px] px-4 py-2 ml-2 text-white rounded-lg outline-none bg-transparent border-b-2 border-sky-500 m-auto">
                         <i class="fa-solid fa-floppy-disk hover:text-[#3d7fa1] duration-300 cursor-pointer ml-5"
                             @click="AddLicense()"></i>
                         <i class="fa-solid fa-xmark hover:text-rose-700 duration-300 cursor-pointer ml-5"
