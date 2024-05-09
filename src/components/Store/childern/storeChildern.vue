@@ -1,4 +1,5 @@
 <template>
+    <div>
     <div id="storeChildern" class="relative" :class="(showImage) ? 'blur bg-black/40 select-none' : ''">
         <div class="w-[95%] md:w-[70%] xl:w-[50%] h-full m-auto my-10">
             <div class="flex justify-between items-center mb-20">
@@ -94,6 +95,7 @@
                 class="previewImageStore object-cover rounded-lg m-auto">
         </div>
     </Transition>
+</div>
 
 </template>
 
