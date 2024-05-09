@@ -8,7 +8,7 @@
                 <!-- <---->
                 <div v-for="(data, idx) in script.data" :key="idx">
                     <div @click="NextStoreChildern(data.id)"
-                        class="w-[70%] xl:w-[90%] md:w-[80%] xl:h-[300px] rounded-lg overflow-hidden bg-[#262626] flex flex-col xl:flex-row hover:bg-[#363636] hover:w-[92%] hover:h-[310px] duration-300 cursor-pointer m-auto" v-if="data.status == 'active'">
+                        class="w-[70%] xl:w-[90%] md:w-[80%] xl:h-[300px] rounded-lg overflow-hidden bg-[#262626] flex flex-col xl:flex-row hover:bg-[#363636] hover:scale-105 duration-300 cursor-pointer m-auto" v-if="data.status == 'active'">
                         <img :src="data.promote.image[0]" class="w-full xl:w-[40%] h-[300px] xl:h-full object-cover rounded-lg drop-shadow-lg">
                         <div class="w-full xl:w-[60%] xl:h-full flex flex-col p-5 justify-between">
                             <div>
