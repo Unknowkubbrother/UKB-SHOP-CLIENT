@@ -116,7 +116,7 @@
                     </div>
                     <div class="w-full flex flex-col">
                         <label>Video (Youtube) </label>
-                        <input type="text" required
+                        <input type="text"
                             class="w-full h-[2.5rem] px-3 py-2 rounded-lg border border-slate-700 focus:outline-none focus:border-blue-500 bg-base-100 mt-2"
                             placeholder="Enter Link Youtube" v-model="addscript.video">
                     </div>
