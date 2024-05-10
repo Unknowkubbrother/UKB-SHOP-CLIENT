@@ -76,72 +76,79 @@
                             v-model="addscript.nameScript" placeholder="Enter script name" required>
                     </div>
                     <div class="w-full flex flex-col">
+                        <label>ShortDescription <span class="text-rose-400">*</span></label>
+                        <textarea v-model="addscript.shortDescription" placeholder="Enter Description" required
+                            class="w-full h-24 max-h-24 rounded-lg border border-slate-700 focus:outline-none focus:border-blue-500 bg-base-100 mt-2 overflow-auto"></textarea>
+                    </div>
+                    <div class="w-full flex flex-col">
                         <label>Description <span class="text-rose-400">*</span></label>
                         <textarea v-model="addscript.description" placeholder="Enter Description" required
                             class="w-full h-24 max-h-24 rounded-lg border border-slate-700 focus:outline-none focus:border-blue-500 bg-base-100 mt-2 overflow-auto"></textarea>
                     </div>
-                    <div class="w-full flex gap-2 justify-start items-center">
-                        <input id="helper-checkbox" aria-describedby="helper-checkbox-text" type="checkbox"
-                            class="w-4 h-4 bg-gray-100 border-gray-300 rounded focus:ring-[#3d7fa1]  dark:focus:ring-[#3d7fa1] dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                            v-model="addscript.trade.permanently.status">
-                        <label>Permanently</label>
-                        <input id="helper-checkbox" aria-describedby="helper-checkbox-text" type="checkbox"
-                            class="w-4 h-4 bg-gray-100 border-gray-300 rounded focus:ring-[#3d7fa1]  dark:focus:ring-[#3d7fa1] dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                            v-model="addscript.trade.rent.status">
-                        <label>Rent</label>
-                    </div>
-                    <div class="w-full flex gap-4">
-                        <div class="w-1/2" v-if="addscript.trade.permanently.status">
-                            <label>Permanently Price <span class="text-rose-400">*</span></label>
-                            <input type="Number" required
-                                class="w-full h-[2.5rem] px-3 py-2 rounded-lg border border-slate-700 focus:outline-none focus:border-blue-500 bg-base-100 mt-2"
-                                min="1" v-model="addscript.trade.permanently.price">
-                        </div>
-                        <div class="w-1/2" v-if="addscript.trade.rent.status">
-                            <label>Rent UnitPrice <span class="text-rose-400">*</span></label>
-                            <input type="Number" required
-                                class="w-full h-[2.5rem] px-3 py-2 rounded-lg border border-slate-700 focus:outline-none focus:border-blue-500 bg-base-100 mt-2"
-                                min="1" v-model="addscript.trade.rent.Unitprice">
+                    <div class="w-full flex flex-col">
+                        <label>Plan <span class="text-rose-400">*</span>
+                            <span class="ml-2 px-2">
+                                <i class="fa-solid fa-minus text-sm hover:text-sky-500 cursor-pointer duration-300"
+                                    @click="countPlan > 1 ? (countPlan--, plan.pop()) : null"></i>
+                                <span class="text-rose-400 mx-2">{{ countPlan }}</span> <i
+                                    class="fa-solid fa-plus text-sm hover:text-sky-500 cursor-pointer duration-300 mx-[-0.4rem]"
+                                    @click="countPlan = Math.min(countPlan + 1, 3)"></i>
+                            </span>
+                        </label>
+                        <div class="w-full flex gap-2" v-for="(data, idx) in countPlan" :key="idx">
+                            <select v-model="plan[idx]" @change="updatePlan"
+                                class="w-1/2 h-[2.5rem] px-3 py-2 rounded-lg border border-[#4b4b4b] focus:outline-none focus:border-blue-500 bg-base-100 mt-2"
+                                required>
+                                <option value="day" :disabled="plan.includes('day')">DAY</option>
+                                <option value="monthly" :disabled="plan.includes('monthly')">MONTH</option>
+                                <option value="permanently" :disabled="plan.includes('permanently')">PERMANENTLY</option>
+                            </select>
+                            <input type="number" v-model="addscript.plan[plan[idx]]" required
+                                class="w-1/2 h-[2.5rem] px-3 py-2 rounded-lg border border-slate-700 focus:outline-none focus:border-blue-500 bg-base-100 mt-2"
+                                placeholder="Enter Price">
                         </div>
                     </div>
                     <div class="w-full flex flex-col">
-                        <label>Video (Youtube) <span class="text-rose-400">*</span></label>
+                        <label>Thumbnail<span class="text-rose-400 ml-2">*</span></label>
                         <input type="text" required
                             class="w-full h-[2.5rem] px-3 py-2 rounded-lg border border-slate-700 focus:outline-none focus:border-blue-500 bg-base-100 mt-2"
-                            placeholder="Enter Link Youtube" v-model="addscript.promote.youTube">
+                            placeholder="Enter Thumbnail" v-model="addscript.thumbnail">
+                    </div>
+                    <div class="w-full flex flex-col">
+                        <label>Video (Youtube) </label>
+                        <input type="text" required
+                            class="w-full h-[2.5rem] px-3 py-2 rounded-lg border border-slate-700 focus:outline-none focus:border-blue-500 bg-base-100 mt-2"
+                            placeholder="Enter Link Youtube" v-model="addscript.video">
                     </div>
                     <div class="w-full">
                         <label>Image <span class="text-rose-400">*</span> <span class="text-orange-200 text-sm">(
-                                ถ้าใส่หลายลิงค์รูปภาพต้องขั้นด้วย comma
+                                ถ้าใส่หลายลิงค์รูปภาพให้ Enter ขึ่นบรรทัดใหม่
                                 )</span> </label>
-                        <input type="text" name="Image[]" multiple required
-                            class="w-full h-[2.5rem] px-3 py-2 rounded-lg border border-slate-700 focus:outline-none focus:border-blue-500 bg-base-100 mt-2"
-                            v-model="addscript.promote.image"
-                            @change="addscript.promote.image = $event.target.value ? $event.target.value.split(',') : []"
-                            placeholder="Enter image1,image2,other ...">
+                        <textarea type="text" name="Image[]" multiple required
+                            class="w-full h-24 max-h-24 rounded-lg border border-slate-700 focus:outline-none focus:border-blue-500 bg-base-100 mt-2 overflow-auto"
+                            v-model="addscript.image"
+                            @change="addscript.image = $event.target.value ? $event.target.value.split('\n') : []"
+                            placeholder="Enter image"></textarea>
                     </div>
                     <div class="w-full">
-                        <span>Changelogs</span>
-                        <span class="ml-2 px-2">
-                            <i class="fa-solid fa-minus text-sm hover:text-sky-500 cursor-pointer duration-300"
-                                @click="countChangelogs = Math.max(countChangelogs - 1, 1)"></i>
-                            <span class="text-rose-400 mx-2">{{ countChangelogs }}</span> <i
-                                class="fa-solid fa-plus text-sm hover:text-sky-500 cursor-pointer duration-300 mx-[-0.4rem]"
-                                @click="countChangelogs++"></i>
-                        </span>
-                        <div class="w-full mt-5 flex flex-col gap-4">
-                            <div v-for="(index, idx) in countChangelogs" :key="idx" class="flex flex-col gap-2">
+                        <div class="w-full flex flex-col gap-4">
+                            <div class="flex flex-col gap-2">
                                 <div class="w-full flex flex-col">
                                     <label>Version <span class="text-rose-400">*</span></label>
                                     <input type="text" required
                                         class="w-full h-[2.5rem] px-3 py-2 rounded-lg border border-slate-700 focus:outline-none focus:border-blue-500 bg-base-100 mt-2"
-                                        placeholder="Enter Version" v-model="addscript.Changelogs[idx].version">
+                                        placeholder="Enter Version" v-model="addscript.Changelogs[0].version">
                                 </div>
                                 <div class="w-full flex flex-col">
-                                    <label>Description <span class="text-rose-400">*</span></label>
-                                    <textarea placeholder="Enter Description" required
+                                    <label>Log <span class="text-rose-400">*</span>
+                                        <span class="text-orange-200 text-sm">(
+                                            ถ้าใส่หลายข้อความให้ Enter ขึ่นบรรทัดใหม่
+                                            )</span>
+                                    </label>
+                                    <textarea placeholder="Enter logs" required name="logs[]" multiple
                                         class="w-full h-24 max-h-24 rounded-lg border border-slate-700 focus:outline-none focus:border-blue-500 bg-base-100 mt-2 overflow-auto"
-                                        v-model="addscript.Changelogs[idx].description"></textarea>
+                                        v-model="addscript.Changelogs[0].logs"
+                                        @change="addscript.Changelogs[0].logs = $event.target.value ? $event.target.value.split('\n') : []"></textarea>
                                 </div>
                             </div>
                         </div>
@@ -185,28 +192,24 @@ export default {
         return {
             script: [],
             ShowUiAddScript: false,
-            countChangelogs: 1,
+            countPlan: 1,
+            plan: ['permanently'],
             addscript: {
                 nameScript: '',
+                shortDescription: '',
                 description: '',
-                trade: {
-                    permanently: {
-                        status: false,
-                        price: 0
-                    },
-                    rent: {
-                        status: false,
-                        Unitprice: 0
-                    },
+                plan: {
+                    day: null,
+                    monthly: null,
+                    permanently: null
                 },
-                promote: {
-                    youTube: '',
-                    image: []
-                },
+                thumbnail: '',
+                video: '',
+                image: [],
                 Changelogs: [
                     {
                         version: '',
-                        description: ''
+                        logs: []
                     },
                 ],
                 webhook: '',
@@ -217,8 +220,8 @@ export default {
     },
     methods: {
         async getScript() {
-            const api = `${config.EndPoint}/script`;
-            await axios.get(api).then((res) => {
+            const api = `${config.EndPoint}/script_admin`;
+            await axios.get(api, { withCredentials: true }).then((res) => {
                 res.data.map((data) => {
                     this.script.push(data);
                 });
@@ -227,8 +230,12 @@ export default {
             });
         },
         async AddScript() {
-            if (!this.addscript.trade.permanently.status && !this.addscript.trade.rent.status) {
-                toast("กรุณาเลือกประเภทการซื้อ", {
+            this.addscript.plan = this.plan.reduce((acc, cur) => {
+                acc[cur] = this.addscript.plan[cur];
+                return acc;
+            }, {});
+            if (!this.addscript.plan.permanently) {
+                toast("plan จำเป็นต้องมี permanently ทุกครั้ง", {
                     "theme": "dark",
                     "type": "error",
                     "position": "top-right",
@@ -237,13 +244,7 @@ export default {
                 });
                 return;
             }
-            if (!this.addscript.trade.permanently.status) {
-                this.addscript.trade.permanently.price = 0;
-            }
-            if (!this.addscript.trade.rent.status) {
-                this.addscript.trade.rent.Unitprice = 0;
-            }
-            const api = `${config.EndPoint}/script`;
+            const api = `${config.EndPoint}/script_admin`;
             await axios.post(api, this.addscript, { withCredentials: true }).then((res) => {
                 if (res.status === 201) {
                     toast("Add Script Success", {
@@ -269,46 +270,28 @@ export default {
         this.getScript();
     },
     watch: {
-        countChangelogs(newCount) {
-            if (newCount > this.addscript.Changelogs.length) {
-                const diff = newCount - this.addscript.Changelogs.length;
-                for (let i = 0; i < diff; i++) {
-                    this.addscript.Changelogs.push({
-                        version: '',
-                        description: ''
-                    });
-                }
-            } else if (newCount < this.addscript.Changelogs.length) {
-                const diff = this.addscript.Changelogs.length - newCount;
-                this.addscript.Changelogs.splice(newCount, diff);
-            }
-        },
         ShowUiAddScript(newVal) {
             if (!newVal) {
                 this.addscript = {
                     nameScript: '',
+                    shortDescription: '',
                     description: '',
-                    trade: {
-                        permanently: {
-                            status: false,
-                            price: 0
-                        },
-                        rent: {
-                            status: false,
-                            Unitprice: 0
-                        },
+                    plan: {
+                        day: null,
+                        monthly: null,
+                        permanently: null
                     },
-                    promote: {
-                        youTube: '',
-                        image: []
-                    },
+                    thumbnail: '',
+                    video: '',
+                    image: [],
                     Changelogs: [
                         {
                             version: '',
-                            description: ''
+                            logs: []
                         },
                     ],
                     webhook: '',
+                    download: '',
                     recommended: false
                 }
             }

@@ -5,8 +5,8 @@
                 class="px-3 py-2 rounded-lg border border-slate-700 focus:outline-none focus:border-blue-500 bg-base-100 mt-2"
                 v-model="seacrhCustomer" placeholder="Seacrh Customer" required>
         </div>
-        <div class="w-full md:w-[90%] m-auto rounded-lg p-5">
-            <template v-for="(data, idx) in order" :key="idx">
+        <div class="w-full md:w-[90%] m-auto rounded-lg p-5" v-if="order.length">
+            <div v-for="(data, idx) in order" :key="idx">
                 <div class="collapse collapse-arrow bg-base-200 my-2 cursor-pointer"
                     :class="checked === idx ? 'collapse-open' : 'collapse-close'"
                     @click="(checked != idx) ? (checked = idx) : (checked = null)">
@@ -17,7 +17,7 @@
                         </div>
                     </div>
                     <div class="collapse-content text-sm">
-                        <template v-for="(detail, index) in (data.order)" :key="index">
+                        <div v-for="(detail, index) in (data.order)" :key="index">
                             <div class="collapse collapse-plus bg-base-200 my-2 cursor-pointer"
                                 :class="checked_childern === index ? 'collapse-open' : 'collapse-close'"
                                 @click.stop="(checked_childern != index) ? (checked_childern = index) : (checked_childern = null)">
@@ -29,7 +29,8 @@
                                 </div>
                                 <div class="collapse-content text-sm cursor-default">
 
-                                    <div class="w-full bg-[#353535] rounded-lg flex flex-col md:flex-row xl:flex-row justify-around gap-2 p-5 text-sm">
+                                    <div
+                                        class="w-full bg-[#353535] rounded-lg flex flex-col md:flex-row xl:flex-row justify-around gap-2 p-5 text-sm">
                                         <div class="flex flex-col justify-center items-center">
                                             <span>Order Number </span>
                                             <span>{{ detail.transRefId }}</span>
@@ -87,10 +88,13 @@
 
                                 </div>
                             </div>
-                        </template>
+                        </div>
                     </div>
                 </div>
-            </template>
+            </div>
+        </div>
+        <div v-else class="w-full h-[300px] flex justify-center items-center">
+            <div class="text-[#3d7fa1] text-2xl">not found orders. . .</div>
         </div>
     </div>
 </template>

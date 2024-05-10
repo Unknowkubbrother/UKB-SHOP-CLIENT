@@ -11,12 +11,13 @@
             <div
                 class="w-full xl:w-[80%] h-[400px] flex justify-center items-center mt-5 bg-[#262626] m-auto rounded-xl overflow-hidden border-[10px] border-[#444444] drop-shadow-xl z-50">
                 <div class="w-full h-full rounded-xl overflow-hidden">
-                    <YoutubeVue3 ref="youtube" :videoid="store.video" width="100%" height="100%" :controls="1" />
+                    <YoutubeVue3 ref="youtube" :videoid="store.video" width="100%" height="100%" :controls="1" v-if="store.video"/>
+                    <img :src="store.thumbnail" :alt="store.nameScript" class="w-full h-full object-cover" v-else>
                 </div>
             </div>
             <div class="image xl:w-[70%] bg-[#262626] px-5 py-5 rounded-xl m-auto mt-[-5px]">
                 <Carousel :items-to-show="2.5" :wrap-around="true" class="cursor-pointer">
-                    <Slide v-for="(slide, idx) in img" :key="idx" class="h-[100px] xl:h-[200px]">
+                    <Slide v-for="(slide, idx) in (store.image)" :key="idx" class="h-[100px] xl:h-[170px]">
                         <img :src="slide" :alt="idx"
                             class="w-full h-full object-cover p-2 rounded-xl overflow-hidden z-50"
                             @click="zoomImage(slide)">
@@ -47,7 +48,9 @@
                             </div>
 
                             <div class="w-[80%] text m-2 pl-5 border-l-2 border-[#ffffff] text-start">
-                                {{ data.description }}
+                                <p v-for="(log, idx) in (data.logs)" :key="idx">
+                                    {{ log }}
+                                </p>
                             </div>
                         </div>
                         <!--  -->
@@ -61,19 +64,24 @@
                     <div class="flex flex-col xl:flex-row gap-4">
                         <span>SELECT PLAN</span>
                         <div class="flex flex-col xl:flex-row gap-2">
-                            <div class="flex gap-2" v-if="permanently.status">
-                                <input type="radio" value="permanently" v-model="Plan">
+                            <div class="flex gap-2" v-if="store.plan?.permanently">
+                                <input type="radio" value="permanently" v-model="plan">
                                 <span>PERMANENTLY</span>
                             </div>
-                            <div class="flex gap-2" v-if="rent.status">
-                                <input type="radio" value="rent" v-model="Plan">
-                                <span>RENT</span>
+                            <div class="flex gap-2" v-if="store.plan?.monthly">
+                                <input type="radio" value="monthly" v-model="plan">
+                                <span>MONTH</span>
+                            </div>
+                            <div class="flex gap-2" v-if="store.plan?.day">
+                                <input type="radio" value="day" v-model="plan">
+                                <span>DAY</span>
                             </div>
                         </div>
                     </div>
                     <div>
-                        <span class="font-semibold" v-if="Plan == 'permanently'">{{ permanently.price }} Baht</span>
-                        <span class="font-semibold" v-if="Plan == 'rent'">{{ rent.Unitprice }} Baht PER DAY</span>
+                        <span class="font-semibold" v-if="plan == 'permanently'">{{ store.plan?.permanently }} Baht</span>
+                        <span class="font-semibold" v-if="plan == 'monthly'">{{ store.plan?.monthly }} Baht</span>
+                        <span class="font-semibold" v-if="plan == 'day'">{{ store.plan?.day }} Baht</span>
                     </div>
                 </div>
                 <div class="flex justify-between items-center mt-5 gap-4">
@@ -115,15 +123,7 @@ export default {
         return {
             store: [],
             img: [],
-            permanently: {
-                status: false,
-                price: 0
-            },
-            rent: {
-                status: false,
-                Unitprice: 0
-            },
-            Plan: 'permanently',
+            plan : 'permanently',
             showImage: false,
             previewImage: ''
         }
@@ -134,94 +134,88 @@ export default {
             await axios.get(api).then((res) => {
                 if (res.status === 200) {
                     this.store = res.data;
-                    this.store.video = getIdFromURL(this.store.promote.youTube);
-                    this.store.promote.image.map((data) => {
-                        this.img.push(data);
-                    });
+                    res.data.video ? this.store.video = getIdFromURL(res.data.video) : this.store.video = null;
                     this.store.Changelogs = res.data.Changelogs.sort((a, b) => {
                         return parseFloat(b.version) - parseFloat(a.version);
                     });
-                    this.permanently = res.data.trade.permanently;
-                    this.rent = res.data.trade.rent;
                 }
             }).catch((err) => {
                 console.log(err);
             });
         },
         async AddCart() {
-            if (this.Plan == 'permanently') {
+            if (this.plan == 'permanently') {
                 const payload = {
                     scriptId: this.store.id,
                     nameScript: this.store.nameScript,
-                    Plan: {
-                        permanently: {
-                            status: true,
-                            price: this.permanently.price
-                        },
-                        rent: {
-                            status: false,
-                            Unitprice: 0,
-                            day: 0,
-                            price: 0
-                        }
+                    plan: {
+                        permanently: this.store.plan.permanently,
+                        monthly: null,
+                        day: null
                     }
                 }
                 await this.$refs.cart.addToCart(payload);
-            } else {
+            } else if (this.plan == 'monthly') {
                 const payload = {
                     scriptId: this.store.id,
                     nameScript: this.store.nameScript,
-                    Plan: {
-                        permanently: {
-                            status: false,
-                            price: 0
-                        },
-                        rent: {
-                            status: true,
-                            Unitprice: this.rent.Unitprice,
-                            day: 1,
-                            price: this.rent.Unitprice
-                        }
+                    plan: {
+                        permanently: null,
+                        monthly: this.store.plan.monthly,
+                        day: null
+                    }
+                }
+                await this.$refs.cart.addToCart(payload);
+            } else if (this.plan == 'day') {
+                const payload = {
+                    scriptId: this.store.id,
+                    nameScript: this.store.nameScript,
+                    plan: {
+                        permanently: null,
+                        monthly: null,
+                        day: this.store.plan.day,
+                        UnitPrice: this.store.plan.day,
+                        unit: 1
                     }
                 }
                 await this.$refs.cart.addToCart(payload);
             }
         },
         async Purchase() {
-            if (this.Plan == 'permanently') {
+            if (this.plan == 'permanently') {
                 const payload = {
                     scriptId: this.store.id,
                     nameScript: this.store.nameScript,
-                    Plan: {
-                        permanently: {
-                            status: true,
-                            price: this.permanently.price
-                        },
-                        rent: {
-                            status: false,
-                            Unitprice: 0,
-                            day: 0,
-                            price: 0
-                        }
+                    plan: {
+                        permanently: this.store.plan.permanently,
+                        monthly: null,
+                        day: null
                     }
                 }
                 await this.$refs.cart.addToCart(payload);
                 this.$router.push('/cart');
-            } else {
+            } else if (this.plan == 'monthly') {
                 const payload = {
                     scriptId: this.store.id,
                     nameScript: this.store.nameScript,
-                    Plan: {
-                        permanently: {
-                            status: false,
-                            price: 0
-                        },
-                        rent: {
-                            status: true,
-                            Unitprice: this.rent.Unitprice,
-                            day: 1,
-                            price: this.rent.Unitprice
-                        }
+                    plan: {
+                        permanently: null,
+                        monthly: this.store.plan.monthly,
+                        day: null
+                    }
+                }
+                await this.$refs.cart.addToCart(payload);
+                this.$router.push('/cart');
+            } else if (this.plan == 'day') {
+                const payload = {
+                    scriptId: this.store.id,
+                    nameScript: this.store.nameScript,
+                    plan: {
+                        permanently: null,
+                        monthly: null,
+                        day: this.store.plan.day,
+                        UnitPrice: this.store.plan.day,
+                        unit: 1
                     }
                 }
                 await this.$refs.cart.addToCart(payload);
@@ -235,7 +229,7 @@ export default {
     },
     async mounted() {
         await this.getStore();
-        (this.permanently.status) ? this.Plan = 'permanently' : this.Plan = 'rent';
+        this.store.plan.permanently ? this.plan = 'permanently' : this.store.plan.monthly ? this.plan = 'monthly' : this.plan = 'day';
     },
     created() {
         document.title = "Store | CodeKub Shop";

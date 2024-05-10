@@ -28,17 +28,19 @@
               <div class="flex justify-between items-center" v-for="(data, idx) in store" :key="idx">
                 <div class="flex flex-col">
                   <span>{{ data.nameScript }}</span>
-                  <span class="text-[#555555]" v-if="data.Plan.permanently.status">permanently</span>
-                  <div class="flex gap-2 justify-center items-center text-sm" v-else>
-                    <span class="text-[#555555]">rent : </span>
-                    <input type="number" id="day" name="day" min="1" v-model="data.Plan.rent.day"
+                  <span class="text-[#555555]" v-if="data.plan?.permanently">permanently</span>
+                  <span class="text-[#555555]" v-if="data.plan?.monthly">month</span>
+                  <div class="flex gap-2 justify-center items-center text-sm" v-if="data.plan?.day">
+                    <span class="text-[#555555]">unit : </span>
+                    <input type="number" id="day" name="day" min="1" v-model="data.plan.unit"
                       class="w-[60px] h-[5px] p-2 text-white bg-transparent rounded-[5px] text-center"><span
                       class="text-[#555555]">day</span>
                   </div>
                 </div>
                 <div class="flex gap-2 justify-center items-center">
-                  <span v-if="data.Plan.permanently.status">{{ data.Plan.permanently.price }} Baht</span>
-                  <span v-else>{{ data.Plan.rent.price }} Baht</span>
+                  <span v-if="data.plan?.permanently">{{ data.plan?.permanently }} Baht</span>
+                  <span v-if="data.plan?.monthly">{{ data.plan?.monthly}} Baht</span>
+                  <span v-if="data.plan?.day">{{ data.plan?.day }} Baht</span>
                   <i @click="delete_a_Store(data)"
                     class="fa-solid fa-xmark text-sm text-[#707070] cursor-pointer hover:text-rose-700 duration-300"></i>
                 </div>
@@ -87,11 +89,13 @@
                 <div class="flex justify-between" v-for="(data, idx) in store" :key="idx">
                   <div class="flex flex-col">
                     <span>{{ data.nameScript }}</span>
-                    <span class="text-[#555555] text-sm" v-if="data.Plan.permanently.status">permanently</span>
-                    <span class="text-[#555555] text-sm" v-else>rent: {{ data.Plan.rent.day }} day</span>
+                    <span class="text-[#555555] text-sm" v-if="data.plan?.permanently">permanently</span>
+                    <span class="text-[#555555] text-sm" v-if="data.plan?.monthly">month</span>
+                    <span class="text-[#555555] text-sm" v-if="data.plan?.day">unit: {{ data.plan?.unit }} day</span>
                   </div>
-                  <span v-if="data.Plan.permanently.status">{{ data.Plan.permanently.price }} Baht</span>
-                  <span v-else>{{ data.Plan.rent.price }} Baht</span>
+                  <span v-if="data.plan?.permanently">{{ data.plan?.permanently }} Baht</span>
+                  <span v-if="data.plan?.monthly">{{ data.plan?.monthly }} Baht</span>
+                  <span v-if="data.plan?.day">{{ data.plan?.day }} Baht</span>
                 </div>
                 <!--  -->
 
@@ -203,11 +207,13 @@
                   <div class="flex justify-between items-center" v-for="(data, idx) in orderpreview.data" :key="idx">
                     <div class="flex flex-col">
                       <span>{{ data.nameScript }}</span>
-                      <span v-if="data.Plan.permanently.status">permanently</span>
-                      <span v-else>rent : {{ data.Plan.rent.day }} day</span>
+                        <span class="text-[#555555] text-sm" v-if="data.plan?.permanently">permanently</span>
+                        <span class="text-[#555555] text-sm" v-if="data.plan?.monthly">month</span>
+                        <span class="text-[#555555] text-sm" v-if="data.plan?.day">unit: {{ data.plan?.unit }} day</span>
                     </div>
-                    <span>{{ data.Plan.permanently.status ? data.Plan.permanently.price : data.Plan.rent.price }}
-                      Baht</span>
+                    <span v-if="data.plan?.permanently">{{ data.plan?.permanently }} Baht</span>
+                    <span v-if="data.plan?.monthly">{{ data.plan?.monthly }} Baht</span>
+                    <span v-if="data.plan?.day">{{ data.plan?.day }} Baht</span>
                   </div>
                   <!--  -->
 
@@ -280,10 +286,10 @@ export default {
         this.store = []
       }
       this.store.map((data) => {
-        if (data.Plan.rent.status) {
-          data.Plan.rent.price = data.Plan.rent.Unitprice * data.Plan.rent.day;
-          this.$watch(() => data.Plan.rent.day, (newVal) => {
-            data.Plan.rent.price = data.Plan.rent.Unitprice * newVal;
+        if (data.plan.day) {
+          data.plan.day = data.plan.UnitPrice * data.plan.unit;
+          this.$watch(() => data.plan.unit, (newVal) => {
+            data.plan.day = data.plan.UnitPrice * (newVal);
             this.TotalCart();
             const encryptedData = this.$CryptoJS.AES.encrypt(JSON.stringify(this.store), 'ukb-developer').toString();
             localStorage.setItem('cart', encryptedData);
@@ -294,10 +300,12 @@ export default {
     TotalCart() {
       this.total = 0; // Reset total before calculating
       this.store.map((data) => {
-        if (data.Plan.permanently.status) {
-          this.total += data.Plan.permanently.price;
-        } else {
-          this.total += data.Plan.rent.price;
+        if (data.plan.permanently) {
+          this.total += data.plan.permanently;
+        } else if(data.plan.monthly){
+          this.total += data.plan.monthly;
+        }else if(data.plan.day){
+          this.total += data.plan.day;
         }
       });
     },

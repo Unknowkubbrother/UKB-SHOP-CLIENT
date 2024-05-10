@@ -123,7 +123,7 @@ const routes = [
         component: Script_Admin_Childern,
         beforeEnter: (to, from, next) => {
           const id = to.params.id
-          isValidId(id).then((res) => {
+          isValidIdByStaff(id).then((res) => {
             if (res) {
               next()
             } else {
@@ -248,7 +248,25 @@ const isValidId = async (id) => {
   try {
     const res = await axios.get(api)
     if (res.status === 200) {
-      return true
+        if (res.data.status === 'active') {
+          return true
+        } else {
+          return false
+        }
+    }
+  } catch (err) {
+    console.log(err.response.status)
+    return false
+  }
+}
+
+
+const isValidIdByStaff = async (id) => {
+  const api = `${config.EndPoint}/script_admin/${id}`
+  try {
+    const res = await axios.get(api, {withCredentials: true})
+    if (res.status === 200) {
+          return true
     }
   } catch (err) {
     console.log(err.response.status)

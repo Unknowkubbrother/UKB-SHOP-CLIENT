@@ -111,7 +111,7 @@ export default {
             });
         },
           async DeleteScript() {
-            const api = `${config.EndPoint}/script/${this.script.data.id}`;
+            const api = `${config.EndPoint}/script_admin/${this.script.data.id}`;
             await axios.delete(api, { withCredentials: true }).then((res) => {
                 if (res.status === 200) {
                     toast("Delete Script Success", {
@@ -130,7 +130,7 @@ export default {
             });
         },
         async UpdateScript(){
-            const api = `${config.EndPoint}/script/${this.script.data.id}`;
+            const api = `${config.EndPoint}/script_admin/${this.script.data.id}`;
             await axios.put(api, this.script.data, { withCredentials: true }).then((res) => {
                 if (res.status === 200) {
                     toast("Update Script Success", {
