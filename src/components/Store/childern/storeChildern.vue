@@ -99,7 +99,7 @@
     <Transition>
         <div class="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 cursor-pointer flex justify-between items-center flex-col"
             v-if="showImage" @click="showImage = false">
-            <img :src="previewImage" alt="" width="400" height="400"
+            <img :src="previewImage" alt="" width="600" height="600"
                 class="previewImageStore object-cover rounded-lg m-auto">
         </div>
     </Transition>
