@@ -65,13 +65,19 @@
                                                     v-for="(data_detail, index) in (detail.data)" :key="index">
                                                     <div class="flex flex-col">
                                                         <span>{{ data_detail.nameScript }}</span>
-                                                        <span
-                                                            v-if="data_detail.Plan.permanently.status">permanently</span>
-                                                        <span v-else>rent : {{ data_detail.Plan.rent.day }} day</span>
+                                                        <span class="text-[#555555] text-sm"
+                                                            v-if="data_detail.plan?.permanently">permanently</span>
+                                                        <span class="text-[#555555] text-sm"
+                                                            v-if="data_detail.plan?.monthly">month</span>
+                                                        <span class="text-[#555555] text-sm"
+                                                            v-if="data_detail.plan?.day">unit: {{ data_detail.plan?.unit
+                                                            }} day</span>
                                                     </div>
-                                                    <span>{{ data_detail.Plan.permanently.status ?
-                                                        data_detail.Plan.permanently.price : data_detail.Plan.rent.price
-                                                        }}
+                                                    <span v-if="data_detail.plan?.permanently">{{
+                                                        data_detail.plan?.permanently }} Baht</span>
+                                                    <span v-if="data_detail.plan?.monthly">{{ data_detail.plan?.monthly
+                                                        }} Baht</span>
+                                                    <span v-if="data_detail.plan?.day">{{ data_detail.plan?.day }}
                                                         Baht</span>
                                                 </div>
                                                 <!--  -->
