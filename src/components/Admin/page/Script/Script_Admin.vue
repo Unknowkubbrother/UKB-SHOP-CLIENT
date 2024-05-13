@@ -5,13 +5,13 @@
                 <details class="dropdown 2xl:hidden">
                     <summary class="fa-solid fa-bars cursor-pointer"></summary>
                     <ul class="py-4 shadow menu dropdown-content z-[1] bg-base-200 rounded-box w-52">
-                        <li><router-link to="/admin/script" class-active="active" exact>SCRIPT</router-link></li>
-                        <li><router-link to="/admin/payment" class-active="active" exact>PAYMENTS</router-link></li>
+                        <li><router-link to="/admin/script" class-active="active" exact>Resources</router-link></li>
+                        <li><router-link to="/admin/payment" class-active="active" exact>Payments</router-link></li>
                         <li><router-link to="/home" class-active="active" exact>Home Page</router-link></li>
                     </ul>
                 </details>
 
-                <span class="text-lg font-bold pl-5"> <i class="fa-solid fa-window-maximize mr-2"></i> SCRIPT</span>
+                <span class="text-lg font-bold pl-5"> <i class="fa-solid fa-window-maximize mr-2"></i> RESOURCES</span>
             </nav>
             <ul class="w-[90%] lg:w-full h-[500px] md:h-[150px] flex flex-col md:flex-row gap-7 m-auto">
                 <li class="w-full md:w-[250px] h-full bg-[#1A1B1E] rounded-lg flex justify-center items-center gap-5">

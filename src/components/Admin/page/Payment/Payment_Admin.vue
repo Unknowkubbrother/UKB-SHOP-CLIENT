@@ -4,8 +4,8 @@
             <details class="dropdown 2xl:hidden">
                     <summary class="fa-solid fa-bars cursor-pointer"></summary>
                     <ul class="py-4 shadow menu dropdown-content z-[1] bg-base-200 rounded-box w-52">
-                        <li><router-link to="/admin/script" class-active="active" exact>SCRIPT</router-link></li>
-                        <li><router-link to="/admin/payment" class-active="active" exact>PAYMENTS</router-link></li>
+                        <li><router-link to="/admin/script" class-active="active" exact>Resources</router-link></li>
+                        <li><router-link to="/admin/payment" class-active="active" exact>Payments</router-link></li>
                         <li><router-link to="/home" class-active="active" exact>Home Page</router-link></li>
                     </ul>
                 </details>
