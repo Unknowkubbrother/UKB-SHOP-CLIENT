@@ -94,7 +94,7 @@
             </div>
         </div>
         <div v-else class="w-full h-[300px] flex justify-center items-center">
-            <div class="text-[#3d7fa1] text-2xl">not found orders. . .</div>
+            <div class="text-[#3d7fa1] text-2xl">Orders not found. . .</div>
         </div>
     </div>
 </template>

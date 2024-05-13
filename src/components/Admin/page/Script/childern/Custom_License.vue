@@ -4,13 +4,13 @@
             <div class="border-b-2 border-b-[#505050] pb-3 ">เพิ่ม License ใหม่ แบบ Custom</div>
             <form class="flex flex-col gap-4 mt-5" @submit.enter.prevent="Addlicense()">
                 <div>
-                    <label>Script ID</label>
+                    <label>Resource ID</label>
                     <input type="text"
                         class="w-full h-[2.5rem] px-3 py-2 rounded-lg border border-[#4b4b4b] focus:outline-none focus:border-blue-500 bg-base-100 mt-2"
                         required v-model="addlicense.scriptId" readonly>
                 </div>
                 <div>
-                    <label>Script Name</label>
+                    <label>Resource Name</label>
                     <input type="text"
                         class="w-full h-[2.5rem] px-3 py-2 rounded-lg border border-[#4b4b4b] focus:outline-none focus:border-blue-500 bg-base-100 mt-2"
                         required v-model="addlicense.nameScript" readonly>

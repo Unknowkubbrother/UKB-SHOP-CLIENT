@@ -33,7 +33,7 @@
                                 
                     </div>
                     <div v-else class="w-full h-full flex justify-center items-center">
-                        <div class="text-[#3d7fa1] text-2xl">Script Not Found Recommended. . .</div>
+                        <span class="text-[#3d7fa1] text-2xl text-center">Recommended resource not found. . .</span>
                     </div>
                 </div>
             </div>

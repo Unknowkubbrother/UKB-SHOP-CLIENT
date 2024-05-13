@@ -39,22 +39,25 @@
                     <i class="fa-regular fa-circle-xmark text-[2rem]"></i>
                 </li>
             </ul>
-            <div class="w-full mt-5 py-5 bg-[#1A1B1E] rounded-xl p-5 my-10">
-                <nav class="flex justify-between items-center px-10 mt-2 mb-5">
-                    <span class="text-2xl font-semibold">Script</span>
+            <div class="w-full bg-[#1A1B1E] rounded-xl my-5">
+                <nav class="flex justify-between items-center px-10 py-3 mt-2 mb-5">
+                    <span class="text-2xl font-semibold">Resource</span>
                     <button class="btn btn-primary text-white" @click="(ShowUiAddScript = !ShowUiAddScript)">Add
-                        Script</button>
+                        Resource</button>
                 </nav>
-                <div class="flex flex-col gap-4">
-                    <div class="w-[95%] h-[70px] bg-[#222222] rounded-xl flex justify-between items-center px-10 m-auto cursor-pointer hover:bg-[#2e2e2e] duration-300"
-                        @click="NextScriptChildern(data.id)" v-for="(data, idx) in script" :key="idx">
-                        <span>{{ data.nameScript }}</span>
-                        <span :class="data.status == 'active' ? 'text-green-400' : 'text-rose-400'">{{ data.status
-                            ==
-                            'active' ?
-                            'Active' : 'Inactive' }}</span>
-                    </div>
+            </div>
+            <div class="flex flex-col gap-4" v-if="script.length">
+                <div class="w-[95%] h-[70px] bg-[#222222] rounded-xl flex justify-between items-center px-10 m-auto cursor-pointer hover:bg-[#2e2e2e] duration-300"
+                    @click="NextScriptChildern(data.id)" v-for="(data, idx) in script" :key="idx">
+                    <span>{{ data.nameScript }}</span>
+                    <span :class="data.status == 'active' ? 'text-green-400' : 'text-rose-400'">{{ data.status
+                        ==
+                        'active' ?
+                        'Active' : 'Inactive' }}</span>
                 </div>
+            </div>
+            <div v-else class="w-full h-[300px] flex justify-center items-center">
+                <div class="text-[#3d7fa1] text-2xl">Resources not found. . .</div>
             </div>
         </div>
 
@@ -62,7 +65,7 @@
             <div v-if="ShowUiAddScript"
                 class="w-[90%] md:w-[70%] md:h-[700px] xl:w-[500px] lg:h-[700px] xl:h-[700px] bg-[#24272e] absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50 rounded-lg mt-10 md:mt-[12rem] lg:mt-[12rem] xl:mt-[12rem] shadow-lg shadow-black overflow-auto">
                 <header class="w-full h-[70px] flex justify-between items-center px-6">
-                    <span class="text-md font-semibold">Add Script</span>
+                    <span class="text-md font-semibold">Add Resource</span>
                     <i class="fa-solid fa-xmark text-[#8b8b8b] hover:text-rose-400 text-lg cursor-pointer duration-300"
                         @click="ShowUiAddScript = false"></i>
                 </header>
@@ -70,7 +73,7 @@
                     class="w-[90%] h-[600px] m-auto flex justify-start items-start flex-col gap-4 overflow-auto px-2 mb-10"
                     @submit.enter.prevent="AddScript()">
                     <div class="w-full">
-                        <label>ScriptName <span class="text-rose-400">*</span></label>
+                        <label>ResourceName <span class="text-rose-400">*</span></label>
                         <input type="text"
                             class="w-full h-[2.5rem] px-3 py-2 rounded-lg border border-slate-700 focus:outline-none focus:border-blue-500 bg-base-100 mt-2"
                             v-model="addscript.nameScript" placeholder="Enter script name" required>
@@ -101,7 +104,8 @@
                                 required>
                                 <option value="day" :disabled="plan.includes('day')">DAY</option>
                                 <option value="monthly" :disabled="plan.includes('monthly')">MONTH</option>
-                                <option value="permanently" :disabled="plan.includes('permanently')">PERMANENTLY</option>
+                                <option value="permanently" :disabled="plan.includes('permanently')">PERMANENTLY
+                                </option>
                             </select>
                             <input type="number" v-model="addscript.plan[plan[idx]]" required
                                 class="w-1/2 h-[2.5rem] px-3 py-2 rounded-lg border border-slate-700 focus:outline-none focus:border-blue-500 bg-base-100 mt-2"
@@ -173,7 +177,7 @@
                                 )</span></label>
                     </div>
                     <div class="w-full flex justify-end items-center mt-2 gap-2">
-                        <button type="submit" class="btn btn-primary text-white">Add Script</button>
+                        <button type="submit" class="btn btn-primary text-white">Add Resource</button>
                     </div>
                 </form>
 

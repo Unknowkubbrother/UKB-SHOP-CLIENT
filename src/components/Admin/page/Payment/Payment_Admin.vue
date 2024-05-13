@@ -32,7 +32,7 @@
                             ? 'border-b-2 border-b-[#3d7fa1] text-white shadow'
                             : 'text-blue-100 hover:bg-white/[0.12] hover:text-white',
                     ]">
-                        <span class="text-sm font-semibold">Order</span>
+                        <span class="text-sm font-semibold">Orders</span>
                     </button>
                 </Tab>
             </TabList>
