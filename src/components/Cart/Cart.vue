@@ -442,7 +442,7 @@ export default {
     this.TotalCart();
   },
   created() {
-    document.title = "Cart | CodeKub Shop";
+    document.title = "Cart | UKB Developer";
   }
 };
 </script>

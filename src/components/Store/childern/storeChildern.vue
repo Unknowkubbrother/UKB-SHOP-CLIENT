@@ -232,7 +232,7 @@ export default {
         this.store.plan.permanently ? this.plan = 'permanently' : this.store.plan.monthly ? this.plan = 'monthly' : this.plan = 'day';
     },
     created() {
-        document.title = "Store | CodeKub Shop";
+        document.title = "Store | UKB Developer";
     }
 
 }

@@ -53,11 +53,11 @@ export default {
 
 <style>
 #side-bar .logo {
-    background-image: url("../../assets/logo_codekub.png");
-    background-color: #3d7fa1;
+    background-image: url("../../assets/logo.png");
+    /* background-color: #3d7fa1; */
     border-radius: 5px;
-    height: 70px;
-    width: 70px;
+    height: 80px;
+    width: 80px;
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;

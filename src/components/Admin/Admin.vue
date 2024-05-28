@@ -32,7 +32,7 @@
       },
     },
     created() {
-        document.title = "Admin | CodeKub Shop";
+        document.title = "Admin | UKB Developer";
     }
   }
   </script>

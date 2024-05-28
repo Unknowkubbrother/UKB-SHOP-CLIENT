@@ -2,8 +2,8 @@
     <div id="Register">
         <div class="w-[95%] xl:w-full h-full flex items-center flex-col m-auto">
             <router-link to="/home" class="flex justify-center items-center mt-[10rem] mb-[5rem]">
-                <img src="../../assets/logo_codekub.png" alt="" class="w-[70px] h-[70px] object-cover m-auto">
-                <h1 class="text-3xl font-bold ml-2 border-l-2 px-5">CodeKub Shop</h1>
+                <img src="../../assets/logo.png" alt="" class="w-[70px] h-[70px] object-cover m-auto">
+                <h1 class="text-3xl font-bold ml-2 border-l-2 px-5">UKB Developer</h1>
             </router-link>
             <form action="" class="w-[90%] md:w-[70%] xl:w-[400px] flex justify-center flex-col gap-3 m-auto" @submit.enter.prevent="register()">
                 <label for="username" class="font-semibold">Username</label>
@@ -81,7 +81,7 @@ export default {
         }
     },
     created() {
-        document.title = "Sign up | CodeKub Shop";
+        document.title = "Sign up | UKB Developer";
     }
 };
 </script>

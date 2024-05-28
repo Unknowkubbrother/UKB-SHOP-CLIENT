@@ -2,8 +2,8 @@
     <div id="Topbar">
         <div class="flex justify-between items-center w-full p-3 xl:px-10 my-5">
             <router-link to="/home" class="logo flex justify-center items-center" exact>
-                <img src="../assets/logo_codekub.png" alt="" class="w-[40px] h-[40px] xl:w-[70px] xl:h-[70px] object-cover m-auto hidden xl:block">
-                <h1 class="text-xl xl:text-2xl xl:ml-3 xl:border-l-2 px-2 xl:px-5 font-semibold xl:font-normal">CodeKub Shop</h1>
+                <img src="../assets/logo.png" alt="" class="w-[40px] h-[40px] xl:w-[70px] xl:h-[70px] object-cover m-auto hidden xl:block">
+                <h1 class="text-xl xl:text-2xl xl:ml-3 xl:border-l-2 px-2 xl:px-5 font-semibold xl:font-normal">UKB Developer</h1>
             </router-link>
             <nav>
                 <ul class="flex justify-between items-center xl:gap-7 text-lg">

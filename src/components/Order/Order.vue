@@ -44,7 +44,7 @@ export default {
         this.getOrders();
     },
     created() {
-        document.title = "Order | CodeKub Shop";
+        document.title = "Order | UKB Developer";
     }
 }
 </script>

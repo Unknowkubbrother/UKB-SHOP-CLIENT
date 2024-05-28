@@ -451,7 +451,7 @@ export default {
         }
     },
     created() {
-        document.title = "Dashboard | CodeKub Shop";
+        document.title = "Dashboard | UKB Developer";
     }
 
 }

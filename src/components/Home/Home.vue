@@ -3,7 +3,7 @@
         <div class="w-full h-full select-none">
             <div class="flex justify-center items-center h-full">
                 <div class="text-center">
-                    <h1 class="text-[2.5rem] xl:text-[5rem] font-bold">CodeKub Shop</h1>
+                    <h1 class="text-[2.5rem] xl:text-[5rem] font-bold">UKB Developer</h1>
                     <h1 class="text-lg xl:text-3xl mt-5 ">We will give you the greatest experience.</h1>
                 </div>
             </div>
@@ -72,7 +72,7 @@ export default {
         this.getScript();
     },
     created() {
-        document.title = "CodeKub Shop";
+        document.title = "UKB Developer";
     }
 
 }

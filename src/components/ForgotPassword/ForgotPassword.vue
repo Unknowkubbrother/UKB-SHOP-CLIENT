@@ -2,8 +2,8 @@
     <div id="ForgotPassword">
         <div class="w-[95%] xl:w-full h-full flex items-center flex-col m-auto">
             <router-link to="/home" class="flex justify-center items-center mt-[5rem] xl:mt-[10rem] xl:mb-[5rem] mb-5">
-                <img src="../../assets/logo_codekub.png" alt="" class="w-[70px] h-[70px] object-cover m-auto ">
-        <h1 class="text-3xl font-bold ml-2 border-l-2 px-5">CodeKub Shop</h1>
+                <img src="../../assets/logo.png" alt="" class="w-[70px] h-[70px] object-cover m-auto ">
+        <h1 class="text-3xl font-bold ml-2 border-l-2 px-5">UKB Developer</h1>
             </router-link>
             <div class="w-full xl:w-[70%] flex flex-col xl:flex-row justify-between xl:items-start items-center">
                 <div class="w-full xl:w-[50%] flex justify-start items-center flex-col">
@@ -132,7 +132,7 @@ export default {
         
     },
     created() {
-        document.title = "Forgot Password | CodeKub Shop";
+        document.title = "Forgot Password | UKB Developer";
     }
 }
 </script>
